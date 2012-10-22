@@ -1,0 +1,11 @@
+
+*.user
+*.suo
+*.testsettings
+*.vsdmi
+_ReSharper.*
+*/obj/*
+*/bin/*
+packages/*/*
+build/*
+TestResults/*

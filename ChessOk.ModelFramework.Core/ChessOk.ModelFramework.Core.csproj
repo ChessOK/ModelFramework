@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0D2D5BF0-0308-4B00-BD16-EF825028D68E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ChessOk.ModelFramework</RootNamespace>
+    <AssemblyName>ChessOk.ModelFramework.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\ChessOk.ModelFramework.Core.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration">
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit">
+      <HintPath>..\..\packages\LinqKit.1.0\lib\35\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppBus\ApplicationEventHandler.cs" />
+    <Compile Include="AppBus\IApplicationBus.cs" />
+    <Compile Include="AsyncCommands\AsyncCommandWrapper.cs" />
+    <Compile Include="AsyncCommands\Handlers\AsyncCommandHandlingException.cs" />
+    <Compile Include="Commands\Filters\CommandFilterAttribute.cs" />
+    <Compile Include="Commands\Filters\CommandFilterContext.cs" />
+    <Compile Include="Commands\Filters\RetryOnDeadlockAttribute.cs" />
+    <Compile Include="Commands\InlineCommand{T}.cs" />
+    <Compile Include="Commons\SqlExceptionHelper.cs" />
+    <Compile Include="Contexts\ContextCache.cs" />
+    <Compile Include="Contexts\IContext.cs" />
+    <Compile Include="DataAccess\ContextRepositoryExtensions.cs" />
+    <Compile Include="DataAccess\Entity.cs" />
+    <Compile Include="DataAccess\Entity{TId}.cs" />
+    <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="RegistrationExtensions.cs" />
+    <Compile Include="Resources\Strings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\Attributes\ValidataObjectAttribute.cs" />
+    <Compile Include="Validation\Attributes\ValidateCollection.cs" />
+    <Compile Include="Validation\Attributes\ValidateNotNullAttribute.cs" />
+    <Compile Include="Validation\Attributes\ValidateNull.cs" />
+    <Compile Include="Validation\Validators\CollectionValidator.cs" />
+    <Compile Include="Validation\Validators\DelegateValidator.cs" />
+    <Compile Include="Validation\Validators\NotNullValidator.cs" />
+    <Compile Include="Validation\Validators\NullValidator.cs" />
+    <Compile Include="Validation\Validators\ObjectValidator.cs" />
+    <Compile Include="Commons\DisposableAction.cs" />
+    <Compile Include="Validation\IAssertionSyntax.cs" />
+    <Compile Include="Validation\IValidator.cs" />
+    <Compile Include="Validation\ValidationContextExtensions.cs" />
+    <Compile Include="Validation\AssertionSyntaxExtensions.cs" />
+    <Compile Include="Validation\AssertionEngine.cs" />
+    <Compile Include="Validation\ValidationErrorsException.cs" />
+    <Compile Include="Validation\IValidationContext.cs" />
+    <Compile Include="Validation\Validators\AttributesValidator.cs" />
+    <Compile Include="Validation\Validators\CompositeValidator.cs" />
+    <Compile Include="Validation\Validators\PresenceValidator.cs" />
+    <Compile Include="Validation\Validators\SqlDateTimeValidator.cs" />
+    <Compile Include="Validation\Validators\StringLengthValidator.cs" />
+    <Compile Include="Validation\Validators\ValidatableValidator.cs" />
+    <Compile Include="Validation\ValidateAttribute.cs" />
+    <Compile Include="Validation\Attributes\ValidateAttributesAttribute.cs" />
+    <Compile Include="Validation\Attributes\ValidatePresenceAttribute.cs" />
+    <Compile Include="Validation\Attributes\ValidateSqlDateTimeAttribute.cs" />
+    <Compile Include="Validation\Attributes\ValidateMaximumLengthAttribute.cs" />
+    <Compile Include="Validation\Attributes\ValidateValidatableAttribute.cs" />
+    <Compile Include="Commands\Command{TResult}.cs" />
+    <Compile Include="Commands\Messages\CommandInvokedHandler.cs" />
+    <Compile Include="Commands\Messages\CommandInvokingHandler.cs" />
+    <Compile Include="AppBus\IApplicationEventHandler.cs" />
+    <Compile Include="Commands\ICommandParametersProvider.cs" />
+    <Compile Include="Commands\Internals\CommandBase.cs" />
+    <Compile Include="Commands\Internals\CommandDispatcher.cs" />
+    <Compile Include="Commands\CommandApplicationBusExtensions.cs" />
+    <Compile Include="Commands\InlineCommand.cs" />
+    <Compile Include="AppBus\IApplicationMessage.cs" />
+    <Compile Include="Commands\Messages\ICommandInvokedMessage.cs" />
+    <Compile Include="Commands\Messages\ICommandInvokingMessage.cs" />
+    <Compile Include="Contexts\Context.cs" />
+    <Compile Include="Contexts\ContextHierarchy.cs" />
+    <Compile Include="CoreModule.cs" />
+    <Compile Include="Commons\IHaveContext.cs" />
+    <Compile Include="AsyncCommands\Messages\IAsyncCommandSengingMessage.cs" />
+    <Compile Include="AsyncCommands\Messages\IAsyncCommandSentMessage.cs" />
+    <Compile Include="AsyncCommands\Messages\MessageSendingHandler.cs" />
+    <Compile Include="AsyncCommands\Messages\AsyncCommandSentHandler.cs" />
+    <Compile Include="AsyncCommands\Internals\AsyncCommandDispatcher.cs" />
+    <Compile Include="AsyncCommands\ApplicationBusAsyncCommandExtensions.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Validation\ValidationContext.cs" />
+    <Compile Include="Validation\IValidatable.cs" />
+    <Compile Include="Commands\DeleteCommand.cs" />
+    <Compile Include="AppBus\ApplicationBus.cs" />
+    <Compile Include="Commands\SaveCommand.cs" />
+    <Compile Include="Expressions\AttributesExpressionHelper.cs" />
+    <Compile Include="Expressions\Fingerprints\BinaryExpressionFingerprint.cs" />
+    <Compile Include="Expressions\CachedExpressionCompiler.cs" />
+    <Compile Include="Expressions\Fingerprints\ConditionalExpressionFingerprint.cs" />
+    <Compile Include="Expressions\Fingerprints\ConstantExpressionFingerprint.cs" />
+    <Compile Include="Expressions\Fingerprints\DefaultExpressionFingerprint.cs" />
+    <Compile Include="Expressions\Fingerprints\ExpressionFingerprint.cs" />
+    <Compile Include="Expressions\Fingerprints\ExpressionFingerprintChain.cs" />
+    <Compile Include="Expressions\ExpressionTextHelper.cs" />
+    <Compile Include="Expressions\Fingerprints\FingerprintingExpressionVisitor.cs" />
+    <Compile Include="Expressions\Utils\HashCodeCombiner.cs" />
+    <Compile Include="Expressions\Utils\Hoisted.cs" />
+    <Compile Include="Expressions\Utils\HoistingExpressionVisitor.cs" />
+    <Compile Include="Expressions\Fingerprints\IndexExpressionFingerprint.cs" />
+    <Compile Include="Expressions\Fingerprints\LambdaExpressionFingerprint.cs" />
+    <Compile Include="Expressions\Fingerprints\MemberExpressionFingerprint.cs" />
+    <Compile Include="Expressions\Fingerprints\MethodCallExpressionFingerprint.cs" />
+    <Compile Include="Expressions\Fingerprints\ParameterExpressionFingerprint.cs" />
+    <Compile Include="Expressions\Fingerprints\TypeBinaryExpressionFingerprint.cs" />
+    <Compile Include="Expressions\Fingerprints\UnaryExpressionFingerprint.cs" />
+    <Compile Include="Logging\ILog.cs" />
+    <Compile Include="Logging\LogManager.cs" />
+    <Compile Include="Logging\NLogAdapter.cs" />
+    <Compile Include="Queries\ModelContextQueryExtensions.cs" />
+    <Compile Include="Queries\Query.cs" />
+    <Compile Include="Queries\Query{TResult}.cs" />
+    <Compile Include="AsyncCommands\Workers\BackgroundThreadWorker.cs" />
+    <Compile Include="AsyncCommands\Handlers\IAsyncCommandHandler.cs" />
+    <Compile Include="AsyncCommands\Queues\IAsyncCommandQueue.cs" />
+    <Compile Include="AsyncCommands\Queues\InMemoryAsyncCommandQueue.cs" />
+    <Compile Include="AsyncCommands\Queues\MSMQAsyncCommandQueue.cs" />
+    <Compile Include="AsyncCommands\Handlers\SeparatedContextsHandler.cs" />
+    <Compile Include="ModelContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
