@@ -12,7 +12,7 @@ namespace ChessOk.ModelFramework.Commands.Messages
     /// </para>
     /// <typeparam name="T">“ип вызываемой команды.</typeparam>
     /// </summary>
-    public interface ICommandInvokingMessage<out T> : IApplicationMessage
+    public interface ICommandInvokingMessage<out T> : IApplicationBusMessage
     {
         /// <summary>
         /// Ёкземпл€р вызываемой команды.

@@ -6,7 +6,7 @@ namespace ChessOk.ModelFramework.Commands.Messages
     /// —обытие инициируетс€ ѕќ—Ћ≈ вызова команды указанного типа или его наследника.
     /// </summary>
     /// <typeparam name="T">“ип вызванной команды.</typeparam>
-    public interface ICommandInvokedMessage<out T> : IApplicationMessage
+    public interface ICommandInvokedMessage<out T> : IApplicationBusMessage
     {
         /// <summary>
         /// Ёкземпл€р вызванной команды.

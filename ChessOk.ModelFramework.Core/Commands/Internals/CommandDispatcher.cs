@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using ChessOk.ModelFramework.Commands.Filters;
@@ -7,7 +8,7 @@ using ChessOk.ModelFramework.Messages;
 
 namespace ChessOk.ModelFramework.Commands.Internals
 {
-    public class CommandDispatcher : ApplicationEventHandler<CommandBase>
+    public class CommandDispatcher : ApplicationBusMessageHandler<CommandBase>
     {
         private readonly IApplicationBus _bus;
 
@@ -16,7 +17,7 @@ namespace ChessOk.ModelFramework.Commands.Internals
             _bus = bus;
         }
 
-        protected override bool Handle(CommandBase command)
+        protected override void Handle(CommandBase command)
         {
             // Привязка незамороженной команды к контексту
             command.Bind(_bus);
@@ -25,10 +26,10 @@ namespace ChessOk.ModelFramework.Commands.Internals
             var invokingEvent = (ICommandInvokingMessage<object>)Activator.CreateInstance(
                 typeof(CommandInvokingMessage<>).MakeGenericType(command.GetType()), command);
 
-            _bus.Handle(invokingEvent);
+            _bus.Send(invokingEvent);
 
             // Если после вызова всех обработчиков флаг включен, то отменяем выполнение команды
-            if (invokingEvent.InvocationCancelled) return true;
+            if (invokingEvent.InvocationCancelled) { return; }
 
             var filters = GetCommandFilters(command);
 
@@ -55,9 +56,7 @@ namespace ChessOk.ModelFramework.Commands.Internals
             var invokedEvent = (ICommandInvokedMessage<object>)Activator.CreateInstance(
                 typeof(CommandInvokedMessage<>).MakeGenericType(command.GetType()), command);
 
-            _bus.Handle(invokedEvent);
-
-            return true;
+            _bus.Send(invokedEvent);
         }
 
         private static CommandFilterAttribute[] GetCommandFilters(CommandBase command)

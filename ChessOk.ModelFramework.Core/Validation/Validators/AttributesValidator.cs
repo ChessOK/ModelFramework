@@ -2,11 +2,14 @@
 
 namespace ChessOk.ModelFramework.Validation.Validators
 {
-    public class AttributesValidator : IValidator
+    public class AttributesValidator : Validator
     {
-        public IValidationContext ValidationContext { get; set; }
+        public AttributesValidator(IValidationContext validationContext)
+            : base(validationContext)
+        {
+        }
 
-        public void Validate(object obj)
+        public override void Validate(object obj)
         {
             var properties = obj.GetType().GetProperties();
             foreach (var propertyInfo in properties)
@@ -23,8 +26,9 @@ namespace ChessOk.ModelFramework.Validation.Validators
                 var value = propertyInfo.GetValue(obj, null);
                 foreach (var attribute in constraintAttributes)
                 {
+                    attribute.ValidationContext = ValidationContext;
+
                     var validator = attribute.GetValidator();
-                    validator.ValidationContext = ValidationContext;
 
                     using (ValidationContext.PrependKeysWithName(propertyInfo.Name))
                     {

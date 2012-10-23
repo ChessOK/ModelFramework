@@ -11,7 +11,7 @@ namespace ChessOk.ModelFramework.AsyncCommands.Messages
     /// </para>
     /// </summary>
     /// <typeparam name="T">“ип отправл€емого событи€.</typeparam>
-    public interface IAsyncCommandSendingMessage<out T> : IApplicationMessage
+    public interface IAsyncCommandSendingMessage<out T> : IApplicationBusMessage
     {
         /// <summary>
         /// Ёкземпл€р отправл€емого событи€.

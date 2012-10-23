@@ -1,4 +1,7 @@
-﻿using ChessOk.ModelFramework.Messages;
+﻿using System;
+using System.Collections.Generic;
+
+using ChessOk.ModelFramework.Messages;
 using ChessOk.ModelFramework.Testing;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,7 +27,7 @@ namespace ChessOk.ModelFramework.Tests.AppBus
         public void ShouldHandleCorrespondingMessageType()
         {
             var message = new Mock<ITestMessage>();
-            Bus.Handle(message.Object);
+            Bus.Send(message.Object);
 
             Assert.IsTrue(_handler.Handled);
             Assert.AreSame(message.Object, _handler.Message);
@@ -34,7 +37,7 @@ namespace ChessOk.ModelFramework.Tests.AppBus
         public void ShouldHandleDerivedMessage()
         {
             var message = new Mock<IDerivedTestMessage>();
-            Bus.Handle(message.Object);
+            Bus.Send(message.Object);
 
             Assert.IsTrue(_handler.Handled);
         }
@@ -42,22 +45,20 @@ namespace ChessOk.ModelFramework.Tests.AppBus
         [TestMethod]
         public void ShouldNotHandleOtherMessages()
         {
-            Bus.Handle(new Mock<IApplicationMessage>().Object);
+            Bus.Send(new Mock<IApplicationBusMessage>().Object);
         }
 
         public interface IDerivedTestMessage : ITestMessage { }
-        public interface ITestMessage : IApplicationMessage { }
-        public class TestHandler : ApplicationEventHandler<ITestMessage>
+        public interface ITestMessage : IApplicationBusMessage { }
+        public class TestHandler : ApplicationBusMessageHandler<ITestMessage>
         {
             public bool Handled { get; private set; }
             public ITestMessage Message { get; private set; }
 
-            protected override bool Handle(ITestMessage message)
+            protected override void Handle(ITestMessage message)
             {
                 Handled = true;
                 Message = message;
-
-                return true;
             }
         }
     }

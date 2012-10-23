@@ -14,9 +14,9 @@ namespace ChessOk.ModelFramework.Tests.AsyncCommands
         public void CommandPropertyShouldBeValidatedObject()
         {
             var command = new TestCommand();
-            var wrapper = new AsyncCommandWrapperMessage(command);
+            var wrapper = new AsyncCommand(command);
 
-            ValidationContext.AssertObject(wrapper).IsValid();
+            ValidationContext.Ensure(wrapper).IsValid();
 
             Assert.IsFalse(ValidationContext.IsValid);
         }

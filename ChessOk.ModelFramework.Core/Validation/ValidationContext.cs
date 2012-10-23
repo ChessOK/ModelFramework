@@ -92,7 +92,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
 
         public void ThrowExceptionIfInvalid()
         {
-            if (!IsValid) { throw new ValidationErrorsException(this); }
+            if (!IsValid) { throw new ValidationException(this); }
         }
 
         public IDisposable ReplaceKeys(string pattern, string replacement)
@@ -127,5 +127,42 @@ namespace ChessOk.ModelFramework.Validation.Internals
             public Regex Regex { get; set; }
             public string Replacement { get; set; }
         }
+
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
+
+        #region Implementation of IContext
+
+        public T Get<T>()
+        {
+            return _context.Get<T>();
+        }
+
+        public object Get(Type serviceType)
+        {
+            return _context.Get(serviceType);
+        }
+
+        public ILifetimeScope Scope
+        {
+            get
+            {
+                return _context.Scope;
+            }
+        }
+
+        public IEnumerable<T> GetAll<T>()
+        {
+            return _context.GetAll<T>();
+        }
+
+        public IEnumerable<object> GetAll(Type serviceType)
+        {
+            return _context.GetAll(serviceType);
+        }
+
+        #endregion
     }
 }

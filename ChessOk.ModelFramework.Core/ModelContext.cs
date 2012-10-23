@@ -26,9 +26,9 @@ namespace ChessOk.ModelFramework
             return _context.Get<T>();
         }
 
-        public object Get(Type service)
+        public object Get(Type serviceType)
         {
-            return _context.Get(service);
+            return _context.Get(serviceType);
         }
 
         public ILifetimeScope Scope

@@ -1,6 +1,6 @@
 using System;
 
-namespace ChessOk.ModelFramework.AsyncCommads.Handlers
+namespace ChessOk.ModelFramework.AsyncCommands.Handlers
 {
     public class AsyncCommandHandlingException : Exception
     {

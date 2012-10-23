@@ -16,6 +16,16 @@ namespace ChessOk.ModelFramework.Contexts
 
         public Context(ILifetimeScope parentScope, object tag, Action<ContainerBuilder> configuration)
         {
+            if (parentScope == null)
+            {
+                throw new ArgumentNullException("parentScope");
+            }
+
+            if (tag == null)
+            {
+                throw new ArgumentNullException("tag");
+            }
+
             var contextScope = parentScope.BeginLifetimeScope(
                 tag, builder =>
                     {
@@ -38,9 +48,9 @@ namespace ChessOk.ModelFramework.Contexts
             return _lifetimeScope.Resolve<T>();
         }
 
-        public object Get(Type service)
+        public object Get(Type serviceType)
         {
-            return _lifetimeScope.Resolve(service);
+            return _lifetimeScope.Resolve(serviceType);
         }
 
         public IEnumerable<T> GetAll<T>()

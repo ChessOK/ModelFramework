@@ -6,9 +6,9 @@ using ChessOk.ModelFramework.Validation;
 
 namespace ChessOk.ModelFramework.AsyncCommands
 {
-    public class AsyncCommandWrapperMessage : IApplicationMessage
+    public class AsyncCommand : IApplicationBusMessage
     {
-        public AsyncCommandWrapperMessage(CommandBase command)
+        public AsyncCommand(CommandBase command)
         {
             if (command == null)
             {

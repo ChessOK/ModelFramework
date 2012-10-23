@@ -2,11 +2,14 @@
 
 namespace ChessOk.ModelFramework.Validation.Validators
 {
-    public class CollectionValidator : IValidator
+    public class CollectionValidator : Validator
     {
-        public IValidationContext ValidationContext { get; set; }
+        public CollectionValidator(IValidationContext validationContext)
+            : base(validationContext)
+        {
+        }
 
-        public void Validate(object obj)
+        public override void Validate(object obj)
         {
             var enumerable = obj as IEnumerable<object>;
 
@@ -21,7 +24,7 @@ namespace ChessOk.ModelFramework.Validation.Validators
                 using (ValidationContext.ReplaceKeys("^$", string.Format("[{0}]", index)))
                 using (ValidationContext.ReplaceKeys("^(.+)$", string.Format("[{0}].$1", index)))
                 {
-                    var validator = new ObjectValidator { ValidationContext = ValidationContext };
+                    var validator = new ObjectValidator(ValidationContext);
                     validator.Validate(o);
                 }
 

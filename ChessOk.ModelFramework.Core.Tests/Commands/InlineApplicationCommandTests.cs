@@ -15,7 +15,7 @@ namespace ChessOk.ModelFramework.Tests.Commands
             var cmd = new InlineCommand(() => invoked = true);
             Assert.IsFalse(invoked);
 
-            Bus.Handle(cmd);
+            Bus.Send(cmd);
             Assert.IsTrue(invoked);
         }
 
@@ -26,7 +26,7 @@ namespace ChessOk.ModelFramework.Tests.Commands
             var cmd = new InlineCommand<bool>(() => invoked = true);
             Assert.IsFalse(invoked);
 
-            Bus.Handle(cmd);
+            Bus.Send(cmd);
             Assert.IsTrue(invoked);
             Assert.IsTrue(cmd.Result);
         }

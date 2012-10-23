@@ -1,10 +1,12 @@
 namespace ChessOk.ModelFramework.Validation.Validators
 {
-    public class NotNullValidator : DelegateValidator<object>
+    public class NotNullValidator : DelegateValidator
     {
-        public NotNullValidator()
-            : base(x => x != null, Resources.Strings.NotNullValidatorMessage)
+        public NotNullValidator(IValidationContext validationContext)
+            : base(validationContext)
         {
+            Delegate = x => x != null;
+            Message = Resources.Strings.NotNullValidatorMessage;
         }
     }
 }

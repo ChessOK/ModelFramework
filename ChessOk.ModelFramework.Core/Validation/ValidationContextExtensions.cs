@@ -6,9 +6,9 @@ namespace ChessOk.ModelFramework.Validation
 {
     public static class ValidationContextExtensions
     {
-        public static IAssertionSyntax<T> AssertObject<T>(this IValidationContext context, T obj)
+        public static IEnsureSyntax<T> Ensure<T>(this IValidationContext context, T obj)
         {
-            return new AssertionEngine<T>(context, obj);
+            return new EnsureEngine<T>(context, obj);
         }
 
         public static void AddError(this IValidationContext context, string message)

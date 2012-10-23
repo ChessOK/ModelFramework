@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using ChessOk.ModelFramework.AsyncCommands.Messages;
 using ChessOk.ModelFramework.AsyncCommands.Queues;
@@ -6,7 +7,7 @@ using ChessOk.ModelFramework.Messages;
 
 namespace ChessOk.ModelFramework.AsyncCommands.Internals
 {
-    public class AsyncCommandDispatcher : ApplicationEventHandler<AsyncCommandWrapperMessage>
+    public class AsyncCommandDispatcher : ApplicationBusMessageHandler<AsyncCommand>
     {
         private readonly IApplicationBus _bus;
 
@@ -15,14 +16,14 @@ namespace ChessOk.ModelFramework.AsyncCommands.Internals
             _bus = bus;
         }
 
-        protected override bool Handle(AsyncCommandWrapperMessage asyncCommand)
+        protected override void Handle(AsyncCommand asyncCommand)
         {
             var sendingEvent = (IAsyncCommandSendingMessage<object>)Activator.CreateInstance(
                 typeof(AsyncCommandSendingMessage<>).MakeGenericType(asyncCommand.Command.GetType()), asyncCommand.Command);
 
-            _bus.Handle(sendingEvent);
+            _bus.Send(sendingEvent);
 
-            if (sendingEvent.SendingCancelled) return true;
+            if (sendingEvent.SendingCancelled) { return; }
 
             using (var queue = _bus.Context.Get<IAsyncCommandQueue>())
             {
@@ -32,9 +33,7 @@ namespace ChessOk.ModelFramework.AsyncCommands.Internals
             var sentEvent = (IAsyncCommandSentMessage<object>)Activator.CreateInstance(
                 typeof(AsyncCommandSentMessage<>).MakeGenericType(asyncCommand.Command.GetType()), asyncCommand.Command);
 
-            _bus.Handle(sentEvent);
-
-            return true;
+            _bus.Send(sentEvent);
         }
     }
 }

@@ -11,14 +11,14 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldFailIfLengthExceedesMaxLength()
         {
-            ValidationContext.AssertObject("asd").HasMaximumLength(2);
+            ValidationContext.Ensure("asd").HasMaximumLength(2);
             Assert.IsFalse(ValidationContext.IsValid);
         }
 
         [TestMethod]
         public void ShouldSucceedIfLengthIsCorrect()
         {
-            ValidationContext.AssertObject("asdff").HasMaximumLength(5);
+            ValidationContext.Ensure("asdff").HasMaximumLength(5);
             Assert.IsTrue(ValidationContext.IsValid);
         }
     }

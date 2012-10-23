@@ -18,10 +18,9 @@ namespace ChessOk.ModelFramework.Tests
         {
             var validatorMock = new Mock<IValidator>();
             var obj = new object();
-            ValidationContext.AssertObject(obj)
+            ValidationContext.Ensure(obj)
                 .IsValid(validatorMock.Object);
 
-            validatorMock.VerifySet(x => x.ValidationContext = It.Is<IValidationContext>(y => y != null));
             validatorMock.Verify(x => x.Validate(obj));
         }
 
@@ -31,10 +30,9 @@ namespace ChessOk.ModelFramework.Tests
             var validator = new Mock<IValidator>();
             var obj = new SomeClass();
 
-            ValidationContext.AssertObject(obj)
-                .AssertProperty(x => x.Name, x => x.IsValid(validator.Object));
+            ValidationContext.Ensure(obj)
+                .Property(x => x.Name, x => x.IsValid(validator.Object));
 
-            validator.VerifySet(x => x.ValidationContext = It.IsAny<IValidationContext>());
             validator.Verify(x => x.Validate(obj.Name));
         }
 
@@ -44,10 +42,9 @@ namespace ChessOk.ModelFramework.Tests
             var validator = new Mock<IValidator>();
             var obj = new SomeClass();
 
-            ValidationContext.AssertObject(obj)
-                .AssertProperty<string>("Name", x => x.IsValid(validator.Object));
+            ValidationContext.Ensure(obj)
+                .Property<string>("Name", x => x.IsValid(validator.Object));
 
-            validator.VerifySet(x => x.ValidationContext = It.IsAny<IValidationContext>());
             validator.Verify(x => x.Validate(obj.Name));
         }
 
@@ -55,22 +52,22 @@ namespace ChessOk.ModelFramework.Tests
         [ExpectedException(typeof(InvalidOperationException))]
         public void ShouldThrowExceptionIfPropertyNotFound()
         {
-            ValidationContext.AssertObject(new SomeClass()).AssertProperty<string>("Hello", x => { });
+            ValidationContext.Ensure(new SomeClass()).Property<string>("Hello", x => { });
         }
 
         [TestMethod]
         public void PropertyAssertionShouldSilentlyExitIfObjectIsNull()
         {
-            ValidationContext.AssertObject((string)null)
-                .AssertProperty(x => x.Length, x => { })
-                .AssertProperty<int>("Length", x => { });
+            ValidationContext.Ensure((string)null)
+                .Property(x => x.Length, x => { })
+                .Property<int>("Length", x => { });
         }
 
         [TestMethod]
         public void PropertyShouldPrependErrorKeysWithPropertyNames()
         {
-            ValidationContext.AssertObject(new SomeClass())
-                .AssertProperty(x => x.Name, x => x.IsPresent());
+            ValidationContext.Ensure(new SomeClass())
+                .Property(x => x.Name, x => x.IsPresent());
 
             Assert.AreEqual("Name", ValidationContext.Keys.Single());
         }

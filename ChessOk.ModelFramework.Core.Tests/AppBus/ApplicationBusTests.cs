@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Autofac;
 
@@ -25,20 +26,20 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldNotFailIfThereAreNoHandlersForThisMessage()
         {
-            Bus.Handle(new TestMessage());
+            Bus.Send(new TestMessage());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ValidationErrorsException))]
+        [ExpectedException(typeof(ValidationException))]
         public void HandleShouldValidateMessageAndThrowIfInvalid()
         {
-            Bus.Handle(new ValidatableMessage());
+            Bus.Send(new ValidatableMessage());
         }
 
         [TestMethod]
         public void TryHandleShouldIgnoreValidationExceptionAndReturnFalseInThisCase()
         {
-            var handled = Bus.TryHandle(CreateErrorProneCommand());
+            var handled = Bus.TrySend(CreateErrorProneCommand());
 
             Assert.AreEqual(false, handled);
         }
@@ -47,7 +48,7 @@ namespace ChessOk.ModelFramework.Tests
         [ExpectedException(typeof(InvalidOperationException))]
         public void TryHandleShouldNotIgnoreOtherExceptions()
         {
-            Bus.TryHandle(new InlineCommand(() => { throw new InvalidOperationException(); }));
+            Bus.TrySend(new InlineCommand(() => { throw new InvalidOperationException(); }));
         }
 
         private Command CreateErrorProneCommand()
@@ -55,12 +56,12 @@ namespace ChessOk.ModelFramework.Tests
             return new InlineCommand(
                 () =>
                     {
-                        Bus.Validation.AddError("Hello");
-                        Bus.Validation.ThrowExceptionIfInvalid();
+                        Bus.ValidationContext.AddError("Hello");
+                        Bus.ValidationContext.ThrowExceptionIfInvalid();
                     });
         }
 
-        public class ValidatableMessage : IApplicationMessage, IValidatable
+        public class ValidatableMessage : IApplicationBusMessage, IValidatable
         {
             public void Validate(IValidationContext context)
             {
@@ -68,13 +69,17 @@ namespace ChessOk.ModelFramework.Tests
             }
         }
 
-        public class TestMessage : IApplicationMessage { }
-        public class TestEvent2 : IApplicationMessage { }
-        public class TestHandler : IApplicationEventHandler
+        public class TestMessage : IApplicationBusMessage { }
+        public class TestEvent2 : IApplicationBusMessage { }
+        public class TestHandler : IApplicationBusMessageHandler
         {
-            public bool Handle(IApplicationMessage ev)
+            public void Handle(IApplicationBusMessage ev)
             {
-                return ev is TestEvent2;
+            }
+
+            public IEnumerable<Type> GetHandlingTypes()
+            {
+                return new[] { typeof(TestEvent2) };
             }
         }
     }

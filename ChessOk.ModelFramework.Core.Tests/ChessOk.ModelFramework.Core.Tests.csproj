@@ -54,20 +54,18 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppBus\ApplicationBusExtensionsTests.cs" />
     <Compile Include="AppBus\ApplicationBusTests.cs" />
     <Compile Include="AppBus\ApplicationEventHandlerTests.cs" />
     <Compile Include="AsyncCommands\AsyncCommandDispatcherTests.cs" />
     <Compile Include="AsyncCommands\AsyncCommandWrapperTests.cs" />
-    <Compile Include="AsyncCommands\ExtensionsTests.cs" />
     <Compile Include="Commands\BehaviorFilters\RetryOnDeadlockAttributeTests.cs" />
     <Compile Include="Commands\ApplicationCommandTests.cs" />
     <Compile Include="Commands\CommandDispatcherTests.cs" />
-    <Compile Include="Commands\DeleteCommandTests.cs" />
     <Compile Include="Commands\Messages\CommandInvokedHandlerTests.cs" />
     <Compile Include="Commands\Messages\CommandInvokingHandlerTests.cs" />
     <Compile Include="Commands\ExtensionsTests.cs" />
     <Compile Include="Commands\InlineApplicationCommandTests.cs" />
-    <Compile Include="Commands\SaveCommandTests.cs" />
     <Compile Include="CoreModuleTests.cs" />
     <Compile Include="ModelContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

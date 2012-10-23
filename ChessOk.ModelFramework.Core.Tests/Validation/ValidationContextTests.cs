@@ -96,7 +96,7 @@ namespace ChessOk.ModelFramework.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ValidationErrorsException))]
+        [ExpectedException(typeof(ValidationException))]
         public void ThrowExceptionIfInvalidShouldThrowIfItIsInvalid()
         {
             ValidationContext.AddError(null, "asd");

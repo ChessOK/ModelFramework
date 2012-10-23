@@ -2,32 +2,21 @@
 
 namespace ChessOk.ModelFramework.Validation.Validators
 {
-    public class DelegateValidator<T> : IValidator
+    public class DelegateValidator : Validator
     {
-        private readonly Func<T, bool> _delegate;
-        private readonly string _message;
-
-        public DelegateValidator(Func<T, bool> @delegate, string message)
+        public DelegateValidator(IValidationContext validationContext)
+            : base(validationContext)
         {
-            _delegate = @delegate;
-            _message = message;
         }
 
-        public IValidationContext ValidationContext { get; set; }
+        public Func<object, bool> Delegate { get; set; }
+        public string Message { get; set; }
 
-        public void Validate(object obj)
+        public override void Validate(object obj)
         {
-            try
+            if (!Delegate(obj))
             {
-                var casted = (T)obj;
-
-                if (!_delegate(casted))
-                {
-                    ValidationContext.AddError(_message);
-                }
-            }
-            catch (InvalidCastException)
-            {
+                ValidationContext.AddError(Message);
             }
         }
     }

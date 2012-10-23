@@ -8,7 +8,7 @@ namespace ChessOk.ModelFramework.Contexts
     public interface IContext : IDisposable
     {
         T Get<T>();
-        object Get(Type service);
+        object Get(Type serviceType);
 
         ILifetimeScope Scope { get; }
 

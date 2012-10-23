@@ -11,28 +11,28 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void NullShouldSucceedOnNullValue()
         {
-            ValidationContext.AssertObject((string)null).IsNull();
+            ValidationContext.Ensure((string)null).IsNull();
             Assert.IsTrue(ValidationContext.IsValid);
         }
 
         [TestMethod]
         public void NullShouldFailOnNonNullValue()
         {
-            ValidationContext.AssertObject(new object()).IsNull();
+            ValidationContext.Ensure(new object()).IsNull();
             Assert.IsFalse(ValidationContext.IsValid);
         }
 
         [TestMethod]
         public void NotNullShouldFailOnNullValue()
         {
-            ValidationContext.AssertObject((string)null).IsNotNull();
+            ValidationContext.Ensure((string)null).IsNotNull();
             Assert.IsFalse(ValidationContext.IsValid);
         }
 
         [TestMethod]
         public void NotNullShouldSucceedOnNonNullValue()
         {
-            ValidationContext.AssertObject(new object()).IsNotNull();
+            ValidationContext.Ensure(new object()).IsNotNull();
             Assert.IsTrue(ValidationContext.IsValid);
         }
     }

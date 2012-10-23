@@ -15,7 +15,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldValidateEveryObjectInCollection()
         {
             ValidationContext
-                .AssertObject(new List<SomeClass> { new SomeClass(), new SomeClass() })
+                .Ensure(new List<SomeClass> { new SomeClass(), new SomeClass() })
                 .HasValidItems();
 
             Assert.AreEqual(2, ValidationContext.Keys.Count);
@@ -25,7 +25,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldNotFailWithNullObject()
         {
             ValidationContext
-                .AssertObject((IList<object>)null)
+                .Ensure((IList<object>)null)
                 .HasValidItems();
 
             Assert.IsTrue(ValidationContext.IsValid);
@@ -34,7 +34,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldNotFailWithEmptyCollection()
         {
-            ValidationContext.AssertObject(new List<object>()).HasValidItems();
+            ValidationContext.Ensure(new List<object>()).HasValidItems();
             Assert.IsTrue(ValidationContext.IsValid);
         }
 
@@ -42,7 +42,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldPrependElementIndexForEmptyErrorKeys()
         {
             ValidationContext
-                .AssertObject(new List<SomeClass> { new SomeClass() })
+                .Ensure(new List<SomeClass> { new SomeClass() })
                 .HasValidItems();
 
             Assert.AreEqual("[0]", ValidationContext.Keys.Single());
@@ -52,7 +52,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldPrependElementIndexWithDorForNonEmptyErrorKeys()
         {
             ValidationContext
-                .AssertObject(new [] { new SomeClass { KeyName = "Hello" } })
+                .Ensure(new [] { new SomeClass { KeyName = "Hello" } })
                 .HasValidItems();
 
             Assert.AreEqual("[0].Hello", ValidationContext.Keys.Single());
@@ -62,7 +62,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ObjectValidatorShouldNotAddDotIfKeyNameStartsWithObjectIndex()
         {
             ValidationContext
-                .AssertObject(new AnotherClass())
+                .Ensure(new AnotherClass())
                 .IsValid();
 
             Assert.AreEqual("Hello[0]", ValidationContext.Keys.Single());

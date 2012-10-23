@@ -14,15 +14,15 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldSucceedWithValidSqlDateTime()
         {
-            ValidationContext.AssertObject(new DateTime(2012, 10, 10)).IsSqlDateTime();
+            ValidationContext.Ensure(new DateTime(2012, 10, 10)).IsSqlDateTime();
             Assert.IsTrue(ValidationContext.IsValid);
         }
 
         [TestMethod]
         public void ShouldFailWithInvalidSqlDateTime()
         {
-            ValidationContext.AssertObject(DateTime.MinValue).IsSqlDateTime();
-            ValidationContext.AssertObject(DateTime.MaxValue).IsSqlDateTime();
+            ValidationContext.Ensure(DateTime.MinValue).IsSqlDateTime();
+            ValidationContext.Ensure(DateTime.MaxValue).IsSqlDateTime();
             Assert.IsFalse(ValidationContext.IsValid);
             Assert.AreEqual(2, ValidationContext[""].Count);
         }
@@ -31,6 +31,7 @@ namespace ChessOk.ModelFramework.Tests
         public void AttributeShouldReturnCorrectValidator()
         {
             var attr = new ValidateSqlDateTimeAttribute();
+            attr.ValidationContext = ValidationContext;
             Assert.IsInstanceOfType(attr.GetValidator(), typeof(SqlDateTimeValidator));
         }
     }

@@ -32,37 +32,27 @@ namespace ChessOk.ModelFramework.Tests.AsyncCommands
         [TestMethod]
         public void HandleShouldEnqueueCommands()
         {
-            var command = new AsyncCommandWrapperMessage(new Mock<CommandBase>().Object);
-            var result = _dispatcher.Handle(command);
+            var command = new AsyncCommand(new Mock<CommandBase>().Object);
+            _dispatcher.Handle(command);
 
-            Assert.IsTrue(result);
             _queueMock.Verify(x => x.Enqueue(It.IsAny<CommandBase>()));
-        }
-
-        [TestMethod]
-        public void HandleShouldNotHandleOtherMessages()
-        {
-            var otherMessage = new Mock<CommandBase>();
-            var result = _dispatcher.Handle(otherMessage.Object);
-
-            Assert.IsFalse(result);
         }
 
         [TestMethod]
         public void ItShouldRaiseSendingEventBeforeCommandSending()
         {
             var command = new TestCommand();
-            _bus.Setup(x => x.Handle(
+            _bus.Setup(x => x.Send(
                 It.IsAny<IAsyncCommandSendingMessage<TestCommand>>()))
                 .Callback(() => Assert.IsFalse(command.Executed));
 
-            _bus.Setup(x => x.Handle(It.IsAny<IAsyncCommandSendingMessage<TestCommand>>()))
-                .Callback<IApplicationMessage>(
+            _bus.Setup(x => x.Send(It.IsAny<IAsyncCommandSendingMessage<TestCommand>>()))
+                .Callback<IApplicationBusMessage>(
                     x => Assert.AreSame(((IAsyncCommandSendingMessage<TestCommand>)x).Command, command));
 
-            _dispatcher.Handle(new AsyncCommandWrapperMessage(command));
+            _dispatcher.Handle(new AsyncCommand(command));
 
-            _bus.Verify(x => x.Handle(
+            _bus.Verify(x => x.Send(
                 It.IsAny<IAsyncCommandSendingMessage<TestCommand>>()), Times.Once());
         }
 
@@ -70,17 +60,17 @@ namespace ChessOk.ModelFramework.Tests.AsyncCommands
         public void ItShouldRaiseSentEventAfterCommandSending()
         {
             var command = new TestCommand();
-            _bus.Setup(x => x.Handle(
+            _bus.Setup(x => x.Send(
                 It.IsAny<IAsyncCommandSentMessage<TestCommand>>()))
                 .Callback(() => Assert.IsTrue(command.Executed));
 
-            _bus.Setup(x => x.Handle(It.IsAny<IAsyncCommandSentMessage<TestCommand>>()))
-                .Callback<IApplicationMessage>(
+            _bus.Setup(x => x.Send(It.IsAny<IAsyncCommandSentMessage<TestCommand>>()))
+                .Callback<IApplicationBusMessage>(
                     x => Assert.AreSame(((IAsyncCommandSentMessage<TestCommand>)x).Command, command));
 
-            _dispatcher.Handle(new AsyncCommandWrapperMessage(command));
+            _dispatcher.Handle(new AsyncCommand(command));
 
-            _bus.Verify(x => x.Handle(
+            _bus.Verify(x => x.Send(
                 It.IsAny<IAsyncCommandSentMessage<TestCommand>>()), Times.Once());
         }
 
@@ -88,14 +78,14 @@ namespace ChessOk.ModelFramework.Tests.AsyncCommands
         public void ItShouldBePossibleToCancelCommandSendingThroughSendingEvent()
         {
             var command = new TestCommand();
-            _bus.Setup(x => x.Handle(
+            _bus.Setup(x => x.Send(
                 It.IsAny<IAsyncCommandSendingMessage<TestCommand>>()))
-                .Callback<IApplicationMessage>(x => ((IAsyncCommandSendingMessage<TestCommand>)x).CancelSending());
+                .Callback<IApplicationBusMessage>(x => ((IAsyncCommandSendingMessage<TestCommand>)x).CancelSending());
 
-            _dispatcher.Handle(new AsyncCommandWrapperMessage(command));
+            _dispatcher.Handle(new AsyncCommand(command));
 
             _queueMock.Verify(x => x.Enqueue(It.IsAny<CommandBase>()), Times.Never());
-            _bus.Verify(x => x.Handle(It.IsAny<IAsyncCommandSentMessage<TestCommand>>()), Times.Never());
+            _bus.Verify(x => x.Send(It.IsAny<IAsyncCommandSentMessage<TestCommand>>()), Times.Never());
         }
 
         public class TestCommand : Command

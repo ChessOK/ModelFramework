@@ -12,7 +12,7 @@ namespace ChessOk.ModelFramework.Testing
         [TestInitialize]
         public void InitializeValidation()
         {
-            ValidationContext = Bus.Validation;
+            ValidationContext = Bus.ValidationContext;
         }
     }
 }

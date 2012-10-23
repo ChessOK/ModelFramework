@@ -30,19 +30,9 @@ namespace ChessOk.ModelFramework.Tests.Commands
         public void HandleShouldHandleCommands()
         {
             var command = new Mock<CommandBase>();
-            var result = _dispatcher.Handle(command.Object);
+            _dispatcher.Handle(command.Object);
 
-            Assert.IsTrue(result);
             command.Verify(x => x.Invoke(), Times.Once());
-        }
-
-        [TestMethod]
-        public void HandleShouldNotHandleOtherMessages()
-        {
-            var otherMessage = new Mock<IApplicationMessage>();
-            var result = _dispatcher.Handle(otherMessage.Object);
-
-            Assert.IsFalse(result);
         }
 
         [TestMethod]
@@ -92,17 +82,17 @@ namespace ChessOk.ModelFramework.Tests.Commands
         public void InvokeShouldRaiseInvokingEventBeforeCommandInvocation()
         {
             var command = new TestCommand();
-            _bus.Setup(x => x.Handle(
+            _bus.Setup(x => x.Send(
                 It.IsAny<ICommandInvokingMessage<TestCommand>>()))
                 .Callback(() => Assert.IsFalse(command.Executed));
 
-            _bus.Setup(x => x.Handle(It.IsAny<ICommandInvokingMessage<TestCommand>>()))
-                .Callback<IApplicationMessage>(
+            _bus.Setup(x => x.Send(It.IsAny<ICommandInvokingMessage<TestCommand>>()))
+                .Callback<IApplicationBusMessage>(
                     x => Assert.AreSame(((ICommandInvokingMessage<TestCommand>)x).Command, command));
 
             _dispatcher.Handle(command);
 
-            _bus.Verify(x => x.Handle(
+            _bus.Verify(x => x.Send(
                 It.IsAny<ICommandInvokingMessage<TestCommand>>()), Times.Once());
         }
 
@@ -110,17 +100,17 @@ namespace ChessOk.ModelFramework.Tests.Commands
         public void InvokeShouldRaiseInvokedEventAfterCommandInvocation()
         {
             var command = new TestCommand();
-            _bus.Setup(x => x.Handle(
+            _bus.Setup(x => x.Send(
                 It.IsAny<ICommandInvokedMessage<TestCommand>>()))
                 .Callback(() => Assert.IsTrue(command.Executed));
 
-            _bus.Setup(x => x.Handle(It.IsAny<ICommandInvokedMessage<TestCommand>>()))
-                .Callback<IApplicationMessage>(
+            _bus.Setup(x => x.Send(It.IsAny<ICommandInvokedMessage<TestCommand>>()))
+                .Callback<IApplicationBusMessage>(
                     x => Assert.AreSame(((ICommandInvokedMessage<TestCommand>)x).Command, command));
 
             _dispatcher.Handle(command);
 
-            _bus.Verify(x => x.Handle(
+            _bus.Verify(x => x.Send(
                 It.IsAny<ICommandInvokedMessage<TestCommand>>()), Times.Once());
         }
 
@@ -128,14 +118,14 @@ namespace ChessOk.ModelFramework.Tests.Commands
         public void ItShouldBePossibleToCancelCommandInvocationThroughInvokingEvent()
         {
             var command = new TestCommand();
-            _bus.Setup(x => x.Handle(
+            _bus.Setup(x => x.Send(
                 It.IsAny<ICommandInvokingMessage<TestCommand>>()))
-                .Callback<IApplicationMessage>(x => ((ICommandInvokingMessage<TestCommand>)x).CancelInvocation());
+                .Callback<IApplicationBusMessage>(x => ((ICommandInvokingMessage<TestCommand>)x).CancelInvocation());
 
             _dispatcher.Handle(command);
 
             Assert.IsFalse(command.Executed);
-            _bus.Verify(x => x.Handle(It.IsAny<ICommandInvokedMessage<TestCommand>>()), Times.Never());
+            _bus.Verify(x => x.Send(It.IsAny<ICommandInvokedMessage<TestCommand>>()), Times.Never());
         }
 
         public class TestCommand : Command

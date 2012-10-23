@@ -13,7 +13,7 @@ namespace ChessOk.ModelFramework.Tests.Commands
         public void BaseCommandShouldBeInitializedBeforeInvokeAndInvoked()
         {
             var command = new TestBaseCommand();
-            Bus.Handle(command);
+            Bus.Send(command);
             Assert.IsTrue(command.Invoked);
         }
 
@@ -21,7 +21,7 @@ namespace ChessOk.ModelFramework.Tests.Commands
         public void ResultlessCommandShouldBeExecuted()
         {
             var command = new TestResultlessCommand();
-            Bus.Handle(command);
+            Bus.Send(command);
             Assert.IsTrue(command.Executed);
         }
 
@@ -31,7 +31,7 @@ namespace ChessOk.ModelFramework.Tests.Commands
             var command = new TestResultfulCommand();
             Assert.AreEqual(default(bool),  command.Result);
 
-            Bus.Handle(command);
+            Bus.Send(command);
 
             Assert.IsTrue(command.Executed);
             Assert.IsTrue(command.Result);

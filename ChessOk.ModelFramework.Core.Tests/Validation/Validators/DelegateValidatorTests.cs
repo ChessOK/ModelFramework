@@ -14,8 +14,12 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldSucceedIfDelegateReturnsTrue()
         {
-            ValidationContext.AssertObject(true)
-                .IsValid(new DelegateValidator<bool>(x => x, "Some message"));
+            ValidationContext.Ensure(true)
+                .IsValid(new DelegateValidator(ValidationContext)
+                    {
+                        Delegate = x => (bool)x,
+                        Message = "Some message"
+                    });
 
             Assert.IsTrue(ValidationContext.IsValid);
         }
@@ -23,20 +27,24 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldFailIfDelegateReturnsFalse()
         {
-            ValidationContext.AssertObject(false)
-                .IsValid(new DelegateValidator<bool>(x => x, "Some message"));
+            ValidationContext.Ensure(false)
+                .IsValid(new DelegateValidator(ValidationContext)
+                {
+                    Delegate = x => (bool)x,
+                    Message = "Some message"
+                });
 
             Assert.IsFalse(ValidationContext.IsValid);
             Assert.AreEqual("Some message", ValidationContext[""].First());
         }
 
         [TestMethod]
-        public void ShouldIgnoreObjectOfOtherTypes()
+        public void ShouldWorkWithPropertiesEither()
         {
-            ValidationContext.AssertObject("Hello")
-                .IsValid(new DelegateValidator<bool>(x => x, "Some"));
+            ValidationContext.Ensure("Hello")
+                .Property(x => x.Length, x => x.IsTrue(y => y.Equals(3), "Hello ;)"));
 
-            Assert.IsTrue(ValidationContext.IsValid);
+            Assert.IsFalse(ValidationContext.IsValid);
         }
     }
 }

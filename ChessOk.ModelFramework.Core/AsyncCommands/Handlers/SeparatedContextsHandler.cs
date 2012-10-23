@@ -1,10 +1,9 @@
 using System;
 
-using ChessOk.ModelFramework.AsyncCommands.Handlers;
 using ChessOk.ModelFramework.Commands.Internals;
 using ChessOk.ModelFramework.Logging;
 
-namespace ChessOk.ModelFramework.AsyncCommads.Handlers
+namespace ChessOk.ModelFramework.AsyncCommands.Handlers
 {
     /// <summary>
     /// Обрабатывает сообщения, создавая для каждого отдельный ModelContext
@@ -26,7 +25,7 @@ namespace ChessOk.ModelFramework.AsyncCommads.Handlers
                 {
                     using (var appBus = new ApplicationBus(context))
                     {
-                        appBus.Handle(asyncCommand);
+                        appBus.Send(asyncCommand);
                         Log.Debug(String.Format("Command has been handled successfully: {0}", asyncCommand));
                     }
                 }

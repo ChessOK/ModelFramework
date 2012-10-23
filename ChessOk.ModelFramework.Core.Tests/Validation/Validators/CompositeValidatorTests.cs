@@ -12,10 +12,16 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldRunAllValidators()
         {
-            var validator = new CompositeValidator(
-                new MaximumLengthValidator(3),
-                new MaximumLengthValidator(1));
-            ValidationContext.AssertObject("asdasd").IsValid(validator);
+            var validator = new CompositeValidator(ValidationContext)
+                {
+                    Validators =
+                        new[]
+                            {
+                                new MaximumLengthValidator(ValidationContext) { MaximumLength = 3 },
+                                new MaximumLengthValidator(ValidationContext) { MaximumLength = 1 }
+                            }
+                };
+            ValidationContext.Ensure("asdasd").IsValid(validator);
 
             Assert.AreEqual(2, ValidationContext[""].Count);
         }

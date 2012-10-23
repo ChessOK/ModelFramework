@@ -14,7 +14,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldSucceedWithNonNullReferenceTypeInstances()
         {
-            ValidationContext.AssertObject(new object())
+            ValidationContext.Ensure(new object())
                 .IsPresent();
 
             Assert.IsTrue(ValidationContext.IsValid);
@@ -23,7 +23,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldFailWithNullReferenceTypeInstances()
         {
-            ValidationContext.AssertObject((object)null)
+            ValidationContext.Ensure((object)null)
                 .IsPresent();
 
             Assert.IsFalse(ValidationContext.IsValid);
@@ -32,7 +32,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldFailForEmptyStringsWithFalseAllowEmptyStringsOption()
         {
-            ValidationContext.AssertObject(string.Empty)
+            ValidationContext.Ensure(string.Empty)
                 .IsPresent();
 
             Assert.IsFalse(ValidationContext.IsValid);
@@ -41,7 +41,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldSucceedForEmptyStringsWithAllowEmptyStringsOptionsSet()
         {
-            ValidationContext.AssertObject(string.Empty)
+            ValidationContext.Ensure(string.Empty)
                 .IsPresent(allowEmptyStrings: true);
 
             Assert.IsTrue(ValidationContext.IsValid);
@@ -50,7 +50,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldFailForWhitespacesStringsWithFalseAllowEmptyStringsOption()
         {
-            ValidationContext.AssertObject("   ")
+            ValidationContext.Ensure("   ")
                 .IsPresent();
 
             Assert.IsFalse(ValidationContext.IsValid);
@@ -59,7 +59,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldSucceedForWhitespacesStringsWithAllowEmptyStringsOptionsSet()
         {
-            ValidationContext.AssertObject("  ")
+            ValidationContext.Ensure("  ")
                 .IsPresent(allowEmptyStrings: true);
 
             Assert.IsTrue(ValidationContext.IsValid);
@@ -69,16 +69,17 @@ namespace ChessOk.ModelFramework.Tests
         public void AttributeShouldReturnCorrectValidator()
         {
             var attr = new ValidatePresenceAttribute();
+            attr.ValidationContext = ValidationContext;
             Assert.IsInstanceOfType(attr.GetValidator(), typeof(PresenceValidator));
         }
 
         [TestMethod]
         public void ShouldNotCheckValueTypesForDefaultValues()
         {
-            ValidationContext.AssertObject(default(bool)).IsValid(new PresenceValidator());
-            ValidationContext.AssertObject(default(int)).IsValid(new PresenceValidator());
-            ValidationContext.AssertObject(default(float)).IsValid(new PresenceValidator());
-            ValidationContext.AssertObject(default(DateTime)).IsValid(new PresenceValidator());
+            ValidationContext.Ensure(default(bool)).IsValid(new PresenceValidator(ValidationContext));
+            ValidationContext.Ensure(default(int)).IsValid(new PresenceValidator(ValidationContext));
+            ValidationContext.Ensure(default(float)).IsValid(new PresenceValidator(ValidationContext));
+            ValidationContext.Ensure(default(DateTime)).IsValid(new PresenceValidator(ValidationContext));
 
             Assert.IsTrue(ValidationContext.IsValid);
         }

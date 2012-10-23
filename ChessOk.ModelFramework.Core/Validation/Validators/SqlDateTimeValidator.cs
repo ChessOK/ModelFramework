@@ -3,11 +3,14 @@ using System.Data.SqlTypes;
 
 namespace ChessOk.ModelFramework.Validation.Validators
 {
-    public class SqlDateTimeValidator : IValidator
+    public class SqlDateTimeValidator : Validator
     {
-        public IValidationContext ValidationContext { get; set; }
+        public SqlDateTimeValidator(IValidationContext validationContext)
+            : base(validationContext)
+        {
+        }
 
-        public void Validate(object value)
+        public override void Validate(object value)
         {
             var dateTime = (DateTime)value;
 

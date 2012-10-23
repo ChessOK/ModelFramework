@@ -1,21 +1,22 @@
-﻿namespace ChessOk.ModelFramework.Validation.Validators
-{
-    public class CompositeValidator : IValidator
-    {
-        private readonly IValidator[] _validators;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-        public CompositeValidator(params IValidator[] validators)
+namespace ChessOk.ModelFramework.Validation.Validators
+{
+    public class CompositeValidator : Validator
+    {
+        public CompositeValidator(IValidationContext validationContext)
+            : base(validationContext)
         {
-            _validators = validators;
+            Validators = Enumerable.Empty<IValidator>();
         }
 
-        public IValidationContext ValidationContext { get; set; }
+        public IEnumerable<IValidator> Validators { get; set; }
 
-        public void Validate(object obj)
+        public override void Validate(object obj)
         {
-            foreach (var validator in _validators)
+            foreach (var validator in Validators)
             {
-                validator.ValidationContext = ValidationContext;
                 validator.Validate(obj);
             }
         }

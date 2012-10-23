@@ -1,10 +1,13 @@
 ﻿namespace ChessOk.ModelFramework.Validation.Validators
 {
-    public class ValidatableObjectValidator : IValidator
+    public class ValidatableObjectValidator : Validator
     {
-        public IValidationContext ValidationContext { get; set; }
+        public ValidatableObjectValidator(IValidationContext validationContext)
+            : base(validationContext)
+        {
+        }
 
-        public void Validate(object obj)
+        public override void Validate(object obj)
         {
             var validatable = obj as IValidatable;
             if (validatable != null)

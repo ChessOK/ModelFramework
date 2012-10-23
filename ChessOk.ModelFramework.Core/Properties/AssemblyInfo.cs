@@ -12,6 +12,6 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("0f9cc450-a3ba-4cb0-aa39-6967669c710d")]
 [assembly: AssemblyVersion("3.0.0.*")]
-[assembly: AssemblyInformationalVersion("3.0.0-alpha1")]
+[assembly: AssemblyInformationalVersion("3.0.0-alpha2")]
 
 [assembly: InternalsVisibleTo("ChessOk.ModelFramework.Core.Tests")]

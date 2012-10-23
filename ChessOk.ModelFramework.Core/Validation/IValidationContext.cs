@@ -5,14 +5,12 @@ using ChessOk.ModelFramework.Contexts;
 
 namespace ChessOk.ModelFramework.Validation
 {
-    public interface IValidationContext
+    public interface IValidationContext : IContext
     {
         bool IsValid { get; }
 
         ICollection<string> this[string key] { get; }
         ICollection<string> Keys { get; }
-
-        IContext Context { get; }
 
         void AddError(string key, string message);
         void RemoveErrors(string key);

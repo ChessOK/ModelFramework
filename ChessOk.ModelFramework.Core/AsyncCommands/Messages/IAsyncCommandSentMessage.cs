@@ -6,7 +6,7 @@ namespace ChessOk.ModelFramework.AsyncCommands.Messages
     /// —обытие инициируетс€ ѕќ—Ћ≈ отправки сообщени€ в очередь.
     /// </summary>
     /// <typeparam name="T">“ип отправленного сообщени€.</typeparam>
-    public interface IAsyncCommandSentMessage<out T> : IApplicationMessage
+    public interface IAsyncCommandSentMessage<out T> : IApplicationBusMessage
     {
         /// <summary>
         /// Ёкземпл€р отправленного сообщени€.

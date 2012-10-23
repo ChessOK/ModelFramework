@@ -20,19 +20,10 @@ namespace ChessOk.ModelFramework.Tests
         }
 
         [TestMethod]
-        public void SomeCommandsShouldBeRegistered()
-        {
-            Assert.IsTrue(_container.IsRegistered<SaveCommand<TestEntity>>());
-            Assert.IsTrue(_container.IsRegistered<DeleteCommand<TestEntity>>());
-        }
-
-        [TestMethod]
         public void ApplicationBusItemsShouldBeRegistered()
         {
             var applicationBus = new ApplicationBus(new ModelContext(_container));
             Assert.AreSame(applicationBus, applicationBus.Context.Get<IApplicationBus>());
         }
-
-        public class TestEntity : Entity {}
     }
 }

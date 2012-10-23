@@ -16,8 +16,8 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldNotFailIfObjectDoNotContainsAnyAttribute()
         {
             ValidationContext
-                .AssertObject(new AttributelessClass())
-                .IsValid(new AttributesValidator());
+                .Ensure(new AttributelessClass())
+                .IsValid(new AttributesValidator(ValidationContext));
 
             Assert.IsTrue(ValidationContext.IsValid);
         }
@@ -25,8 +25,8 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldRunValidatorsWithinMainContextAndReplaceErrorKeys()
         {
-            ValidationContext.AssertObject(new AttributeClass())
-                .IsValid(new AttributesValidator());
+            ValidationContext.Ensure(new AttributeClass())
+                .IsValid(new AttributesValidator(ValidationContext));
 
             Assert.IsFalse(ValidationContext.IsValid);
             Assert.AreEqual("Hello", ValidationContext.Keys.First());
@@ -36,6 +36,7 @@ namespace ChessOk.ModelFramework.Tests
         public void AttributeShouldReturnCorrectValidator()
         {
             var attr = new ValidateAttributesAttribute();
+            attr.ValidationContext = ValidationContext;
             Assert.IsInstanceOfType(attr.GetValidator(), typeof(AttributesValidator));
         }
 

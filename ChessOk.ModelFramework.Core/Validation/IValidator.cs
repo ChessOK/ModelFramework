@@ -2,7 +2,7 @@
 {
     public interface IValidator
     {
-        IValidationContext ValidationContext { get; set; }
+        IValidationContext ValidationContext { get; }
         void Validate(object obj);
     }
 }

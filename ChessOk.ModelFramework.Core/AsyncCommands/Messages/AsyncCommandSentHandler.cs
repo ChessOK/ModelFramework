@@ -2,20 +2,19 @@
 
 namespace ChessOk.ModelFramework.AsyncCommands.Messages
 {
-    public abstract class AsyncCommandSentHandler<T> : ApplicationEventHandler
+    public abstract class AsyncCommandSentHandler<T> : ApplicationBusMessageHandler
     {
         protected abstract void Handle(T message);
 
-        public sealed override bool Handle(IApplicationMessage ev)
+        public sealed override void Handle(IApplicationBusMessage ev)
         {
             var sentEvent = ev as IAsyncCommandSentMessage<T>;
             if (sentEvent == null)
             {
-                return false;
+                return;
             }
 
             Handle(sentEvent.Command);
-            return true;
         }
     }
 }

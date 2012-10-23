@@ -1,12 +1,15 @@
 ﻿namespace ChessOk.ModelFramework.Validation.Validators
 {
-    public class PresenceValidator : IValidator
+    public class PresenceValidator : Validator
     {
+        public PresenceValidator(IValidationContext validationContext)
+            : base(validationContext)
+        {
+        }
+
         public bool AllowEmptyStrings { get; set; }
 
-        public IValidationContext ValidationContext { get; set; }
-
-        public void Validate(object obj)
+        public override void Validate(object obj)
         {
             var message = Resources.Strings.PresenceValidatorMessage;
 

@@ -1,17 +1,19 @@
-﻿using ChessOk.ModelFramework.Messages;
+﻿using System;
+
+using ChessOk.ModelFramework.Messages;
 
 namespace ChessOk.ModelFramework.AsyncCommands.Messages
 {
-    public abstract class AsyncCommandSendingHandler<T> : ApplicationEventHandler
+    public abstract class AsyncCommandSendingHandler<T> : ApplicationBusMessageHandler
     {
         protected abstract void Handle(T message, out bool cancelSending);
 
-        public override bool Handle(IApplicationMessage ev)
+        public override void Handle(IApplicationBusMessage ev)
         {
             var sendingEvent = ev as IAsyncCommandSendingMessage<T>;
             if (sendingEvent == null)
             {
-                return false;
+                return;
             }
 
             bool cancelSending;
@@ -21,7 +23,6 @@ namespace ChessOk.ModelFramework.AsyncCommands.Messages
             {
                 sendingEvent.CancelSending();
             }
-            return true;
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace ChessOk.ModelFramework.Validation
 {
-    public class ValidationErrorsException : Exception
+    public class ValidationException : Exception
     {
-        public ValidationErrorsException(IValidationContext context)
+        public ValidationException(IValidationContext context)
             : base(FormatMessage(context))
         {
         }

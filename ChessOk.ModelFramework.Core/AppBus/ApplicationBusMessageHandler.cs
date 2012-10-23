@@ -1,25 +1,21 @@
 using System;
 
 using ChessOk.ModelFramework.Contexts;
-using ChessOk.ModelFramework.Messages;
 using ChessOk.ModelFramework.Validation;
 
-namespace ChessOk.ModelFramework.Commands.Internals
+namespace ChessOk.ModelFramework.Messages
 {
-    public abstract class CommandBase : IApplicationBusMessage
+    public abstract class ApplicationBusMessageHandler : IApplicationBusMessageHandler
     {
         protected IApplicationBus Bus { get; private set; }
 
         protected IContext Context { get { return Bus.Context; } }
         protected IValidationContext Validation { get { return Bus.ValidationContext; } }
 
+        public abstract void Handle(IApplicationBusMessage ev);
+
         internal void Bind(IApplicationBus bus)
         {
-            if (Bus != null)
-            {
-                throw new InvalidOperationException("Command is already bound to a bus");
-            }
-
             if (bus == null)
             {
                 throw new ArgumentNullException("bus");
@@ -27,7 +23,5 @@ namespace ChessOk.ModelFramework.Commands.Internals
 
             Bus = bus;
         }
-
-        public abstract void Invoke();
     }
 }

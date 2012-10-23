@@ -12,7 +12,7 @@ namespace ChessOk.ModelFramework
     {
         public static IRegistrationBuilder<TLimit, TActivatorData, TStyle>
             InstancePerModelContext<TLimit, TActivatorData, TStyle>(
-            this IRegistrationBuilder<TLimit, TActivatorData, TStyle> registration)
+                this IRegistrationBuilder<TLimit, TActivatorData, TStyle> registration)
         {
             if (registration == null)
             {
@@ -36,7 +36,7 @@ namespace ChessOk.ModelFramework
 
         public static IRegistrationBuilder<TLimit, TActivationData, TStyle>
             InstancePerValidationContext<TLimit, TActivationData, TStyle>(
-            this IRegistrationBuilder<TLimit, TActivationData, TStyle> registration)
+                this IRegistrationBuilder<TLimit, TActivationData, TStyle> registration)
         {
             if (registration == null)
             {
@@ -49,7 +49,7 @@ namespace ChessOk.ModelFramework
         public static void RegisterEventHandler<T>(this ContainerBuilder builder,
             Func<IComponentContext, T> @delegate)
         {
-            builder.Register(@delegate).As<IApplicationEventHandler>().InstancePerDependency();
+            builder.Register(@delegate).As<IApplicationBusMessageHandler>().InstancePerDependency();
         }
     }
 }

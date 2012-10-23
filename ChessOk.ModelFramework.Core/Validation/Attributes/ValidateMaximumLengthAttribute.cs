@@ -13,7 +13,9 @@ namespace ChessOk.ModelFramework.Validation
 
         public override IValidator GetValidator()
         {
-            return new MaximumLengthValidator(_maximumLength);
+            var validator = ValidationContext.Get<MaximumLengthValidator>();
+            validator.MaximumLength = _maximumLength;
+            return validator;
         }
     }
 }

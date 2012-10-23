@@ -23,8 +23,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>bin\Debug\ChessOk.ModelFramework.Core.XML</DocumentationFile>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,9 +58,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppBus\ApplicationEventHandler.cs" />
+    <Compile Include="AppBus\ApplicationBusExtensions.cs" />
+    <Compile Include="AppBus\ApplicationBusMessageHandler.cs" />
+    <Compile Include="AppBus\ApplicationBusMessageHandler{T}.cs" />
     <Compile Include="AppBus\IApplicationBus.cs" />
-    <Compile Include="AsyncCommands\AsyncCommandWrapper.cs" />
+    <Compile Include="AsyncCommands\AsyncCommmand.cs" />
     <Compile Include="AsyncCommands\Handlers\AsyncCommandHandlingException.cs" />
     <Compile Include="Commands\Filters\CommandFilterAttribute.cs" />
     <Compile Include="Commands\Filters\CommandFilterContext.cs" />
@@ -69,10 +71,6 @@
     <Compile Include="Commons\SqlExceptionHelper.cs" />
     <Compile Include="Contexts\ContextCache.cs" />
     <Compile Include="Contexts\IContext.cs" />
-    <Compile Include="DataAccess\ContextRepositoryExtensions.cs" />
-    <Compile Include="DataAccess\Entity.cs" />
-    <Compile Include="DataAccess\Entity{TId}.cs" />
-    <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="RegistrationExtensions.cs" />
     <Compile Include="Resources\Strings1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -89,19 +87,19 @@
     <Compile Include="Validation\Validators\NullValidator.cs" />
     <Compile Include="Validation\Validators\ObjectValidator.cs" />
     <Compile Include="Commons\DisposableAction.cs" />
-    <Compile Include="Validation\IAssertionSyntax.cs" />
+    <Compile Include="Validation\IEnsureSyntax.cs" />
     <Compile Include="Validation\IValidator.cs" />
     <Compile Include="Validation\ValidationContextExtensions.cs" />
-    <Compile Include="Validation\AssertionSyntaxExtensions.cs" />
-    <Compile Include="Validation\AssertionEngine.cs" />
+    <Compile Include="Validation\EnsureSyntaxExtensions.cs" />
+    <Compile Include="Validation\EnsureEngine.cs" />
     <Compile Include="Validation\ValidationErrorsException.cs" />
     <Compile Include="Validation\IValidationContext.cs" />
     <Compile Include="Validation\Validators\AttributesValidator.cs" />
     <Compile Include="Validation\Validators\CompositeValidator.cs" />
     <Compile Include="Validation\Validators\PresenceValidator.cs" />
     <Compile Include="Validation\Validators\SqlDateTimeValidator.cs" />
-    <Compile Include="Validation\Validators\StringLengthValidator.cs" />
-    <Compile Include="Validation\Validators\ValidatableValidator.cs" />
+    <Compile Include="Validation\Validators\MaximumLengthValidator.cs" />
+    <Compile Include="Validation\Validators\ValidatableObjectValidator.cs" />
     <Compile Include="Validation\ValidateAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidateAttributesAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidatePresenceAttribute.cs" />
@@ -111,13 +109,12 @@
     <Compile Include="Commands\Command{TResult}.cs" />
     <Compile Include="Commands\Messages\CommandInvokedHandler.cs" />
     <Compile Include="Commands\Messages\CommandInvokingHandler.cs" />
-    <Compile Include="AppBus\IApplicationEventHandler.cs" />
-    <Compile Include="Commands\ICommandParametersProvider.cs" />
+    <Compile Include="AppBus\IApplicationBusMessageHandler.cs" />
+    <Compile Include="AppBus\IMessageParametersBinder.cs" />
     <Compile Include="Commands\Internals\CommandBase.cs" />
     <Compile Include="Commands\Internals\CommandDispatcher.cs" />
-    <Compile Include="Commands\CommandApplicationBusExtensions.cs" />
     <Compile Include="Commands\InlineCommand.cs" />
-    <Compile Include="AppBus\IApplicationMessage.cs" />
+    <Compile Include="AppBus\IApplicationBusMessage.cs" />
     <Compile Include="Commands\Messages\ICommandInvokedMessage.cs" />
     <Compile Include="Commands\Messages\ICommandInvokingMessage.cs" />
     <Compile Include="Contexts\Context.cs" />
@@ -126,16 +123,13 @@
     <Compile Include="Commons\IHaveContext.cs" />
     <Compile Include="AsyncCommands\Messages\IAsyncCommandSengingMessage.cs" />
     <Compile Include="AsyncCommands\Messages\IAsyncCommandSentMessage.cs" />
-    <Compile Include="AsyncCommands\Messages\MessageSendingHandler.cs" />
+    <Compile Include="AsyncCommands\Messages\AsyncCommandSendingHandler.cs" />
     <Compile Include="AsyncCommands\Messages\AsyncCommandSentHandler.cs" />
     <Compile Include="AsyncCommands\Internals\AsyncCommandDispatcher.cs" />
-    <Compile Include="AsyncCommands\ApplicationBusAsyncCommandExtensions.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Validation\ValidationContext.cs" />
     <Compile Include="Validation\IValidatable.cs" />
-    <Compile Include="Commands\DeleteCommand.cs" />
     <Compile Include="AppBus\ApplicationBus.cs" />
-    <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Expressions\AttributesExpressionHelper.cs" />
     <Compile Include="Expressions\Fingerprints\BinaryExpressionFingerprint.cs" />
     <Compile Include="Expressions\CachedExpressionCompiler.cs" />
@@ -170,6 +164,7 @@
     <Compile Include="AsyncCommands\Handlers\SeparatedContextsHandler.cs" />
     <Compile Include="ModelContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\Validators\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
