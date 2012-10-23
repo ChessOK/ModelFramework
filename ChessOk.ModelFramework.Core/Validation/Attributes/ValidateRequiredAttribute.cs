@@ -2,11 +2,11 @@
 
 namespace ChessOk.ModelFramework.Validation
 {
-    public class ValidatePresenceAttribute : ValidateAttribute
+    public class ValidateRequiredAttribute : ValidateAttribute
     {
         public override IValidator GetValidator()
         {
-            return ValidationContext.Get<PresenceValidator>();
+            return ValidationContext.Get<RequiredValidator>();
         }
     }
 }

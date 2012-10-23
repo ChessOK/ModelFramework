@@ -1,8 +1,8 @@
 ﻿namespace ChessOk.ModelFramework.Validation.Validators
 {
-    public class PresenceValidator : Validator
+    public class RequiredValidator : Validator
     {
-        public PresenceValidator(IValidationContext validationContext)
+        public RequiredValidator(IValidationContext validationContext)
             : base(validationContext)
         {
         }

@@ -68,18 +68,18 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void AttributeShouldReturnCorrectValidator()
         {
-            var attr = new ValidatePresenceAttribute();
+            var attr = new ValidateRequiredAttribute();
             attr.ValidationContext = ValidationContext;
-            Assert.IsInstanceOfType(attr.GetValidator(), typeof(PresenceValidator));
+            Assert.IsInstanceOfType(attr.GetValidator(), typeof(RequiredValidator));
         }
 
         [TestMethod]
         public void ShouldNotCheckValueTypesForDefaultValues()
         {
-            ValidationContext.Ensure(default(bool)).IsValid(new PresenceValidator(ValidationContext));
-            ValidationContext.Ensure(default(int)).IsValid(new PresenceValidator(ValidationContext));
-            ValidationContext.Ensure(default(float)).IsValid(new PresenceValidator(ValidationContext));
-            ValidationContext.Ensure(default(DateTime)).IsValid(new PresenceValidator(ValidationContext));
+            ValidationContext.Ensure(default(bool)).IsValid(new RequiredValidator(ValidationContext));
+            ValidationContext.Ensure(default(int)).IsValid(new RequiredValidator(ValidationContext));
+            ValidationContext.Ensure(default(float)).IsValid(new RequiredValidator(ValidationContext));
+            ValidationContext.Ensure(default(DateTime)).IsValid(new RequiredValidator(ValidationContext));
 
             Assert.IsTrue(ValidationContext.IsValid);
         }

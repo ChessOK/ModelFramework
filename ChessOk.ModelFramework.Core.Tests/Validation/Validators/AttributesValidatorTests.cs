@@ -47,7 +47,7 @@ namespace ChessOk.ModelFramework.Tests
 
         private class AttributeClass
         {
-            [ValidatePresence]
+            [ValidateRequired]
             public string Hello { get; set; }
         }
     }

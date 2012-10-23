@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace ChessOk.ModelFramework.Validation.Validators
 {
@@ -16,7 +19,8 @@ namespace ChessOk.ModelFramework.Validation.Validators
             {
                 var constraintAttributes = propertyInfo
                     .GetCustomAttributes(typeof(ValidateAttribute), true)
-                    .Cast<ValidateAttribute>().ToList();
+                    .Union(propertyInfo.GetCustomAttributes(typeof(ValidationAttribute), true))
+                    .ToArray();
 
                 if (!constraintAttributes.Any())
                 {
@@ -26,17 +30,65 @@ namespace ChessOk.ModelFramework.Validation.Validators
                 var value = propertyInfo.GetValue(obj, null);
                 foreach (var attribute in constraintAttributes)
                 {
-                    attribute.ValidationContext = ValidationContext;
+                    var validator = GetValidatorForAttribute(attribute);
 
-                    var validator = attribute.GetValidator();
-
-                    using (ValidationContext.PrependKeysWithName(propertyInfo.Name))
+                    if (validator != null)
                     {
-                        validator.Validate(value);
+                        using (ValidationContext.PrependKeysWithName(propertyInfo.Name))
+                        {
+                            validator.Validate(value);
+                        }
                     }
                 }
             }
+        }
 
+        private IValidator GetValidatorForAttribute(object attribute)
+        {
+            IValidator validator = null;
+            var validationAttribute = attribute as ValidateAttribute;
+            if (validationAttribute != null)
+            {
+                validationAttribute.ValidationContext = ValidationContext;
+                validator = validationAttribute.GetValidator();
+            }
+
+            var dataAnnotationsAttribute = attribute as ValidationAttribute;
+            if (dataAnnotationsAttribute != null)
+            {
+                validator = GetValidatorForDataAnnotations(dataAnnotationsAttribute);
+            }
+            return validator;
+        }
+
+        protected virtual IValidator GetValidatorForDataAnnotations(ValidationAttribute attribute)
+        {
+            var required = attribute as RequiredAttribute;
+            if (required != null)
+            {
+                return new RequiredValidator(ValidationContext)
+                    { AllowEmptyStrings = required.AllowEmptyStrings };
+            }
+
+            var range = attribute as RangeAttribute;
+            if (range != null)
+            {
+                throw new NotImplementedException();
+            }
+
+            var regularExpression = attribute as RegularExpressionAttribute;
+            if (regularExpression != null)
+            {
+                throw new NotImplementedException();
+            }
+
+            var stringLength = attribute as StringLengthAttribute;
+            if (stringLength != null)
+            {
+                throw new NotImplementedException();
+            }
+
+            return null;
         }
     }
 }

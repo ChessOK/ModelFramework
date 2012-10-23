@@ -30,7 +30,7 @@ namespace ChessOk.ModelFramework.Validation
         public static IEnsureSyntax<T> IsPresent<T>(this IEnsureSyntax<T> syntax, bool allowEmptyStrings = false)
             where T : class
         {
-            var validator = syntax.ValidationContext.Get<PresenceValidator>();
+            var validator = syntax.ValidationContext.Get<RequiredValidator>();
             validator.AllowEmptyStrings = allowEmptyStrings;
 
             return syntax.IsValid(validator);

@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ChessOk.ModelFramework</RootNamespace>
-    <AssemblyName>ChessOk.ModelFramework.Core</AssemblyName>
+    <AssemblyName>ModelFramework.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -23,7 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\ChessOk.ModelFramework.Core.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\ModelFramework.Core.xml</DocumentationFile>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -33,7 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\ChessOk.ModelFramework.Core.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\ModelFramework.Core.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
@@ -46,6 +46,7 @@
       <HintPath>..\..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
@@ -93,13 +94,13 @@
     <Compile Include="Validation\IValidationContext.cs" />
     <Compile Include="Validation\Validators\AttributesValidator.cs" />
     <Compile Include="Validation\Validators\CompositeValidator.cs" />
-    <Compile Include="Validation\Validators\PresenceValidator.cs" />
+    <Compile Include="Validation\Validators\RequiredValidator.cs" />
     <Compile Include="Validation\Validators\SqlDateTimeValidator.cs" />
     <Compile Include="Validation\Validators\MaximumLengthValidator.cs" />
     <Compile Include="Validation\Validators\ValidatableObjectValidator.cs" />
     <Compile Include="Validation\ValidateAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidateAttributesAttribute.cs" />
-    <Compile Include="Validation\Attributes\ValidatePresenceAttribute.cs" />
+    <Compile Include="Validation\Attributes\ValidateRequiredAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidateSqlDateTimeAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidateMaximumLengthAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidateValidatableAttribute.cs" />
