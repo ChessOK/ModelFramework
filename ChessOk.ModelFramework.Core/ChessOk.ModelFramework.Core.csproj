@@ -75,10 +75,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Validation\Attributes\ValidataObjectAttribute.cs" />
-    <Compile Include="Validation\Attributes\ValidateCollection.cs" />
-    <Compile Include="Validation\Attributes\ValidateNotNullAttribute.cs" />
-    <Compile Include="Validation\Attributes\ValidateNull.cs" />
+    <Compile Include="Validation\Attributes\ValidAttribute.cs" />
+    <Compile Include="Validation\Attributes\ValidItemsAttribute.cs" />
+    <Compile Include="Validation\Attributes\NotNullAttribute.cs" />
+    <Compile Include="Validation\Attributes\NullAttribute.cs" />
     <Compile Include="Validation\Validators\CollectionValidator.cs" />
     <Compile Include="Validation\Validators\DelegateValidator.cs" />
     <Compile Include="Validation\Validators\NotNullValidator.cs" />
@@ -100,9 +100,8 @@
     <Compile Include="Validation\Validators\ValidatableObjectValidator.cs" />
     <Compile Include="Validation\ValidateAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidateAttributesAttribute.cs" />
-    <Compile Include="Validation\Attributes\ValidateRequiredAttribute.cs" />
-    <Compile Include="Validation\Attributes\ValidateSqlDateTimeAttribute.cs" />
-    <Compile Include="Validation\Attributes\ValidateMaximumLengthAttribute.cs" />
+    <Compile Include="Validation\Attributes\SqlDateTimeAttribute.cs" />
+    <Compile Include="Validation\Attributes\MaxLengthAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidateValidatableAttribute.cs" />
     <Compile Include="Commands\Command{TResult}.cs" />
     <Compile Include="Commands\Messages\CommandInvokedHandler.cs" />

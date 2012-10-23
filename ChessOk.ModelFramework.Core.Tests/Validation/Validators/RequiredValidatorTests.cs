@@ -66,14 +66,6 @@ namespace ChessOk.ModelFramework.Tests
         }
 
         [TestMethod]
-        public void AttributeShouldReturnCorrectValidator()
-        {
-            var attr = new ValidateRequiredAttribute();
-            attr.ValidationContext = ValidationContext;
-            Assert.IsInstanceOfType(attr.GetValidator(), typeof(RequiredValidator));
-        }
-
-        [TestMethod]
         public void ShouldNotCheckValueTypesForDefaultValues()
         {
             ValidationContext.Ensure(default(bool)).IsValid(new RequiredValidator(ValidationContext));

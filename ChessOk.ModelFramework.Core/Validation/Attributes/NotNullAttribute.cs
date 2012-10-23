@@ -2,11 +2,11 @@
 
 namespace ChessOk.ModelFramework.Validation
 {
-    public class ValidateSqlDateTimeAttribute : ValidateAttribute
+    public class NotNullAttribute : ValidateAttribute
     {
         public override IValidator GetValidator()
         {
-            return ValidationContext.Get<SqlDateTimeValidator>();
+            return ValidationContext.Get<NotNullValidator>();
         }
     }
 }

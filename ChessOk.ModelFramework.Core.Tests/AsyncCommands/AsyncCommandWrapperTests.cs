@@ -23,7 +23,7 @@ namespace ChessOk.ModelFramework.Tests.AsyncCommands
 
         public class TestCommand : Command
         {
-            [ValidateNotNull]
+            [NotNull]
             public string Hello { get; set; }
 
             protected override void Execute()

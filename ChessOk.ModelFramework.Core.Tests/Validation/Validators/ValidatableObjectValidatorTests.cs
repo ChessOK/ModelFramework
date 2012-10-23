@@ -28,7 +28,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void AttributeShouldReturnCorrectValidator()
         {
-            var attr = new ValidateObjectAttribute();
+            var attr = new ValidAttribute();
             attr.ValidationContext = ValidationContext;
             Assert.IsInstanceOfType(attr.GetValidator(), typeof(CompositeValidator));
         }

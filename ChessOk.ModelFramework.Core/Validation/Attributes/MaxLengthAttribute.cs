@@ -2,11 +2,11 @@
 
 namespace ChessOk.ModelFramework.Validation
 {
-    public class ValidateMaximumLengthAttribute : ValidateAttribute
+    public class MaxLengthAttribute : ValidateAttribute
     {
         private readonly int _maximumLength;
 
-        public ValidateMaximumLengthAttribute(int maximumLength)
+        public MaxLengthAttribute(int maximumLength)
         {
             _maximumLength = maximumLength;
         }

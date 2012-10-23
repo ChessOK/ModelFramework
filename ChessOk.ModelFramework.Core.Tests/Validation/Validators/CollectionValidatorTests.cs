@@ -75,7 +75,7 @@ namespace ChessOk.ModelFramework.Tests
                 Hello = new[] { new SomeClass() };
             }
 
-            [ValidateCollectionItems]
+            [ValidItems]
             public SomeClass[] Hello { get; set; }
         }
 

@@ -30,7 +30,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void AttributeShouldReturnCorrectValidator()
         {
-            var attr = new ValidateSqlDateTimeAttribute();
+            var attr = new SqlDateTimeAttribute();
             attr.ValidationContext = ValidationContext;
             Assert.IsInstanceOfType(attr.GetValidator(), typeof(SqlDateTimeValidator));
         }

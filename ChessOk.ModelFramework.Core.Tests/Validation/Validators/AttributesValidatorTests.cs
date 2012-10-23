@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 using ChessOk.ModelFramework.Testing;
 using ChessOk.ModelFramework.Validation;
@@ -47,7 +48,7 @@ namespace ChessOk.ModelFramework.Tests
 
         private class AttributeClass
         {
-            [ValidateRequired]
+            [Required]
             public string Hello { get; set; }
         }
     }

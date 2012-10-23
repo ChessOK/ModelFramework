@@ -18,7 +18,7 @@ namespace ChessOk.ModelFramework.AsyncCommands
             Command = command;
         }
 
-        [ValidateObject]
+        [Valid]
         public CommandBase Command { get; private set; }
     }
 }
