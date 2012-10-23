@@ -62,9 +62,11 @@
     <Compile Include="AppBus\IApplicationBus.cs" />
     <Compile Include="AsyncCommands\AsyncCommmand.cs" />
     <Compile Include="AsyncCommands\Handlers\AsyncCommandHandlingException.cs" />
+    <Compile Include="AsyncCommands\IAsyncCommandDispatcher.cs" />
     <Compile Include="Commands\Filters\CommandFilterAttribute.cs" />
     <Compile Include="Commands\Filters\CommandFilterContext.cs" />
     <Compile Include="Commands\Filters\RetryOnDeadlockAttribute.cs" />
+    <Compile Include="Commands\ICommandDispatcher.cs" />
     <Compile Include="Commands\InlineCommand{T}.cs" />
     <Compile Include="Commons\SqlExceptionHelper.cs" />
     <Compile Include="Contexts\ContextCache.cs" />
