@@ -7,7 +7,7 @@ namespace ChessOk.ModelFramework.Commands.Filters
         public RetryOnDeadlockAttribute()
         {
             RetryAttemptsCount = 5;
-            Order = 100;
+            Order = 1000;
         }
 
         public int RetryAttemptsCount { get; set; }
