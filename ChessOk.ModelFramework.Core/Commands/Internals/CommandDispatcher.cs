@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using ChessOk.ModelFramework.Commands.Filters;
@@ -8,7 +7,7 @@ using ChessOk.ModelFramework.Messages;
 
 namespace ChessOk.ModelFramework.Commands.Internals
 {
-    public class CommandDispatcher : ApplicationBusMessageHandler<CommandBase>
+    public class CommandDispatcher : ApplicationBusMessageHandler<CommandBase>, ICommandDispatcher
     {
         private readonly IApplicationBus _bus;
 

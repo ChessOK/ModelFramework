@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using ChessOk.ModelFramework.AsyncCommands.Messages;
 using ChessOk.ModelFramework.AsyncCommands.Queues;
@@ -7,7 +6,7 @@ using ChessOk.ModelFramework.Messages;
 
 namespace ChessOk.ModelFramework.AsyncCommands.Internals
 {
-    public class AsyncCommandDispatcher : ApplicationBusMessageHandler<AsyncCommand>
+    public class AsyncCommandDispatcher : ApplicationBusMessageHandler<AsyncCommand>, IAsyncCommandDispatcher
     {
         private readonly IApplicationBus _bus;
 

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 
+using ChessOk.ModelFramework.AsyncCommands;
 using ChessOk.ModelFramework.AsyncCommands.Internals;
 using ChessOk.ModelFramework.Commands;
 using ChessOk.ModelFramework.Commands.Internals;
@@ -20,10 +21,15 @@ namespace ChessOk.ModelFramework
             builder.Register(x => new ValidationContext(x.Resolve<IContext>()))
                 .As<IValidationContext>().InstancePerApplicationBus();
 
+            builder.Register(x => x.Resolve<ICommandDispatcher>())
+                .As<IApplicationBusMessageHandler>().InstancePerApplicationBus();
+            builder.Register(x => x.Resolve<IAsyncCommandDispatcher>())
+                .As<IApplicationBusMessageHandler>().InstancePerApplicationBus();
+
             builder.Register(x => new CommandDispatcher(x.Resolve<IApplicationBus>()))
-                .As<IApplicationBusMessageHandler>().InstancePerApplicationBus();
+                .As<ICommandDispatcher>();
             builder.Register(x => new AsyncCommandDispatcher(x.Resolve<IApplicationBus>()))
-                .As<IApplicationBusMessageHandler>().InstancePerApplicationBus();
+                .As<IAsyncCommandDispatcher>();
 
             builder.Register(x => new AttributesValidator(x.Resolve<IValidationContext>())).AsSelf();
             builder.Register(x => new CollectionValidator(x.Resolve<IValidationContext>())).AsSelf();
