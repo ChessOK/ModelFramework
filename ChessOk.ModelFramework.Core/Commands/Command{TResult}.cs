@@ -1,7 +1,10 @@
-﻿using ChessOk.ModelFramework.Commands.Internals;
+﻿using System;
+
+using ChessOk.ModelFramework.Commands.Internals;
 
 namespace ChessOk.ModelFramework.Commands
 {
+    [Serializable]
     public abstract class Command<TResult> : CommandBase
     {
         public TResult Result { get; private set; }

@@ -59,6 +59,7 @@
     <Compile Include="AppBus\ApplicationBusTests.cs" />
     <Compile Include="AppBus\ApplicationEventHandlerTests.cs" />
     <Compile Include="AsyncCommands\AsyncCommandDispatcherTests.cs" />
+    <Compile Include="AsyncCommands\AsyncCommandsTests.cs" />
     <Compile Include="AsyncCommands\AsyncCommandWrapperTests.cs" />
     <Compile Include="Commands\BehaviorFilters\RetryOnDeadlockAttributeTests.cs" />
     <Compile Include="Commands\ApplicationCommandTests.cs" />

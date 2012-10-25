@@ -6,6 +6,7 @@ using ChessOk.ModelFramework.Validation;
 
 namespace ChessOk.ModelFramework.Commands.Internals
 {
+    [Serializable]
     public abstract class CommandBase : IApplicationBusMessage
     {
         public event Action Invoked;
