@@ -27,6 +27,7 @@ namespace ChessOk.ModelFramework.Tests.Commands.EventHandlers
         {
             var commandMock = new Mock<CommandBase>();
             var messageMock = new Mock<ICommandInvokingMessage<CommandBase>>();
+            messageMock.SetupGet(x => x.MessageName).Returns(CommandInvokingMessage<object>.GetMessageName());
             messageMock.SetupGet(x => x.Command).Returns(() => commandMock.Object);
 
             Bus.Send(messageMock.Object);
@@ -37,18 +38,10 @@ namespace ChessOk.ModelFramework.Tests.Commands.EventHandlers
         }
 
         [TestMethod]
-        public void ShouldBeRunnedWhenHandlingCorrespondingMessageWithDerivedTypeParameter()
-        {
-            var messageMock = new Mock<ICommandInvokingMessage<Command>>();
-            Bus.Send(messageMock.Object);
-
-            Assert.IsTrue(_handler.Handled);
-        }
-
-        [TestMethod]
         public void ShouldBePossibleToCancelInvocation()
         {
             var messageMock = new Mock<ICommandInvokingMessage<CommandBase>>();
+            messageMock.SetupGet(x => x.MessageName).Returns(CommandInvokingMessage<object>.GetMessageName());
             _handler.CancelInvocation = true;
 
             Bus.Send(messageMock.Object);

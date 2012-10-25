@@ -29,5 +29,15 @@ namespace ChessOk.ModelFramework.Commands.Internals
         }
 
         public abstract void Invoke();
+
+        public string MessageName
+        {
+            get { return GetMessageName(); }
+        }
+
+        public static string GetMessageName()
+        {
+            return typeof(CommandBase).Name;
+        }
     }
 }

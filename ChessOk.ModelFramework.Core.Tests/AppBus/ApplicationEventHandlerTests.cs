@@ -27,6 +27,8 @@ namespace ChessOk.ModelFramework.Tests.AppBus
         public void ShouldHandleCorrespondingMessageType()
         {
             var message = new Mock<ITestMessage>();
+            message.SetupGet(x => x.MessageName).Returns("Hello");
+
             Bus.Send(message.Object);
 
             Assert.IsTrue(_handler.Handled);
@@ -34,18 +36,14 @@ namespace ChessOk.ModelFramework.Tests.AppBus
         }
 
         [TestMethod]
-        public void ShouldHandleDerivedMessage()
-        {
-            var message = new Mock<IDerivedTestMessage>();
-            Bus.Send(message.Object);
-
-            Assert.IsTrue(_handler.Handled);
-        }
-
-        [TestMethod]
         public void ShouldNotHandleOtherMessages()
         {
-            Bus.Send(new Mock<IApplicationBusMessage>().Object);
+            var message = new Mock<IDerivedTestMessage>();
+            message.SetupGet(x => x.MessageName).Returns("AnotertHello");
+
+            Bus.Send(message.Object);
+
+            Assert.IsFalse(_handler.Handled);
         }
 
         public interface IDerivedTestMessage : ITestMessage { }
@@ -59,6 +57,14 @@ namespace ChessOk.ModelFramework.Tests.AppBus
             {
                 Handled = true;
                 Message = message;
+            }
+
+            public override IEnumerable<string> MessageNames
+            {
+                get
+                {
+                    yield return "Hello";
+                }
             }
         }
     }

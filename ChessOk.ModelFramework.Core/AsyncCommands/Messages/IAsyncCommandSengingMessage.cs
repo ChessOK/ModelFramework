@@ -42,5 +42,15 @@ namespace ChessOk.ModelFramework.AsyncCommands.Messages
         {
             SendingCancelled = true;
         }
+
+        public string MessageName
+        {
+            get { return GetMessageName(); }
+        }
+
+        public static string GetMessageName()
+        {
+            return typeof(IAsyncCommandSendingMessage<>).Name;
+        }
     }
 }

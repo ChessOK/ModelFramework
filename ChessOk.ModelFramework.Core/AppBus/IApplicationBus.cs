@@ -25,11 +25,6 @@ namespace ChessOk.ModelFramework
         IContext Context { get; }
 
         /// <summary>
-        /// Получить список зарегистрированных в шине обработчиков сообщений.
-        /// </summary>
-        IEnumerable<IApplicationBusMessageHandler> Handlers { get; }
-
-        /// <summary>
         /// Провалидировать сообщение, используя <see cref="ObjectValidator"/> 
         /// и вызвать все его обработчики.
         /// </summary>

@@ -43,5 +43,15 @@ namespace ChessOk.ModelFramework.Commands.Messages
         {
             InvocationCancelled = true;
         }
+
+        public string MessageName
+        {
+            get { return GetMessageName(); }
+        }
+
+        public static string GetMessageName()
+        {
+            return typeof(ICommandInvokingMessage<>).Name;
+        }
     }
 }

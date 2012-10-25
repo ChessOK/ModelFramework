@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using ChessOk.ModelFramework.AsyncCommands.Messages;
 using ChessOk.ModelFramework.AsyncCommands.Queues;
@@ -33,6 +34,11 @@ namespace ChessOk.ModelFramework.AsyncCommands.Internals
                 typeof(AsyncCommandSentMessage<>).MakeGenericType(asyncCommand.Command.GetType()), asyncCommand.Command);
 
             _bus.Send(sentEvent);
+        }
+
+        public override IEnumerable<string> MessageNames
+        {
+            get { yield return AsyncCommand.GetMessageName(); }
         }
     }
 }

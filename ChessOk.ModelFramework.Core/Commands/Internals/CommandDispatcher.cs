@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using ChessOk.ModelFramework.Commands.Filters;
@@ -14,6 +15,11 @@ namespace ChessOk.ModelFramework.Commands.Internals
         public CommandDispatcher(IApplicationBus bus)
         {
             _bus = bus;
+        }
+
+        public override IEnumerable<string> MessageNames
+        {
+            get { yield return CommandBase.GetMessageName(); }
         }
 
         protected override void Handle(CommandBase command)

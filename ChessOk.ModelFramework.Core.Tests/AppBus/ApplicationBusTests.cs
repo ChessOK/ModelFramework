@@ -67,19 +67,47 @@ namespace ChessOk.ModelFramework.Tests
             {
                 context.AddError(string.Empty, "Hello!");
             }
+
+            public string MessageName
+            {
+                get
+                {
+                    return "Validatable";
+                }
+            }
         }
 
-        public class TestMessage : IApplicationBusMessage { }
-        public class TestEvent2 : IApplicationBusMessage { }
+        public class TestMessage : IApplicationBusMessage 
+        {
+            public string MessageName
+            {
+                get
+                {
+                    return "TestMessage";
+                }
+            }
+        }
+
+        public class TestMessage2 : IApplicationBusMessage 
+        {
+            public string MessageName
+            {
+                get
+                {
+                    return "TestMessage2";
+                }
+            }
+        }
+
         public class TestHandler : IApplicationBusMessageHandler
         {
             public void Handle(IApplicationBusMessage ev)
             {
             }
 
-            public IEnumerable<Type> GetHandlingTypes()
+            public IEnumerable<string> MessageNames
             {
-                return new[] { typeof(TestEvent2) };
+                get { yield return "TestMessage2"; }
             }
         }
     }

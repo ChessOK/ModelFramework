@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using ChessOk.ModelFramework.Contexts;
 using ChessOk.ModelFramework.Validation;
@@ -13,6 +14,8 @@ namespace ChessOk.ModelFramework.Messages
         protected IValidationContext Validation { get { return Bus.ValidationContext; } }
 
         public abstract void Handle(IApplicationBusMessage ev);
+
+        public abstract IEnumerable<string> MessageNames { get; }
 
         internal void Bind(IApplicationBus bus)
         {

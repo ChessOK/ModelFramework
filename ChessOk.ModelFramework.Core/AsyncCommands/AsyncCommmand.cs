@@ -20,5 +20,15 @@ namespace ChessOk.ModelFramework.AsyncCommands
 
         [Valid]
         public CommandBase Command { get; private set; }
+
+        public string MessageName
+        {
+            get { return GetMessageName(); }
+        }
+
+        public static string GetMessageName()
+        {
+            return typeof(AsyncCommand).Name;
+        }
     }
 }

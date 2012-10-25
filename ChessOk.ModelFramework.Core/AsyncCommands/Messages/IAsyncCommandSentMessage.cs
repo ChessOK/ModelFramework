@@ -22,5 +22,15 @@ namespace ChessOk.ModelFramework.AsyncCommands.Messages
         }
 
         public T Command { get; private set; }
+
+        public string MessageName
+        {
+            get { return GetMessageName(); }
+        }
+
+        public static string GetMessageName()
+        {
+            return typeof(AsyncCommandSentMessage<>).Name;
+        }
     }
 }

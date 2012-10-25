@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 using Autofac;
 
@@ -12,8 +11,8 @@ namespace ChessOk.ModelFramework
 {
     public class ApplicationBus : IApplicationBus
     {
-        private readonly ICollection<IApplicationBusMessageHandler> _registeredEventHandlers =
-            new Collection<IApplicationBusMessageHandler>();
+        private readonly IDictionary<string, IList<IApplicationBusMessageHandler>> _subscriptions =
+            new Dictionary<string, IList<IApplicationBusMessageHandler>>();
 
         private readonly IValidationContext _validationContext;
         private readonly IContext _context;
@@ -39,7 +38,6 @@ namespace ChessOk.ModelFramework
 
         public IContext Context { get { return _context; } }
         public IValidationContext ValidationContext { get { return _validationContext; } }
-        public IEnumerable<IApplicationBusMessageHandler> Handlers { get { return _registeredEventHandlers; } }
 
         public void Send(IApplicationBusMessage message)
         {
@@ -51,9 +49,21 @@ namespace ChessOk.ModelFramework
             ValidationContext.Ensure(message).IsValid();
             ValidationContext.ThrowExceptionIfInvalid();
 
-            foreach (var handler in _registeredEventHandlers)
+            var messageName = message.MessageName;
+
+            if (String.IsNullOrEmpty(messageName))
             {
-                handler.Handle(message);
+                throw new InvalidOperationException(
+                    String.Format("Message name can not be null or empty in class {0}", message.GetType().Name));
+            }
+
+            if (_subscriptions.ContainsKey(messageName))
+            {
+                var handlers = _subscriptions[messageName];
+                foreach (var handler in handlers)
+                {
+                    handler.Handle(message);
+                }
             }
         }
 
@@ -77,11 +87,33 @@ namespace ChessOk.ModelFramework
                 throw new ArgumentNullException("handler");
             }
 
-            _registeredEventHandlers.Add(handler);
             var appEventHandler = handler as ApplicationBusMessageHandler;
             if (appEventHandler != null)
             {
                 appEventHandler.Bind(this);
+            }
+
+            var messageNames = handler.MessageNames;
+
+            if (messageNames == null)
+            {
+                throw new InvalidOperationException("Handler's MessageNames could not be null");
+            }
+
+            foreach (var messageName in handler.MessageNames)
+            {
+                IList<IApplicationBusMessageHandler> handlers;
+                if (_subscriptions.ContainsKey(messageName))
+                {
+                    handlers = _subscriptions[messageName];
+                }
+                else
+                {
+                    handlers = new List<IApplicationBusMessageHandler>();
+                    _subscriptions.Add(messageName, handlers);
+                }
+
+                handlers.Add(handler);
             }
         }
 

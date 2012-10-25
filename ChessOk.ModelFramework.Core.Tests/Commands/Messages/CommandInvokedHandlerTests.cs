@@ -29,21 +29,13 @@ namespace ChessOk.ModelFramework.Tests.Commands.EventHandlers
         {
             var commandMock = new Mock<CommandBase>();
             var messageMock = new Mock<ICommandInvokedMessage<CommandBase>>();
+            messageMock.SetupGet(x => x.MessageName).Returns(CommandInvokedMessage<object>.GetMessageName());
             messageMock.SetupGet(x => x.Command).Returns(() => commandMock.Object);
 
             Bus.Send(messageMock.Object);
 
             Assert.IsTrue(_handler.Handled);
             Assert.AreSame(commandMock.Object, _handler.Command);
-        }
-
-        [TestMethod]
-        public void ShouldBeRunnedWhenHandlingCorrespondingMessageWithDerivedCommandType()
-        {
-            var messageMock = new Mock<ICommandInvokedMessage<Command>>();
-            Bus.Send(messageMock.Object);
-
-            Assert.IsTrue(_handler.Handled);
         }
 
         private class TestHandler : CommandInvokedHandler<CommandBase>
