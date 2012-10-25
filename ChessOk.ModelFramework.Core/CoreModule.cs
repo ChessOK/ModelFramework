@@ -22,9 +22,9 @@ namespace ChessOk.ModelFramework
                 .As<IValidationContext>().InstancePerApplicationBus();
 
             builder.Register(x => x.Resolve<ICommandDispatcher>())
-                .As<IApplicationBusMessageHandler>().InstancePerApplicationBus();
+                .As<IApplicationBusMessageHandler>();
             builder.Register(x => x.Resolve<IAsyncCommandDispatcher>())
-                .As<IApplicationBusMessageHandler>().InstancePerApplicationBus();
+                .As<IApplicationBusMessageHandler>();
 
             builder.Register(x => new CommandDispatcher(x.Resolve<IApplicationBus>()))
                 .As<ICommandDispatcher>();

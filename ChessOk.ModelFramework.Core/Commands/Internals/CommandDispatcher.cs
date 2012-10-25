@@ -57,6 +57,8 @@ namespace ChessOk.ModelFramework.Commands.Internals
                 commandAction();
             }
 
+            command.RaiseInvoked();
+
             // Создание и инициирование события об успешном вызове команды с точным типом самой команды
             var invokedEvent = (ICommandInvokedMessage<object>)Activator.CreateInstance(
                 typeof(CommandInvokedMessage<>).MakeGenericType(command.GetType()), command);

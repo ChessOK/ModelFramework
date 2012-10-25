@@ -8,10 +8,32 @@ namespace ChessOk.ModelFramework.Commands.Internals
 {
     public abstract class CommandBase : IApplicationBusMessage
     {
+        public event Action Invoked;
+
+        public abstract void Invoke();
+
+        public string MessageName
+        {
+            get { return GetMessageName(); }
+        }
+
+        public static string GetMessageName()
+        {
+            return typeof(CommandBase).Name;
+        }
+
         protected IApplicationBus Bus { get; private set; }
 
         protected IContext Context { get { return Bus.Context; } }
         protected IValidationContext Validation { get { return Bus.ValidationContext; } }
+
+        internal void RaiseInvoked()
+        {
+            if (Invoked != null)
+            {
+                Invoked();
+            }
+        }
 
         internal void Bind(IApplicationBus bus)
         {
@@ -26,18 +48,6 @@ namespace ChessOk.ModelFramework.Commands.Internals
             }
 
             Bus = bus;
-        }
-
-        public abstract void Invoke();
-
-        public string MessageName
-        {
-            get { return GetMessageName(); }
-        }
-
-        public static string GetMessageName()
-        {
-            return typeof(CommandBase).Name;
         }
     }
 }

@@ -128,6 +128,18 @@ namespace ChessOk.ModelFramework.Tests.Commands
             _bus.Verify(x => x.Send(It.IsAny<ICommandInvokedMessage<TestCommand>>()), Times.Never());
         }
 
+        [TestMethod]
+        public void ShouldRaiseInvokedEventOnCommand()
+        {
+            var command = new TestCommand();
+            var invokedRaised = false;
+            command.Invoked += () => invokedRaised = true;
+
+            _dispatcher.Handle(command);
+
+            Assert.IsTrue(invokedRaised);
+        }
+
         public class TestCommand : Command
         {
             public bool Executed { get; private set; }
