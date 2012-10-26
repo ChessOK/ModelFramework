@@ -106,6 +106,15 @@ namespace ChessOk.ModelFramework.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The field can not have default value.
+        /// </summary>
+        internal static string NonDefaultValidatorMessage {
+            get {
+                return ResourceManager.GetString("NonDefaultValidatorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The field is required.
         /// </summary>
         internal static string NotNullValidatorMessage {

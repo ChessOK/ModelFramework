@@ -1,5 +1,6 @@
 ﻿using ChessOk.ModelFramework.Commands;
 using ChessOk.ModelFramework.Contexts;
+using ChessOk.ModelFramework.Messages;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,6 +20,16 @@ namespace ChessOk.ModelFramework.Tests.AppBus
             _contextMock = new Mock<IContext>();
             _busMock = new Mock<IApplicationBus>();
             _busMock.SetupGet(x => x.Context).Returns(_contextMock.Object);
+        }
+
+        [TestMethod]
+        public void ShouldCreateMessagesThroughContainer()
+        {
+            var initialized = false;
+            _busMock.Object.Create<IApplicationBusMessage>(x => initialized = true);
+
+            Assert.IsTrue(initialized);
+            _contextMock.Verify(x => x.Get<IApplicationBusMessage>());
         }
 
         [TestMethod]

@@ -69,10 +69,11 @@ namespace ChessOk.ModelFramework.Validation
             return syntax.IsValid(validator);
         }
 
-        public static IEnsureSyntax<T?> IsPresent<T>(this IEnsureSyntax<T?> syntax)
+        public static IEnsureSyntax<T?> IsPresent<T>(this IEnsureSyntax<T?> syntax, string message = null)
             where T : struct
         {
             var validator = syntax.ValidationContext.Get<RequiredValidator>();
+            validator.Message = message;
 
             return syntax.IsValid(validator);
         }
@@ -141,5 +142,69 @@ namespace ChessOk.ModelFramework.Validation
         }
 
         #endregion
+
+        public static IEnsureSyntax<T> IsNotValid<T>(this IEnsureSyntax<T> syntax, string message)
+        {
+            return syntax.IsTrue(x => false, message);
+        }
+
+        public static IEnsureSyntax<T> IsNotValidIf<T>(this IEnsureSyntax<T> syntax, bool condition, string message)
+        {
+            return syntax.IsTrue(x => condition == false, message);
+        }
+
+        public static IEnsureSyntax<T> IsNotValidIfNull<T>(this IEnsureSyntax<T> syntax, object obj, string message)
+        {
+            return syntax.IsNotValidIf(obj == null, message);
+        }
+
+        public static IEnsureSyntax<T> IsValidIf<T>(this IEnsureSyntax<T> syntax, bool condition, string message)
+        {
+            return syntax.IsTrue(x => condition, message);
+        }
+
+        public static IEnsureSyntax<T> IsGreaterThan<T>(
+            this IEnsureSyntax<T> syntax, IComparable<T> other, string message)
+        {
+            if (other == null)
+            {
+                return syntax;
+            }
+
+            return syntax.IsTrue(x => other.CompareTo(x) < 0, message);
+        }
+
+        public static IEnsureSyntax<T> IsGreaterThanOrEqual<T>(
+            this IEnsureSyntax<T> syntax, IComparable<T> other, string message)
+        {
+            if (other == null)
+            {
+                return syntax;
+            }
+
+            return syntax.IsTrue(x => other.CompareTo(x) <= 0, message);
+        }
+
+        public static IEnsureSyntax<T> IsLessThan<T>(
+            this IEnsureSyntax<T> syntax, IComparable<T> other, string message)
+        {
+            if (other == null)
+            {
+                return syntax;
+            }
+
+            return syntax.IsTrue(x => other.CompareTo(x) > 0, message);
+        }
+
+        public static IEnsureSyntax<T> IsLessThanOrEqual<T>(
+            this IEnsureSyntax<T> syntax, IComparable<T> other, string message)
+        {
+            if (other == null)
+            {
+                return syntax;
+            }
+
+            return syntax.IsTrue(x => other.CompareTo(x) >= 0, message);
+        }
     }
 }

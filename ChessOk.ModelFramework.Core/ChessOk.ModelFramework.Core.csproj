@@ -78,6 +78,7 @@
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="Validation\Attributes\MinLengthAttribute.cs" />
+    <Compile Include="Validation\Attributes\NotEqualsAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidItemsAttribute.cs" />
     <Compile Include="Validation\Attributes\NullAttribute.cs" />

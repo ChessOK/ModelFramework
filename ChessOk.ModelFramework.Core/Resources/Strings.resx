@@ -156,4 +156,7 @@
   <data name="CollectionValidatorInvalidObject" xml:space="preserve">
     <value>{0} can validate IEnumerable&lt;T&gt; only. Given type: {1}.</value>
   </data>
+  <data name="NonDefaultValidatorMessage" xml:space="preserve">
+    <value>The field can not have default value</value>
+  </data>
 </root>

@@ -73,6 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\QueriesTests.cs" />
     <Compile Include="Validation\AssertionEngineTests.cs" />
+    <Compile Include="Validation\ExtensionsTests.cs" />
     <Compile Include="Validation\ValidationContextTests.cs" />
     <Compile Include="Validation\Validators\AttributesValidatorTests.cs" />
     <Compile Include="Validation\Validators\CollectionValidatorTests.cs" />

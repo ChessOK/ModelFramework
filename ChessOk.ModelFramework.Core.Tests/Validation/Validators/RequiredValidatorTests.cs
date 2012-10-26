@@ -79,5 +79,13 @@ namespace ChessOk.ModelFramework.Tests
 
             Assert.IsTrue(ValidationContext.IsValid);
         }
+
+        [TestMethod]
+        public void ShouldWorkWithNullableTypes()
+        {
+            ValidationContext.Ensure((int?)null).IsPresent("foo");
+            Assert.IsFalse(ValidationContext.IsValid);
+            Assert.AreEqual("foo", ValidationContext.GetErrors("").First());
+        }
     }
 }

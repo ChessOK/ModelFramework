@@ -6,6 +6,18 @@ namespace ChessOk.ModelFramework
 {
     public static class ApplicationBusExtensions
     {
+        public static T Create<T>(this IApplicationBus bus, Action<T> initialization)
+            where T : IApplicationBusMessage
+        {
+            var message = bus.Context.Get<T>();
+            if (initialization != null)
+            {
+                initialization(message);
+            }
+
+            return message;
+        }
+
         #region TrySend-related
 
         public static T TrySend<T>(this IApplicationBus bus)
@@ -17,11 +29,7 @@ namespace ChessOk.ModelFramework
         public static T TrySend<T>(this IApplicationBus bus, Action<T> initialization)
             where T : IApplicationBusMessage
         {
-            var message = bus.Context.Get<T>();
-            if (initialization != null)
-            {
-                initialization(message);
-            }
+            var message = bus.Create<T>(initialization);
 
             bus.TrySend(message);
 
@@ -58,11 +66,7 @@ namespace ChessOk.ModelFramework
         public static T Send<T>(this IApplicationBus bus, Action<T> initialization)
             where T : IApplicationBusMessage
         {
-            var message = bus.Context.Get<T>();
-            if (initialization != null)
-            {
-                initialization(message);
-            }
+            var message = bus.Create(initialization);
 
             bus.Send(message);
 
