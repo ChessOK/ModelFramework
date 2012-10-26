@@ -1,5 +1,7 @@
 using System;
 
+using Autofac;
+
 using ChessOk.ModelFramework.Commands.Internals;
 using ChessOk.ModelFramework.Logging;
 
@@ -8,8 +10,15 @@ namespace ChessOk.ModelFramework.AsyncCommands.Handlers
     /// <summary>
     /// Обрабатывает сообщения, создавая для каждого отдельный ModelContext
     /// </summary>
-    public abstract class SeparatedContextsHandler : IAsyncCommandHandler
+    public class SeparatedContextsHandler : IAsyncCommandHandler
     {
+        private readonly ILifetimeScope _scope;
+
+        public SeparatedContextsHandler(ILifetimeScope scope)
+        {
+            _scope = scope;
+        }
+
         protected ILog Log = LogManager.Get();
 
         public void Handle(CommandBase asyncCommand)
@@ -36,6 +45,9 @@ namespace ChessOk.ModelFramework.AsyncCommands.Handlers
             }
         }
 
-        protected abstract ModelContext CreateContext();
+        protected virtual ModelContext CreateContext()
+        {
+            return new ModelContext(_scope);
+        }
     }
 }

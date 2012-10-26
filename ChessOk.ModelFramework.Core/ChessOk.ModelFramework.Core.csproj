@@ -60,9 +60,11 @@
     <Compile Include="AppBus\ApplicationBusMessageHandler.cs" />
     <Compile Include="AppBus\ApplicationBusMessageHandler{T}.cs" />
     <Compile Include="AppBus\IApplicationBus.cs" />
+    <Compile Include="AsyncCommands\AsyncCommandsModule.cs" />
     <Compile Include="AsyncCommands\AsyncCommmand.cs" />
     <Compile Include="AsyncCommands\Handlers\AsyncCommandHandlingException.cs" />
     <Compile Include="AsyncCommands\IAsyncCommandDispatcher.cs" />
+    <Compile Include="Commands\CommandsModule.cs" />
     <Compile Include="Commands\Filters\CommandFilterAttribute.cs" />
     <Compile Include="Commands\Filters\CommandFilterContext.cs" />
     <Compile Include="Commands\Filters\RetryOnDeadlockAttribute.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="Validation\Attributes\ValidAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidItemsAttribute.cs" />
     <Compile Include="Validation\Attributes\NullAttribute.cs" />
+    <Compile Include="Validation\ValidationModule.cs" />
     <Compile Include="Validation\Validators\CollectionValidator.cs" />
     <Compile Include="Validation\Validators\DelegateValidator.cs" />
     <Compile Include="Validation\Validators\MinLengthValidator.cs" />
