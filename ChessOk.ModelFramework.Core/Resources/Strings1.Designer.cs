@@ -61,16 +61,52 @@ namespace ChessOk.ModelFramework.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Длина строки должна быть меньше, либо равна {0} симв..
+        ///   Looks up a localized string similar to {0} can validate IEnumerable&lt;T&gt; only. Given type: {1}..
         /// </summary>
-        internal static string MaximumLengthValidatorMessage {
+        internal static string CollectionValidatorInvalidObject {
             get {
-                return ResourceManager.GetString("MaximumLengthValidatorMessage", resourceCulture);
+                return ResourceManager.GetString("CollectionValidatorInvalidObject", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Нужно непустое значение.
+        ///   Looks up a localized string similar to {0} can validate strings and arrays only. Given type: {1}..
+        /// </summary>
+        internal static string LengthValidatorInvalidObject {
+            get {
+                return ResourceManager.GetString("LengthValidatorInvalidObject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} can not have negative Length property. Given: {1}..
+        /// </summary>
+        internal static string LengthValidatorNegativeLength {
+            get {
+                return ResourceManager.GetString("LengthValidatorNegativeLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The field must be a string or array type with a maximum length of &apos;{0}&apos;..
+        /// </summary>
+        internal static string MaxLengthValidatorMessage {
+            get {
+                return ResourceManager.GetString("MaxLengthValidatorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The field must be a string or array type with a minimum length of &apos;{0}&apos;..
+        /// </summary>
+        internal static string MinLengthValidatorMessage {
+            get {
+                return ResourceManager.GetString("MinLengthValidatorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The field is required.
         /// </summary>
         internal static string NotNullValidatorMessage {
             get {
@@ -79,7 +115,7 @@ namespace ChessOk.ModelFramework.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Нужно пустое значение.
+        ///   Looks up a localized string similar to The field must be empty.
         /// </summary>
         internal static string NullValidatorMessage {
             get {
@@ -88,7 +124,7 @@ namespace ChessOk.ModelFramework.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Поле обязательно для заполнения.
+        ///   Looks up a localized string similar to The field is required.
         /// </summary>
         internal static string ObsoleteValidationContextRequiredField {
             get {
@@ -97,7 +133,7 @@ namespace ChessOk.ModelFramework.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ошибка валидации.
+        ///   Looks up a localized string similar to Validation error.
         /// </summary>
         internal static string ObsoleteValidationContextValidationError {
             get {
@@ -106,11 +142,29 @@ namespace ChessOk.ModelFramework.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Значение должно быть указано.
+        ///   Looks up a localized string similar to The field is required.
         /// </summary>
         internal static string PresenceValidatorMessage {
             get {
                 return ResourceManager.GetString("PresenceValidatorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The field must match the regular expression &apos;{0}&apos;..
+        /// </summary>
+        internal static string RegularExpressionMessage {
+            get {
+                return ResourceManager.GetString("RegularExpressionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} can validate DateTime only. Given type: {1}..
+        /// </summary>
+        internal static string SqlDateTimeValidatorInvalidObject {
+            get {
+                return ResourceManager.GetString("SqlDateTimeValidatorInvalidObject", resourceCulture);
             }
         }
         

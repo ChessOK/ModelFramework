@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -6,6 +7,32 @@ namespace ChessOk.ModelFramework.Validation.Validators
 {
     public class AttributesValidator : Validator
     {
+        public static ConcurrentDictionary<Type, Func<IValidationContext, object, IValidator>> DataAnnotationsConverters =
+            new ConcurrentDictionary<Type, Func<IValidationContext, object, IValidator>>();
+
+        static AttributesValidator()
+        {
+            DataAnnotationsConverters.TryAdd(typeof(RequiredAttribute), (context, attribute) =>
+                {
+                    var required = (RequiredAttribute)attribute;
+                    return new RequiredValidator(context)
+                        {
+                            AllowEmptyStrings = required.AllowEmptyStrings,
+                            Message = required.ErrorMessage
+                        };
+                });
+
+            DataAnnotationsConverters.TryAdd(typeof(RegularExpressionAttribute), (context, attribute) =>
+                {
+                    var regular = (RegularExpressionAttribute)attribute;
+                    return new RegularExpressionValidator(context)
+                        {
+                            Message = regular.ErrorMessage,
+                            Pattern = regular.Pattern
+                        };
+                });
+        }
+
         public AttributesValidator(IValidationContext validationContext)
             : base(validationContext)
         {
@@ -66,42 +93,26 @@ namespace ChessOk.ModelFramework.Validation.Validators
                 validator = validationAttribute.GetValidator();
             }
 
-            var dataAnnotationsAttribute = attribute as ValidationAttribute;
-            if (dataAnnotationsAttribute != null)
+            var annotationsAttribute = attribute as ValidationAttribute;
+            if (annotationsAttribute != null)
             {
-                validator = GetValidatorForDataAnnotations(dataAnnotationsAttribute);
+                var annotationType = annotationsAttribute.GetType();
+
+                if (DataAnnotationsConverters.ContainsKey(annotationType))
+                {
+                    validator = DataAnnotationsConverters[annotationType](
+                        ValidationContext, annotationsAttribute);
+                }
+                else
+                {
+                    validator = new DelegateValidator(ValidationContext)
+                    {
+                        Delegate = annotationsAttribute.IsValid,
+                        Message = annotationsAttribute.FormatErrorMessage("value")
+                    };
+                }
             }
             return validator;
-        }
-
-        protected virtual IValidator GetValidatorForDataAnnotations(ValidationAttribute attribute)
-        {
-            var required = attribute as RequiredAttribute;
-            if (required != null)
-            {
-                return new RequiredValidator(ValidationContext)
-                    { AllowEmptyStrings = required.AllowEmptyStrings };
-            }
-
-            var range = attribute as RangeAttribute;
-            if (range != null)
-            {
-                throw new NotImplementedException();
-            }
-
-            var regularExpression = attribute as RegularExpressionAttribute;
-            if (regularExpression != null)
-            {
-                throw new NotImplementedException();
-            }
-
-            var stringLength = attribute as StringLengthAttribute;
-            if (stringLength != null)
-            {
-                throw new NotImplementedException();
-            }
-
-            return null;
         }
     }
 }

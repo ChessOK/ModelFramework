@@ -4,9 +4,14 @@ namespace ChessOk.ModelFramework.Validation
 {
     public class SqlDateTimeAttribute : ValidateAttribute
     {
+        public string ErrorMessage { get; set; }
+
         public override IValidator GetValidator()
         {
-            return ValidationContext.Get<SqlDateTimeValidator>();
+            var validator = ValidationContext.Get<SqlDateTimeValidator>();
+            validator.Message = ErrorMessage;
+
+            return validator;
         }
     }
 }

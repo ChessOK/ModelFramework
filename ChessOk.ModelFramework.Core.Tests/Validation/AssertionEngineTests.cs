@@ -31,7 +31,7 @@ namespace ChessOk.ModelFramework.Tests
             var obj = new SomeClass();
 
             ValidationContext.Ensure(obj)
-                .Property(x => x.Name, x => x.IsValid(validator.Object));
+                .ItsProperty(x => x.Name, x => x.IsValid(validator.Object));
 
             validator.Verify(x => x.Validate(obj.Name));
         }
@@ -43,7 +43,7 @@ namespace ChessOk.ModelFramework.Tests
             var obj = new SomeClass();
 
             ValidationContext.Ensure(obj)
-                .Property<string>("Name", x => x.IsValid(validator.Object));
+                .ItsProperty<string>("Name", x => x.IsValid(validator.Object));
 
             validator.Verify(x => x.Validate(obj.Name));
         }
@@ -52,22 +52,22 @@ namespace ChessOk.ModelFramework.Tests
         [ExpectedException(typeof(InvalidOperationException))]
         public void ShouldThrowExceptionIfPropertyNotFound()
         {
-            ValidationContext.Ensure(new SomeClass()).Property<string>("Hello", x => { });
+            ValidationContext.Ensure(new SomeClass()).ItsProperty<string>("Hello", x => { });
         }
 
         [TestMethod]
         public void PropertyAssertionShouldSilentlyExitIfObjectIsNull()
         {
             ValidationContext.Ensure((string)null)
-                .Property(x => x.Length, x => { })
-                .Property<int>("Length", x => { });
+                .ItsProperty(x => x.Length, x => { })
+                .ItsProperty<int>("Length", x => { });
         }
 
         [TestMethod]
         public void PropertyShouldPrependErrorKeysWithPropertyNames()
         {
             ValidationContext.Ensure(new SomeClass())
-                .Property(x => x.Name, x => x.IsPresent());
+                .ItsProperty(x => x.Name, x => x.IsPresent());
 
             Assert.AreEqual("Name", ValidationContext.Keys.Single());
         }

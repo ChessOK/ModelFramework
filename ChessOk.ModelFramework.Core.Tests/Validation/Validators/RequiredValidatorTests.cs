@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 
 using ChessOk.ModelFramework.Testing;
 using ChessOk.ModelFramework.Validation;
@@ -23,10 +23,17 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldFailWithNullReferenceTypeInstances()
         {
-            ValidationContext.Ensure((object)null)
-                .IsPresent();
+            ValidationContext.Ensure((object)null).IsPresent();
 
             Assert.IsFalse(ValidationContext.IsValid);
+            Assert.AreEqual(Resources.Strings.PresenceValidatorMessage, ValidationContext[""].First());
+        }
+
+        [TestMethod]
+        public void ShouldFailWithUserStringIfSpecified()
+        {
+            ValidationContext.Ensure((object)null).IsPresent("foo");
+            Assert.AreEqual("foo", ValidationContext[""].First());
         }
 
         [TestMethod]
@@ -69,9 +76,6 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldNotCheckValueTypesForDefaultValues()
         {
             ValidationContext.Ensure(default(bool)).IsValid(new RequiredValidator(ValidationContext));
-            ValidationContext.Ensure(default(int)).IsValid(new RequiredValidator(ValidationContext));
-            ValidationContext.Ensure(default(float)).IsValid(new RequiredValidator(ValidationContext));
-            ValidationContext.Ensure(default(DateTime)).IsValid(new RequiredValidator(ValidationContext));
 
             Assert.IsTrue(ValidationContext.IsValid);
         }

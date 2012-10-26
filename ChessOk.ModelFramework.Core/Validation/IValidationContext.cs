@@ -13,6 +13,7 @@ namespace ChessOk.ModelFramework.Validation
         ICollection<string> Keys { get; }
 
         void AddError(string key, string message);
+        ICollection<string> GetErrors(string key); 
         void RemoveErrors(string key);
         void Clear();
 

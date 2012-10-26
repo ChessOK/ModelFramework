@@ -1,6 +1,6 @@
 ﻿using ChessOk.ModelFramework.Validation.Validators;
 
-namespace ChessOk.ModelFramework.Validation
+namespace ChessOk.ModelFramework.Validation.Compatibility
 {
     public class MaxLengthAttribute : ValidateAttribute
     {
@@ -11,10 +11,14 @@ namespace ChessOk.ModelFramework.Validation
             _maximumLength = maximumLength;
         }
 
+        public string ErrorMessage { get; set; }
+
         public override IValidator GetValidator()
         {
-            var validator = ValidationContext.Get<MaximumLengthValidator>();
-            validator.MaximumLength = _maximumLength;
+            var validator = ValidationContext.Get<MaxLengthValidator>();
+            validator.Length = _maximumLength;
+            validator.Message = ErrorMessage;
+
             return validator;
         }
     }

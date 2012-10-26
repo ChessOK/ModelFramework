@@ -38,7 +38,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
             return this;
         }
 
-        public IEnsureSyntax<TObject> Property<TProperty>(
+        public IEnsureSyntax<TObject> ItsProperty<TProperty>(
             Expression<Func<TObject, TProperty>> propertyExpression, 
             Action<IEnsureSyntax<TProperty>> validation)
         {
@@ -58,7 +58,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
             return this;
         }
 
-        public IEnsureSyntax<TObject> Property<TProperty>(string propertyName, Action<IEnsureSyntax<TProperty>> validation)
+        public IEnsureSyntax<TObject> ItsProperty<TProperty>(string propertyName, Action<IEnsureSyntax<TProperty>> validation)
         {
             if (_obj != null)
             {

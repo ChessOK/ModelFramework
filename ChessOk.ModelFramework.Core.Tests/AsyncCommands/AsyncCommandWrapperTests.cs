@@ -1,4 +1,6 @@
-﻿using ChessOk.ModelFramework.AsyncCommands;
+﻿using System.ComponentModel.DataAnnotations;
+
+using ChessOk.ModelFramework.AsyncCommands;
 using ChessOk.ModelFramework.Commands;
 using ChessOk.ModelFramework.Testing;
 using ChessOk.ModelFramework.Validation;
@@ -23,7 +25,7 @@ namespace ChessOk.ModelFramework.Tests.AsyncCommands
 
         public class TestCommand : Command
         {
-            [NotNull]
+            [Required]
             public string Hello { get; set; }
 
             protected override void Execute()

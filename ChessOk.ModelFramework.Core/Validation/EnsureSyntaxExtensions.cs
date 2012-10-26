@@ -15,25 +15,64 @@ namespace ChessOk.ModelFramework.Validation
             return syntax.IsValid(validator);
         }
 
-        public static IEnsureSyntax<string> HasMaximumLength(this IEnsureSyntax<string> syntax, int maximumLength)
+        public static IEnsureSyntax<string> HasMaxLength(this IEnsureSyntax<string> syntax, int maximumLength, string message = null)
         {
-            var validator = syntax.ValidationContext.Get<MaximumLengthValidator>();
-            validator.MaximumLength = maximumLength;
+            var validator = syntax.ValidationContext.Get<MaxLengthValidator>();
+            validator.Length = maximumLength;
+            validator.Message = message;
 
             return syntax.IsValid(validator);
         }
 
-        public static IEnsureSyntax<DateTime> IsSqlDateTime(this IEnsureSyntax<DateTime> syntax)
+        public static IEnsureSyntax<T[]> HasMaxLength<T>(this IEnsureSyntax<T[]> syntax, int maximumLength, string message = null)
+        {
+            var validator = syntax.ValidationContext.Get<MaxLengthValidator>();
+            validator.Length = maximumLength;
+            validator.Message = message;
+
+            return syntax.IsValid(validator);
+        }
+
+        public static IEnsureSyntax<string> HasMinLength(this IEnsureSyntax<string> syntax, int minimumLength, string message = null)
+        {
+            var validator = syntax.ValidationContext.Get<MinLengthValidator>();
+            validator.Length = minimumLength;
+            validator.Message = message;
+
+            return syntax.IsValid(validator);
+        }
+
+        public static IEnsureSyntax<T[]> HasMinLength<T>(this IEnsureSyntax<T[]> syntax, int minimumLength, string message = null)
+        {
+            var validator = syntax.ValidationContext.Get<MinLengthValidator>();
+            validator.Length = minimumLength;
+            validator.Message = message;
+
+            return syntax.IsValid(validator);
+        }
+
+        public static IEnsureSyntax<DateTime> IsSqlDateTime(this IEnsureSyntax<DateTime> syntax, string message = null)
         {
             var validator = syntax.ValidationContext.Get<SqlDateTimeValidator>();
+            validator.Message = message;
+
             return syntax.IsValid(validator);
         }
 
-        public static IEnsureSyntax<T> IsPresent<T>(this IEnsureSyntax<T> syntax, bool allowEmptyStrings = false)
+        public static IEnsureSyntax<T> IsPresent<T>(this IEnsureSyntax<T> syntax, string message = null, bool allowEmptyStrings = false)
             where T : class
         {
             var validator = syntax.ValidationContext.Get<RequiredValidator>();
             validator.AllowEmptyStrings = allowEmptyStrings;
+            validator.Message = message;
+
+            return syntax.IsValid(validator);
+        }
+
+        public static IEnsureSyntax<T?> IsPresent<T>(this IEnsureSyntax<T?> syntax)
+            where T : struct
+        {
+            var validator = syntax.ValidationContext.Get<RequiredValidator>();
 
             return syntax.IsValid(validator);
         }
@@ -45,16 +84,19 @@ namespace ChessOk.ModelFramework.Validation
             return syntax.IsValid(validator);
         }
 
-        public static IEnsureSyntax<T> IsNotNull<T>(this IEnsureSyntax<T> syntax)
+        public static IEnsureSyntax<T> IsTrue<T>(this IEnsureSyntax<T> syntax, Func<T, bool> @delegate,  string message)
         {
-            var validator = syntax.ValidationContext.Get<NotNullValidator>();
+            var validator = syntax.ValidationContext.Get<DelegateValidator>();
+            validator.Delegate = obj => @delegate((T)obj);
+            validator.Message = message;
+
             return syntax.IsValid(validator);
         }
 
-        public static IEnsureSyntax<T> IsTrue<T>(this IEnsureSyntax<T> syntax, Func<object, bool> @delegate,  string message)
+        public static IEnsureSyntax<string> Matches(this IEnsureSyntax<string> syntax, string pattern, string message = null)
         {
-            var validator = syntax.ValidationContext.Get<DelegateValidator>();
-            validator.Delegate = @delegate;
+            var validator = syntax.ValidationContext.Get<RegularExpressionValidator>();
+            validator.Pattern = pattern;
             validator.Message = message;
 
             return syntax.IsValid(validator);

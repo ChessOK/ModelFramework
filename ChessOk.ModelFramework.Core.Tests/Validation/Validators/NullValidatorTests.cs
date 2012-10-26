@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ChessOk.ModelFramework.Tests
 {
     [TestClass]
-    public class NullAndNotNullValidatorTests : ValidationTest
+    public class NullValidatorTests : ValidationTest
     {
         [TestMethod]
         public void NullShouldSucceedOnNullValue()
@@ -20,20 +20,6 @@ namespace ChessOk.ModelFramework.Tests
         {
             ValidationContext.Ensure(new object()).IsNull();
             Assert.IsFalse(ValidationContext.IsValid);
-        }
-
-        [TestMethod]
-        public void NotNullShouldFailOnNullValue()
-        {
-            ValidationContext.Ensure((string)null).IsNotNull();
-            Assert.IsFalse(ValidationContext.IsValid);
-        }
-
-        [TestMethod]
-        public void NotNullShouldSucceedOnNonNullValue()
-        {
-            ValidationContext.Ensure(new object()).IsNotNull();
-            Assert.IsTrue(ValidationContext.IsValid);
         }
     }
 }

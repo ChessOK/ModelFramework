@@ -78,10 +78,12 @@
     <Compile Include="Validation\Validators\CollectionValidatorTests.cs" />
     <Compile Include="Validation\Validators\CompositeValidatorTests.cs" />
     <Compile Include="Validation\Validators\DelegateValidatorTests.cs" />
-    <Compile Include="Validation\Validators\NullAndNotNullValidatorTests.cs" />
+    <Compile Include="Validation\Validators\MinLengthValidatorTests.cs" />
+    <Compile Include="Validation\Validators\NullValidatorTests.cs" />
+    <Compile Include="Validation\Validators\RegularExpressionValidatorTests.cs" />
     <Compile Include="Validation\Validators\RequiredValidatorTests.cs" />
     <Compile Include="Validation\Validators\SqlDateTimeValidatorTests.cs" />
-    <Compile Include="Validation\Validators\StringLengthValidatorTests.cs" />
+    <Compile Include="Validation\Validators\MaxLengthValidatorTests.cs" />
     <Compile Include="Validation\Validators\ValidatableObjectValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>

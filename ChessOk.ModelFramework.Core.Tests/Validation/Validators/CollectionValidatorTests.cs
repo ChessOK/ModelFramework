@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using ChessOk.ModelFramework.Testing;
 using ChessOk.ModelFramework.Validation;
+using ChessOk.ModelFramework.Validation.Validators;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -36,6 +38,14 @@ namespace ChessOk.ModelFramework.Tests
         {
             ValidationContext.Ensure(new List<object>()).HasValidItems();
             Assert.IsTrue(ValidationContext.IsValid);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ShouldThrowExceptionIfObjectIsNotACollection()
+        {
+            var validator = new CollectionValidator(ValidationContext);
+            validator.Validate(45);
         }
 
         [TestMethod]

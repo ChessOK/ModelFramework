@@ -42,7 +42,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldWorkWithPropertiesEither()
         {
             ValidationContext.Ensure("Hello")
-                .Property(x => x.Length, x => x.IsTrue(y => y.Equals(3), "Hello ;)"));
+                .ItsProperty(x => x.Length, x => x.IsTrue(y => y.Equals(3), "Hello ;)"));
 
             Assert.IsFalse(ValidationContext.IsValid);
         }

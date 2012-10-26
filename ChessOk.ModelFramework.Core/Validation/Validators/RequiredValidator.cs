@@ -1,4 +1,6 @@
-﻿namespace ChessOk.ModelFramework.Validation.Validators
+﻿using System;
+
+namespace ChessOk.ModelFramework.Validation.Validators
 {
     public class RequiredValidator : Validator
     {
@@ -9,9 +11,11 @@
 
         public bool AllowEmptyStrings { get; set; }
 
+        public string Message { get; set; }
+
         public override void Validate(object obj)
         {
-            var message = Resources.Strings.PresenceValidatorMessage;
+            var message = Message ?? Resources.Strings.PresenceValidatorMessage;
 
             if (obj == null)
             {

@@ -17,8 +17,8 @@ namespace ChessOk.ModelFramework.Tests
                     Validators =
                         new[]
                             {
-                                new MaximumLengthValidator(ValidationContext) { MaximumLength = 3 },
-                                new MaximumLengthValidator(ValidationContext) { MaximumLength = 1 }
+                                new MaxLengthValidator(ValidationContext) { Length = 3 },
+                                new MaxLengthValidator(ValidationContext) { Length = 1 }
                             }
                 };
             ValidationContext.Ensure("asdasd").IsValid(validator);

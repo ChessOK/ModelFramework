@@ -35,13 +35,14 @@ namespace ChessOk.ModelFramework
             builder.Register(x => new CollectionValidator(x.Resolve<IValidationContext>())).AsSelf();
             builder.Register(x => new CompositeValidator(x.Resolve<IValidationContext>())).AsSelf();
             builder.Register(x => new DelegateValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new NotNullValidator(x.Resolve<IValidationContext>())).AsSelf();
             builder.Register(x => new NullValidator(x.Resolve<IValidationContext>())).AsSelf();
             builder.Register(x => new ObjectValidator(x.Resolve<IValidationContext>())).AsSelf();
             builder.Register(x => new RequiredValidator(x.Resolve<IValidationContext>())).AsSelf();
             builder.Register(x => new SqlDateTimeValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new MaximumLengthValidator(x.Resolve<IValidationContext>())).AsSelf();
+            builder.Register(x => new MaxLengthValidator(x.Resolve<IValidationContext>())).AsSelf();
             builder.Register(x => new ValidatableObjectValidator(x.Resolve<IValidationContext>())).AsSelf();
+            builder.Register(x => new RegularExpressionValidator(x.Resolve<IValidationContext>())).AsSelf();
+            builder.Register(x => new MinLengthValidator(x.Resolve<IValidationContext>())).AsSelf();
         }
     }
 }

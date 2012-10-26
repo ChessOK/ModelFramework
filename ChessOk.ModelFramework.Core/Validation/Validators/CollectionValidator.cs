@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ChessOk.ModelFramework.Validation.Validators
 {
@@ -11,11 +12,14 @@ namespace ChessOk.ModelFramework.Validation.Validators
 
         public override void Validate(object obj)
         {
+            if (obj == null) { return; }
+
             var enumerable = obj as IEnumerable<object>;
 
             if (enumerable == null)
             {
-                return;
+                throw new InvalidOperationException(
+                    String.Format(Resources.Strings.CollectionValidatorInvalidObject, GetType(), obj.GetType()));
             }
 
             var index = 0;

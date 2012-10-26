@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using ChessOk.ModelFramework.Testing;
 using ChessOk.ModelFramework.Validation;
@@ -25,14 +26,52 @@ namespace ChessOk.ModelFramework.Tests
             ValidationContext.Ensure(DateTime.MaxValue).IsSqlDateTime();
             Assert.IsFalse(ValidationContext.IsValid);
             Assert.AreEqual(2, ValidationContext[""].Count);
+            Assert.AreEqual(Resources.Strings.SqlDateTimeValidatorMessage, ValidationContext[""].First());
+        }
+
+        [TestMethod]
+        public void ShouldFailWithUserMessageIfGiven()
+        {
+            ValidationContext.Ensure(DateTime.MinValue).IsSqlDateTime("Hello");
+            Assert.AreEqual("Hello", ValidationContext[""].First());
         }
 
         [TestMethod]
         public void AttributeShouldReturnCorrectValidator()
         {
-            var attr = new SqlDateTimeAttribute();
+            var attr = new SqlDateTimeAttribute { ErrorMessage = "Hello" };
             attr.ValidationContext = ValidationContext;
-            Assert.IsInstanceOfType(attr.GetValidator(), typeof(SqlDateTimeValidator));
+
+            var validator = (SqlDateTimeValidator)attr.GetValidator();
+
+            Assert.AreEqual("Hello", validator.Message);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ShouldThrowAnExceptionIfAppliedToTypeOtherThanDateTime()
+        {
+            var validator = new SqlDateTimeValidator(ValidationContext);
+            validator.Validate(34);
+        }
+
+        [TestMethod]
+        public void ShouldIgnoreNullValues()
+        {
+            var validator = new SqlDateTimeValidator(ValidationContext);
+            validator.Validate(null);
+
+            Assert.IsTrue(ValidationContext.IsValid);
+        }
+
+        [TestMethod]
+        public void ShouldWorkWithNullableDateTime()
+        {
+            DateTime? value = DateTime.Now;
+            var validator = new SqlDateTimeValidator(ValidationContext);
+            validator.Validate(value);
+
+            Assert.IsTrue(ValidationContext.IsValid);
         }
     }
 }

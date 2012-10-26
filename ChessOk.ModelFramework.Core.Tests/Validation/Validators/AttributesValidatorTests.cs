@@ -50,6 +50,17 @@ namespace ChessOk.ModelFramework.Tests
             Assert.AreEqual("", ValidationContext.Keys.First());
         }
 
+        [TestMethod]
+        public void ShouldValidateAnnotationsAttributes()
+        {
+            var annotations = new Annotations { Foo = "as" };
+            var validator = new AttributesValidator(ValidationContext);
+            validator.Validate(annotations);
+            
+            Assert.IsFalse(ValidationContext.IsValid);
+            Assert.AreEqual(2, ValidationContext.Keys.Count);
+        }
+
         private class AttributelessClass
         {
             public string Hello { get; set; }
@@ -59,6 +70,15 @@ namespace ChessOk.ModelFramework.Tests
         {
             [Required]
             public string Hello { get; set; }
+        }
+
+        private class Annotations
+        {
+            [StringLength(5, MinimumLength = 3)]
+            public string Foo { get; set; }
+
+            [Range(3, 5)]
+            public int Bar { get; set; }
         }
     }
 }

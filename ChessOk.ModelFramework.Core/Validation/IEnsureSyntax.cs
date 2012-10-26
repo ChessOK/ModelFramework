@@ -9,11 +9,11 @@ namespace ChessOk.ModelFramework.Validation
 
         IEnsureSyntax<TObject> IsValid(IValidator validator);
 
-        IEnsureSyntax<TObject> Property<TProperty>(
+        IEnsureSyntax<TObject> ItsProperty<TProperty>(
             Expression<Func<TObject, TProperty>> propertyExpression,
             Action<IEnsureSyntax<TProperty>> validation);
 
-        IEnsureSyntax<TObject> Property<TProperty>(
+        IEnsureSyntax<TObject> ItsProperty<TProperty>(
             string propertyName,
             Action<IEnsureSyntax<TProperty>> validation);
     }
