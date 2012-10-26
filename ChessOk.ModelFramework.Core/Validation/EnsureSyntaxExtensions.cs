@@ -8,9 +8,11 @@ namespace ChessOk.ModelFramework.Validation
 {
     public static class EnsureSyntaxExtensions
     {
-        public static IEnsureSyntax<T> IsValid<T>(this IEnsureSyntax<T> syntax)
+        public static IEnsureSyntax<T> IsValid<T>(this IEnsureSyntax<T> syntax, bool doNotModifyKeys = false)
         {
-            return syntax.IsValid(syntax.ValidationContext.Get<ObjectValidator>());
+            var validator = syntax.ValidationContext.Get<ObjectValidator>();
+            validator.AttributesValidator.DoNotModifyErrorKeys = doNotModifyKeys;
+            return syntax.IsValid(validator);
         }
 
         public static IEnsureSyntax<string> HasMaximumLength(this IEnsureSyntax<string> syntax, int maximumLength)

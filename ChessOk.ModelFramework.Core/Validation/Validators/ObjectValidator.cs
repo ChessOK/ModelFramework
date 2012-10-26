@@ -5,11 +5,17 @@
         public ObjectValidator(IValidationContext validationContext)
             : base(validationContext)
         {
+            AttributesValidator = ValidationContext.Get<AttributesValidator>();
+            ValidatableObjectValidator = ValidationContext.Get<ValidatableObjectValidator>();
+
             Validators = new IValidator[]
                 {
-                    ValidationContext.Get<AttributesValidator>(),
-                    ValidationContext.Get<ValidatableObjectValidator>()
+                    AttributesValidator,
+                    ValidatableObjectValidator
                 };
         }
+
+        public AttributesValidator AttributesValidator { get; private set; }
+        public ValidatableObjectValidator ValidatableObjectValidator { get; private set; }
     }
 }

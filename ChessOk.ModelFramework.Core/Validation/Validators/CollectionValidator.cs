@@ -21,8 +21,8 @@ namespace ChessOk.ModelFramework.Validation.Validators
             var index = 0;
             foreach (var o in enumerable)
             {
-                using (ValidationContext.ReplaceKeys("^$", string.Format("[{0}]", index)))
-                using (ValidationContext.ReplaceKeys("^(.+)$", string.Format("[{0}].$1", index)))
+                using (ValidationContext.ModifyKeys("^$", string.Format("[{0}]", index)))
+                using (ValidationContext.ModifyKeys("^(.+)$", string.Format("[{0}].$1", index)))
                 {
                     var validator = new ObjectValidator(ValidationContext);
                     validator.Validate(o);

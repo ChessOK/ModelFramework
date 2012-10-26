@@ -95,7 +95,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
             if (!IsValid) { throw new ValidationException(this); }
         }
 
-        public IDisposable ReplaceKeys(string pattern, string replacement)
+        public IDisposable ModifyKeys(string pattern, string replacement)
         {
             _replaceStack.Push(new ReplaceOptions
             {

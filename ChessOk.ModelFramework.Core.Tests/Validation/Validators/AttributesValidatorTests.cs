@@ -41,6 +41,15 @@ namespace ChessOk.ModelFramework.Tests
             Assert.IsInstanceOfType(attr.GetValidator(), typeof(AttributesValidator));
         }
 
+        [TestMethod]
+        public void ShouldNotPrependErrorKeysIfSpecified()
+        {
+            ValidationContext.Ensure(new AttributeClass()).IsValid(
+                new AttributesValidator(ValidationContext) { DoNotModifyErrorKeys = true });
+
+            Assert.AreEqual("", ValidationContext.Keys.First());
+        }
+
         private class AttributelessClass
         {
             public string Hello { get; set; }

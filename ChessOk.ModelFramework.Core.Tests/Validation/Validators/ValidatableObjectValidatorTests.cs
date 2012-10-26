@@ -1,4 +1,6 @@
-﻿using ChessOk.ModelFramework.Testing;
+﻿using System.ComponentModel.DataAnnotations;
+
+using ChessOk.ModelFramework.Testing;
 using ChessOk.ModelFramework.Validation;
 using ChessOk.ModelFramework.Validation.Validators;
 

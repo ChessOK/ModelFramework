@@ -6,7 +6,12 @@ namespace ChessOk.ModelFramework.Validation
     {
         public override IValidator GetValidator()
         {
-            return ValidationContext.Get<ObjectValidator>();
+            var validator = ValidationContext.Get<ObjectValidator>();
+            validator.AttributesValidator.DoNotModifyErrorKeys = DoNotModifyKeys;
+
+            return validator;
         }
+
+        public bool DoNotModifyKeys { get; set; }
     }
 }

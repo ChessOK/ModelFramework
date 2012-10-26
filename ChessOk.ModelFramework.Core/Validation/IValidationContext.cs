@@ -16,7 +16,7 @@ namespace ChessOk.ModelFramework.Validation
         void RemoveErrors(string key);
         void Clear();
 
-        IDisposable ReplaceKeys(string pattern, string replacement);
+        IDisposable ModifyKeys(string pattern, string replacement);
 
         void ThrowExceptionIfInvalid();
     }

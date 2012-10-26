@@ -18,9 +18,9 @@ namespace ChessOk.ModelFramework.Validation
 
         public static IDisposable PrependKeysWithName(this IValidationContext context, string name)
         {
-            var emptyReplace = context.ReplaceKeys(@"^$", name);
-            var indexReplace = context.ReplaceKeys(@"^(\[[\d]+\])$", name + "$1");
-            var nonEmptyReplace = context.ReplaceKeys(@"^(?:(?!\[([\d+])\]))(.+)$", string.Format("{0}.$2", name));
+            var emptyReplace = context.ModifyKeys(@"^$", name);
+            var indexReplace = context.ModifyKeys(@"^(\[[\d]+\])$", name + "$1");
+            var nonEmptyReplace = context.ModifyKeys(@"^(?:(?!\[([\d+])\]))(.+)$", string.Format("{0}.$2", name));
             return new DisposableAction(() =>
                 {
                     emptyReplace.Dispose();

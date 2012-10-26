@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -12,8 +11,15 @@ namespace ChessOk.ModelFramework.Validation.Validators
         {
         }
 
+        public bool DoNotModifyErrorKeys { get; set; }
+
         public override void Validate(object obj)
         {
+            if (obj == null)
+            {
+                return;
+            }
+
             var properties = obj.GetType().GetProperties();
             foreach (var propertyInfo in properties)
             {
@@ -34,9 +40,16 @@ namespace ChessOk.ModelFramework.Validation.Validators
 
                     if (validator != null)
                     {
-                        using (ValidationContext.PrependKeysWithName(propertyInfo.Name))
+                        if (DoNotModifyErrorKeys)
                         {
                             validator.Validate(value);
+                        }
+                        else
+                        {
+                            using (ValidationContext.PrependKeysWithName(propertyInfo.Name))
+                            {
+                                validator.Validate(value);
+                            }
                         }
                     }
                 }

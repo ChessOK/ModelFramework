@@ -85,7 +85,6 @@
     <Compile Include="Validation\Validators\DelegateValidator.cs" />
     <Compile Include="Validation\Validators\NotNullValidator.cs" />
     <Compile Include="Validation\Validators\NullValidator.cs" />
-    <Compile Include="Validation\Validators\ObjectValidator.cs" />
     <Compile Include="Commons\DisposableAction.cs" />
     <Compile Include="Validation\IEnsureSyntax.cs" />
     <Compile Include="Validation\IValidator.cs" />
@@ -96,6 +95,7 @@
     <Compile Include="Validation\IValidationContext.cs" />
     <Compile Include="Validation\Validators\AttributesValidator.cs" />
     <Compile Include="Validation\Validators\CompositeValidator.cs" />
+    <Compile Include="Validation\Validators\ObjectValidator.cs" />
     <Compile Include="Validation\Validators\RequiredValidator.cs" />
     <Compile Include="Validation\Validators\SqlDateTimeValidator.cs" />
     <Compile Include="Validation\Validators\MaximumLengthValidator.cs" />
