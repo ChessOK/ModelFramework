@@ -5,9 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ChessOk.ModelFramework.Testing
 {
     [TestClass]
-    public abstract class ModelContextTest : ContainerTest
+    public abstract class ModelScopeTest : ContainerTest
     {
-        protected ModelContext ModelContext { get; private set; }
+        protected ModelContext Model { get; private set; }
 
         protected override void ConfigureContainer(ContainerBuilder builder)
         {
@@ -18,13 +18,13 @@ namespace ChessOk.ModelFramework.Testing
         [TestInitialize]
         public void InitializeModelContext()
         {
-            ModelContext = Container.Resolve<ModelContext>();
+            Model = Container.Resolve<ModelContext>();
         }
 
         [TestCleanup]
         public void CleanupModelContext()
         {
-            ModelContext.Dispose();
+            Model.Dispose();
         }
     }
 }

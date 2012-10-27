@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ChessOk.ModelFramework.Tests.Queries
 {
     [TestClass]
-    public class QueriesTests : ModelContextTest
+    public class QueriesTests : ModelScopeTest
     {
         protected override void ConfigureContainer(ContainerBuilder builder)
         {
@@ -20,7 +20,7 @@ namespace ChessOk.ModelFramework.Tests.Queries
         [TestMethod]
         public void ShouldExecuteQuery()
         {
-            var query = ModelContext.Query<TestQuery>();
+            var query = Model.Query<TestQuery>();
             Assert.IsTrue(query.Result);
             Assert.IsTrue(query.Executed);
         }
@@ -28,7 +28,7 @@ namespace ChessOk.ModelFramework.Tests.Queries
         [TestMethod]
         public void ShouldUseInitializatorIfGiven()
         {
-            var query = ModelContext.Query<TestQuery>(x => x.Initialized = true);
+            var query = Model.Query<TestQuery>(x => x.Initialized = true);
             Assert.IsTrue(query.Initialized);
         }
 

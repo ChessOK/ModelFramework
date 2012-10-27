@@ -12,14 +12,14 @@ namespace ChessOk.ModelFramework.Tests.AppBus
     public class ApplicationBusExtensionsTests
     {
         private Mock<IApplicationBus> _busMock;
-        private Mock<IModelScope> _contextMock;
+        private Mock<IModelScope> _modelMock;
 
         [TestInitialize]
         public void Initialize()
         {
-            _contextMock = new Mock<IModelScope>();
+            _modelMock = new Mock<IModelScope>();
             _busMock = new Mock<IApplicationBus>();
-            _busMock.SetupGet(x => x.Model).Returns(_contextMock.Object);
+            _busMock.SetupGet(x => x.Model).Returns(_modelMock.Object);
         }
 
         [TestMethod]
@@ -29,13 +29,13 @@ namespace ChessOk.ModelFramework.Tests.AppBus
             _busMock.Object.Create<IApplicationBusMessage>(x => initialized = true);
 
             Assert.IsTrue(initialized);
-            _contextMock.Verify(x => x.Get<IApplicationBusMessage>());
+            _modelMock.Verify(x => x.Get<IApplicationBusMessage>());
         }
 
         [TestMethod]
         public void InvokeRaisesCorrespondingMessage()
         {
-            _contextMock.Setup(x => x.Get<Command>())
+            _modelMock.Setup(x => x.Get<Command>())
                 .Returns(new Mock<Command>().Object);
 
             _busMock.Object.Send<Command>();
@@ -55,7 +55,7 @@ namespace ChessOk.ModelFramework.Tests.AppBus
         public void InvokeWithInitializationShouldInitializeTheCommandAndRaiseMessage()
         {
             var commandMock = new Mock<Command>();
-            _contextMock.Setup(x => x.Get<Command>()).Returns(commandMock.Object);
+            _modelMock.Setup(x => x.Get<Command>()).Returns(commandMock.Object);
 
             _busMock.Object.Send<Command>(x =>
             {

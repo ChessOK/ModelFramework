@@ -15,7 +15,7 @@ namespace ChessOk.ModelFramework
             new Dictionary<string, IList<IApplicationBusMessageHandler>>();
 
         private readonly IValidationContext _validationContext;
-        private readonly IModelScope _modelScope;
+        private readonly IModelScope _model;
 
         public ApplicationBus(IModelScope parentModelScope)
         {
@@ -24,19 +24,19 @@ namespace ChessOk.ModelFramework
                 throw new ArgumentNullException("parentModelScope");
             }
 
-            _modelScope = new ModelScope(parentModelScope, ScopeHierarchy.ApplicationBus, 
+            _model = new ModelScope(parentModelScope, ScopeHierarchy.ApplicationBus, 
                 x => x.RegisterInstance(this).As<IApplicationBus>().AsSelf());
 
-            _validationContext = _modelScope.Get<IValidationContext>();
+            _validationContext = _model.Get<IValidationContext>();
 
-            var handlers = _modelScope.GetAll<IApplicationBusMessageHandler>();
+            var handlers = _model.GetAll<IApplicationBusMessageHandler>();
             foreach (var handler in handlers)
             {
                 RegisterHandler(handler);
             }
         }
 
-        public IModelScope Model { get { return _modelScope; } }
+        public IModelScope Model { get { return _model; } }
         public IValidationContext ValidationContext { get { return _validationContext; } }
 
         public void Send(IApplicationBusMessage message)
@@ -120,7 +120,7 @@ namespace ChessOk.ModelFramework
         public void Dispose()
         {
             _validationContext.Dispose();
-            _modelScope.Dispose();
+            _model.Dispose();
         }
     }
 }

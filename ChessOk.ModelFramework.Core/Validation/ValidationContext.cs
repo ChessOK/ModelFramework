@@ -10,17 +10,17 @@ namespace ChessOk.ModelFramework.Validation.Internals
 {
     public class ValidationContext : IValidationContext
     {
-        private readonly IModelScope _modelScope;
+        private readonly IModelScope _model;
 
         private readonly IDictionary<string, IList<string>> _errors =
             new Dictionary<string, IList<string>>();
 
         private readonly Stack<ReplaceOptions> _replaceStack = new Stack<ReplaceOptions>();
 
-        public ValidationContext(IModelScope parentContext)
+        public ValidationContext(IModelScope parentScope)
         {
-            _modelScope = new ModelScope(
-                parentContext,
+            _model = new ModelScope(
+                parentScope,
                 ScopeHierarchy.ValidationContext,
                 x => x.RegisterInstance(this).As<IValidationContext>());
         }
@@ -50,7 +50,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
         {
             get
             {
-                return _modelScope;
+                return _model;
             }
         }
 
@@ -108,7 +108,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
 
         public void Dispose()
         {
-            _modelScope.Dispose();
+            _model.Dispose();
         }
 
         private string ApplyReplaces(string key)

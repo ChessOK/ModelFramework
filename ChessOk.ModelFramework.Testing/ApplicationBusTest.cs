@@ -3,14 +3,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ChessOk.ModelFramework.Testing
 {
     [TestClass]
-    public abstract class ApplicationBusTest : ModelContextTest
+    public abstract class ApplicationBusTest : ModelScopeTest
     {
         protected IApplicationBus Bus { get; private set; }
 
         [TestInitialize]
         public void InitializeBus()
         {
-            Bus = ModelContext.Get<IApplicationBus>();
+            Bus = Model.Get<IApplicationBus>();
         }
 
         [TestCleanup]

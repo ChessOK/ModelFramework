@@ -8,9 +8,9 @@ namespace ChessOk.ModelFramework.Queries.Internals
 
         internal abstract void Invoke();
 
-        internal void Bind(IModelScope modelScope)
+        internal void Bind(IModelScope model)
         {
-            Model = modelScope;
+            Model = model;
         }
     }
 }

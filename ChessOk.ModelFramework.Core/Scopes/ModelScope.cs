@@ -9,16 +9,16 @@ namespace ChessOk.ModelFramework.Scopes
     {
         private readonly ILifetimeScope _lifetimeScope;
 
-        public ModelScope(IModelScope parentContext, object tag, Action<ContainerBuilder> configuration)
-            : this(parentContext.LifetimeScope, tag, configuration)
+        public ModelScope(IModelScope parentScope, object tag, Action<ContainerBuilder> configuration)
+            : this(parentScope.LifetimeScope, tag, configuration)
         {
         }
 
-        internal ModelScope(ILifetimeScope parentScope, object tag, Action<ContainerBuilder> configuration)
+        internal ModelScope(ILifetimeScope parentLifetimeScope, object tag, Action<ContainerBuilder> configuration)
         {
-            if (parentScope == null)
+            if (parentLifetimeScope == null)
             {
-                throw new ArgumentNullException("parentScope");
+                throw new ArgumentNullException("parentLifetimeScope");
             }
 
             if (tag == null)
@@ -26,7 +26,7 @@ namespace ChessOk.ModelFramework.Scopes
                 throw new ArgumentNullException("tag");
             }
 
-            var contextScope = parentScope.BeginLifetimeScope(
+            var scope = parentLifetimeScope.BeginLifetimeScope(
                 tag, builder =>
                     {
                         builder.RegisterInstance(this).As<IModelScope>().AsSelf();
@@ -35,7 +35,7 @@ namespace ChessOk.ModelFramework.Scopes
                         if (configuration != null) { configuration(builder); }
                     });
 
-            _lifetimeScope = contextScope;
+            _lifetimeScope = scope;
         }
 
         public ILifetimeScope LifetimeScope

@@ -30,9 +30,9 @@ namespace ChessOk.ModelFramework.AsyncCommands.Handlers
 
             try
             {
-                using (var context = CreateContext())
+                using (var model = CreateModel())
                 {
-                    using (var appBus = new ApplicationBus(context))
+                    using (var appBus = new ApplicationBus(model))
                     {
                         appBus.Send(asyncCommand);
                         Log.Debug(String.Format("Command has been handled successfully: {0}", asyncCommand));
@@ -45,7 +45,7 @@ namespace ChessOk.ModelFramework.AsyncCommands.Handlers
             }
         }
 
-        protected virtual ModelContext CreateContext()
+        protected virtual ModelContext CreateModel()
         {
             return new ModelContext(_scope);
         }
