@@ -23,7 +23,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ApplicationBusItemsShouldBeRegistered()
         {
             var applicationBus = new ApplicationBus(new ModelContext(_container));
-            Assert.AreSame(applicationBus, applicationBus.Context.Get<IApplicationBus>());
+            Assert.AreSame(applicationBus, applicationBus.Model.Get<IApplicationBus>());
         }
     }
 }

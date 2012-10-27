@@ -3,7 +3,7 @@
 using Autofac;
 using Autofac.Builder;
 
-using ChessOk.ModelFramework.Contexts;
+using ChessOk.ModelFramework.Scopes;
 using ChessOk.ModelFramework.Messages;
 
 namespace ChessOk.ModelFramework
@@ -19,7 +19,7 @@ namespace ChessOk.ModelFramework
                 throw new ArgumentNullException("registration");
             }
 
-            return registration.InstancePerMatchingLifetimeScope(ContextHierarchy.ModelContext);
+            return registration.InstancePerMatchingLifetimeScope(ScopeHierarchy.ModelContext);
         }
 
         public static IRegistrationBuilder<TLimit, TActivatorData, TStyle>
@@ -31,7 +31,7 @@ namespace ChessOk.ModelFramework
                 throw new ArgumentNullException("registration");
             }
 
-            return registration.InstancePerMatchingLifetimeScope(ContextHierarchy.ApplicationBus);
+            return registration.InstancePerMatchingLifetimeScope(ScopeHierarchy.ApplicationBus);
         }
 
         public static IRegistrationBuilder<TLimit, TActivationData, TStyle>
@@ -43,7 +43,7 @@ namespace ChessOk.ModelFramework
                 throw new ArgumentNullException("registration");
             }
 
-            return registration.InstancePerMatchingLifetimeScope(ContextHierarchy.ValidationContext);
+            return registration.InstancePerMatchingLifetimeScope(ScopeHierarchy.ValidationContext);
         }
 
         public static void RegisterEventHandler<T>(this ContainerBuilder builder,

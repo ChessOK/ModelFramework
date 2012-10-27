@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 using Autofac;
 
-using ChessOk.ModelFramework.Contexts;
+using ChessOk.ModelFramework.Scopes;
 
 namespace ChessOk.ModelFramework
 {
-    public class ModelContext : IContext
+    public class ModelContext : IModelScope
     {
-        private readonly IContext _context;
+        private readonly IModelScope _context;
 
         public ModelContext(ILifetimeScope parentScope)
         {
-            _context = new Context(parentScope, ContextHierarchy.ModelContext, x => x.RegisterInstance(this).AsSelf());
+            _context = new ModelScope(parentScope, ScopeHierarchy.ModelContext, x => x.RegisterInstance(this).AsSelf());
         }
 
         public void Dispose()
@@ -31,11 +31,11 @@ namespace ChessOk.ModelFramework
             return _context.Get(serviceType);
         }
 
-        public ILifetimeScope Scope
+        public ILifetimeScope LifetimeScope
         {
             get
             {
-                return _context.Scope;
+                return _context.LifetimeScope;
             }
         }
 

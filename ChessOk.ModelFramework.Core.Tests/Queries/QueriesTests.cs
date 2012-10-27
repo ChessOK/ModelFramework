@@ -40,7 +40,7 @@ namespace ChessOk.ModelFramework.Tests.Queries
             protected override bool Execute()
             {
                 Executed = true;
-                Assert.IsNotNull(Context);
+                Assert.IsNotNull(Model);
                 return true;
             }
         }

@@ -6,7 +6,7 @@ namespace ChessOk.ModelFramework.Validation
     {
         public override IValidator GetValidator()
         {
-            return ValidationContext.Get<CollectionValidator>();
+            return ValidationContext.Model.Get<CollectionValidator>();
         }
     }
 }

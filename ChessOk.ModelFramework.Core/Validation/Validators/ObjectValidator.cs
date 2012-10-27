@@ -5,8 +5,8 @@
         public ObjectValidator(IValidationContext validationContext)
             : base(validationContext)
         {
-            AttributesValidator = ValidationContext.Get<AttributesValidator>();
-            ValidatableObjectValidator = ValidationContext.Get<ValidatableObjectValidator>();
+            AttributesValidator = ValidationContext.Model.Get<AttributesValidator>();
+            ValidatableObjectValidator = ValidationContext.Model.Get<ValidatableObjectValidator>();
 
             Validators = new IValidator[]
                 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Autofac;
 
-using ChessOk.ModelFramework.Contexts;
+using ChessOk.ModelFramework.Scopes;
 using ChessOk.ModelFramework.Messages;
 using ChessOk.ModelFramework.Validation;
 
@@ -15,28 +15,28 @@ namespace ChessOk.ModelFramework
             new Dictionary<string, IList<IApplicationBusMessageHandler>>();
 
         private readonly IValidationContext _validationContext;
-        private readonly IContext _context;
+        private readonly IModelScope _modelScope;
 
-        public ApplicationBus(IContext parentContext)
+        public ApplicationBus(IModelScope parentModelScope)
         {
-            if (parentContext == null)
+            if (parentModelScope == null)
             {
-                throw new ArgumentNullException("parentContext");
+                throw new ArgumentNullException("parentModelScope");
             }
 
-            _context = new Context(parentContext, ContextHierarchy.ApplicationBus, 
+            _modelScope = new ModelScope(parentModelScope, ScopeHierarchy.ApplicationBus, 
                 x => x.RegisterInstance(this).As<IApplicationBus>().AsSelf());
 
-            _validationContext = _context.Get<IValidationContext>();
+            _validationContext = _modelScope.Get<IValidationContext>();
 
-            var handlers = _context.GetAll<IApplicationBusMessageHandler>();
+            var handlers = _modelScope.GetAll<IApplicationBusMessageHandler>();
             foreach (var handler in handlers)
             {
                 RegisterHandler(handler);
             }
         }
 
-        public IContext Context { get { return _context; } }
+        public IModelScope Model { get { return _modelScope; } }
         public IValidationContext ValidationContext { get { return _validationContext; } }
 
         public void Send(IApplicationBusMessage message)
@@ -120,7 +120,7 @@ namespace ChessOk.ModelFramework
         public void Dispose()
         {
             _validationContext.Dispose();
-            _context.Dispose();
+            _modelScope.Dispose();
         }
     }
 }

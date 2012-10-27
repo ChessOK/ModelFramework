@@ -71,8 +71,8 @@
     <Compile Include="Commands\ICommandDispatcher.cs" />
     <Compile Include="Commands\InlineCommand{T}.cs" />
     <Compile Include="Commons\SqlExceptionHelper.cs" />
-    <Compile Include="Contexts\ContextCache.cs" />
-    <Compile Include="Contexts\IContext.cs" />
+    <Compile Include="Commons\ModelScopeCache.cs" />
+    <Compile Include="Scopes\IModelScope.cs" />
     <Compile Include="RegistrationExtensions.cs" />
     <Compile Include="Resources\Strings1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -121,10 +121,10 @@
     <Compile Include="AppBus\IApplicationBusMessage.cs" />
     <Compile Include="Commands\Messages\ICommandInvokedMessage.cs" />
     <Compile Include="Commands\Messages\ICommandInvokingMessage.cs" />
-    <Compile Include="Contexts\Context.cs" />
-    <Compile Include="Contexts\ContextHierarchy.cs" />
+    <Compile Include="Scopes\ModelScope.cs" />
+    <Compile Include="Scopes\ScopeHierarchy.cs" />
     <Compile Include="CoreModule.cs" />
-    <Compile Include="Commons\IHaveContext.cs" />
+    <Compile Include="Scopes\IHaveModelScope.cs" />
     <Compile Include="AsyncCommands\Messages\IAsyncCommandSengingMessage.cs" />
     <Compile Include="AsyncCommands\Messages\IAsyncCommandSentMessage.cs" />
     <Compile Include="AsyncCommands\Messages\AsyncCommandSendingHandler.cs" />

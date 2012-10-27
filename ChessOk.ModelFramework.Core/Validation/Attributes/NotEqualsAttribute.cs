@@ -15,7 +15,7 @@ namespace ChessOk.ModelFramework.Validation
 
         public override IValidator GetValidator()
         {
-            var validator = ValidationContext.Get<DelegateValidator>();
+            var validator = ValidationContext.Model.Get<DelegateValidator>();
             validator.Delegate = x =>
                 {
                     var left = x != null ? x.ToString() : null;

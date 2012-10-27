@@ -4,24 +4,24 @@ using System.Text.RegularExpressions;
 
 using Autofac;
 
-using ChessOk.ModelFramework.Contexts;
+using ChessOk.ModelFramework.Scopes;
 
 namespace ChessOk.ModelFramework.Validation.Internals
 {
     public class ValidationContext : IValidationContext
     {
-        private readonly IContext _context;
+        private readonly IModelScope _modelScope;
 
         private readonly IDictionary<string, IList<string>> _errors =
             new Dictionary<string, IList<string>>();
 
         private readonly Stack<ReplaceOptions> _replaceStack = new Stack<ReplaceOptions>();
 
-        public ValidationContext(IContext parentContext)
+        public ValidationContext(IModelScope parentContext)
         {
-            _context = new Context(
+            _modelScope = new ModelScope(
                 parentContext,
-                ContextHierarchy.ValidationContext,
+                ScopeHierarchy.ValidationContext,
                 x => x.RegisterInstance(this).As<IValidationContext>());
         }
 
@@ -46,11 +46,11 @@ namespace ChessOk.ModelFramework.Validation.Internals
             }
         }
 
-        public IContext Context
+        public IModelScope Model
         {
             get
             {
-                return _context;
+                return _modelScope;
             }
         }
 
@@ -106,6 +106,11 @@ namespace ChessOk.ModelFramework.Validation.Internals
             return new DisposableAction(() => _replaceStack.Pop());
         }
 
+        public void Dispose()
+        {
+            _modelScope.Dispose();
+        }
+
         private string ApplyReplaces(string key)
         {
             var replaces = _replaceStack.ToArray();
@@ -127,42 +132,5 @@ namespace ChessOk.ModelFramework.Validation.Internals
             public Regex Regex { get; set; }
             public string Replacement { get; set; }
         }
-
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
-
-        #region Implementation of IContext
-
-        public T Get<T>()
-        {
-            return _context.Get<T>();
-        }
-
-        public object Get(Type serviceType)
-        {
-            return _context.Get(serviceType);
-        }
-
-        public ILifetimeScope Scope
-        {
-            get
-            {
-                return _context.Scope;
-            }
-        }
-
-        public IEnumerable<T> GetAll<T>()
-        {
-            return _context.GetAll<T>();
-        }
-
-        public IEnumerable<object> GetAll(Type serviceType)
-        {
-            return _context.GetAll(serviceType);
-        }
-
-        #endregion
     }
 }

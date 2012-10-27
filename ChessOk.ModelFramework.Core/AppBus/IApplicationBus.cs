@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ChessOk.ModelFramework.Contexts;
+using ChessOk.ModelFramework.Scopes;
 using ChessOk.ModelFramework.Messages;
 using ChessOk.ModelFramework.Validation;
 using ChessOk.ModelFramework.Validation.Validators;
@@ -20,9 +20,9 @@ namespace ChessOk.ModelFramework
         IValidationContext ValidationContext { get; }
 
         /// <summary>
-        /// Получить <see cref="IContext"/>, ассоциированный с шиной.
+        /// Получить <see cref="IModelScope"/>, ассоциированный с шиной.
         /// </summary>
-        IContext Context { get; }
+        IModelScope Model { get; }
 
         /// <summary>
         /// Провалидировать сообщение, используя <see cref="ObjectValidator"/> 

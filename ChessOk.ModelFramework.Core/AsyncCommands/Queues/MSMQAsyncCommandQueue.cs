@@ -37,7 +37,10 @@ namespace ChessOk.ModelFramework.AsyncCommands.Queues
                     Formatter = _formatter
                 };
 
-            _innerQueue.Send(msg);
+            using (msg)
+            {
+                _innerQueue.Send(msg);
+            }
         }
 
         public CommandBase Dequeue()

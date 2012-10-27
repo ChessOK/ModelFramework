@@ -10,7 +10,7 @@ namespace ChessOk.ModelFramework.AsyncCommands.Queues
     /// Сообщения теряются при рестарте приложения, что не годится
     /// для очень важных сообщений, нуждающихся в обработке
     /// </summary>
-    public class InMemoryAsyncCommandQueue : IAsyncCommandQueue
+    public sealed class InMemoryAsyncCommandQueue : IAsyncCommandQueue
     {
         private static readonly ConcurrentQueue<CommandBase> _innerQueue = new ConcurrentQueue<CommandBase>();
 

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace ChessOk.ModelFramework.Validation
 {
+    [Serializable]
     public class ValidationException : Exception
     {
         public ValidationException(IValidationContext context)

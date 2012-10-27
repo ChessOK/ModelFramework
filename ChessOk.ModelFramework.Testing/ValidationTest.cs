@@ -10,7 +10,7 @@ namespace ChessOk.ModelFramework.Testing
         protected IValidationContext ValidationContext { get; private set; }
 
         [TestInitialize]
-        public void InitializeValidation()
+        public void InitializeValidationContext()
         {
             ValidationContext = Bus.ValidationContext;
         }

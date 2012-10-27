@@ -8,7 +8,7 @@ namespace ChessOk.ModelFramework.Validation
 
         public override IValidator GetValidator()
         {
-            var validator = ValidationContext.Get<SqlDateTimeValidator>();
+            var validator = ValidationContext.Model.Get<SqlDateTimeValidator>();
             validator.Message = ErrorMessage;
 
             return validator;

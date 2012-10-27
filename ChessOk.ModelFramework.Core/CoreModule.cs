@@ -2,7 +2,7 @@
 
 using ChessOk.ModelFramework.AsyncCommands;
 using ChessOk.ModelFramework.Commands;
-using ChessOk.ModelFramework.Contexts;
+using ChessOk.ModelFramework.Scopes;
 using ChessOk.ModelFramework.Validation;
 
 namespace ChessOk.ModelFramework
@@ -11,7 +11,7 @@ namespace ChessOk.ModelFramework
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(x => new ApplicationBus(x.Resolve<IContext>()))
+            builder.Register(x => new ApplicationBus(x.Resolve<IModelScope>()))
                 .As<IApplicationBus>();
             
             builder.RegisterModule(new CommandsModule());

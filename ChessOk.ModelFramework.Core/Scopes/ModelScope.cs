@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 using Autofac;
 
-namespace ChessOk.ModelFramework.Contexts
+namespace ChessOk.ModelFramework.Scopes
 {
-    public class Context : IContext
+    public class ModelScope : IModelScope
     {
         private readonly ILifetimeScope _lifetimeScope;
 
-        public Context(IContext parentContext, object tag, Action<ContainerBuilder> configuration)
-            : this(parentContext.Scope, tag, configuration)
+        public ModelScope(IModelScope parentContext, object tag, Action<ContainerBuilder> configuration)
+            : this(parentContext.LifetimeScope, tag, configuration)
         {
         }
 
-        public Context(ILifetimeScope parentScope, object tag, Action<ContainerBuilder> configuration)
+        internal ModelScope(ILifetimeScope parentScope, object tag, Action<ContainerBuilder> configuration)
         {
             if (parentScope == null)
             {
@@ -29,8 +29,8 @@ namespace ChessOk.ModelFramework.Contexts
             var contextScope = parentScope.BeginLifetimeScope(
                 tag, builder =>
                     {
-                        builder.RegisterInstance(this).As<IContext>().AsSelf();
-                        builder.Register(x => new ContextCache()).SingleInstance();
+                        builder.RegisterInstance(this).As<IModelScope>().AsSelf();
+                        builder.Register(x => new ModelScopeCache()).SingleInstance();
 
                         if (configuration != null) { configuration(builder); }
                     });
@@ -38,7 +38,7 @@ namespace ChessOk.ModelFramework.Contexts
             _lifetimeScope = contextScope;
         }
 
-        public ILifetimeScope Scope
+        public ILifetimeScope LifetimeScope
         {
             get { return _lifetimeScope; }
         }

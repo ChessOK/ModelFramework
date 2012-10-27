@@ -2,6 +2,7 @@ using System;
 
 namespace ChessOk.ModelFramework.AsyncCommands.Handlers
 {
+    [Serializable]
     public class AsyncCommandHandlingException : Exception
     {
         public AsyncCommandHandlingException(Exception innerException)

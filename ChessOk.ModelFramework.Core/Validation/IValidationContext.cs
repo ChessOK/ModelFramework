@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ChessOk.ModelFramework.Contexts;
+using ChessOk.ModelFramework.Scopes;
 
 namespace ChessOk.ModelFramework.Validation
 {
-    public interface IValidationContext : IContext
+    public interface IValidationContext : IDisposable
     {
+        IModelScope Model { get; }
         bool IsValid { get; }
 
         ICollection<string> this[string key] { get; }

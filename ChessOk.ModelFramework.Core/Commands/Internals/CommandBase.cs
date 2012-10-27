@@ -1,6 +1,6 @@
 using System;
 
-using ChessOk.ModelFramework.Contexts;
+using ChessOk.ModelFramework.Scopes;
 using ChessOk.ModelFramework.Messages;
 using ChessOk.ModelFramework.Validation;
 
@@ -24,8 +24,7 @@ namespace ChessOk.ModelFramework.Commands.Internals
         }
 
         protected IApplicationBus Bus { get; private set; }
-
-        protected IContext Context { get { return Bus.Context; } }
+        protected IModelScope Model { get { return Bus.Model; } }
         protected IValidationContext Validation { get { return Bus.ValidationContext; } }
 
         internal void RaiseInvoked()

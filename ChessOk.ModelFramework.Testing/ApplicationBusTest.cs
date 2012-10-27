@@ -12,5 +12,11 @@ namespace ChessOk.ModelFramework.Testing
         {
             Bus = ModelContext.Get<IApplicationBus>();
         }
+
+        [TestCleanup]
+        public void CleanupBus()
+        {
+            Bus.Dispose();
+        }
     }
 }
