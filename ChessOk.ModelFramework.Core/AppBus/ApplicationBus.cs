@@ -32,7 +32,7 @@ namespace ChessOk.ModelFramework
             new Dictionary<string, IList<IApplicationBusMessageHandler>>();
 
         private readonly IValidationContext _validationContext;
-        private readonly IModelContext _model;
+        private readonly IModelContext _context;
 
         /// <summary>
         /// »нициализирует экземпл€р класса <see cref="ApplicationBus"/>, использу€
@@ -46,20 +46,20 @@ namespace ChessOk.ModelFramework
                 throw new ArgumentNullException("parentModelContext");
             }
 
-            _model = parentModelContext.CreateChildContext(
+            _context = parentModelContext.CreateChildContext(
                 ContextHierarchy.ApplicationBus, 
                 x => x.RegisterInstance(this).As<IApplicationBus>().AsSelf());
 
-            _validationContext = _model.Get<IValidationContext>();
+            _validationContext = _context.Get<IValidationContext>();
 
-            var handlers = _model.GetAll<IApplicationBusMessageHandler>();
+            var handlers = _context.GetAll<IApplicationBusMessageHandler>();
             foreach (var handler in handlers)
             {
                 RegisterHandler(handler);
             }
         }
 
-        public IModelContext Model { get { return _model; } }
+        public IModelContext Context { get { return _context; } }
         public IValidationContext ValidationContext { get { return _validationContext; } }
 
         public void Send(IApplicationBusMessage message)
@@ -143,7 +143,7 @@ namespace ChessOk.ModelFramework
         public void Dispose()
         {
             _validationContext.Dispose();
-            _model.Dispose();
+            _context.Dispose();
         }
     }
 }

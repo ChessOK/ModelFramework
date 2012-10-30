@@ -13,7 +13,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
         /// <returns>Экземпляр валидатора.</returns>
         public override IValidator GetValidator()
         {
-            return ValidationContext.Model.Get<ValidatableObjectValidator>();
+            return ValidationContext.Context.Get<ValidatableObjectValidator>();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Экземпляр валидатора.</returns>
         public override IValidator GetValidator()
         {
-            var validator = ValidationContext.Model.Get<DelegateValidator>();
+            var validator = ValidationContext.Context.Get<DelegateValidator>();
             validator.Delegate = x =>
                 {
                     var left = x != null ? x.ToString() : null;

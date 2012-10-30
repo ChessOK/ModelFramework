@@ -23,7 +23,7 @@ namespace ChessOk.ModelFramework.Commands.Internals
         }
 
         protected IApplicationBus Bus { get; private set; }
-        protected IModelContext Model { get { return Bus.Model; } }
+        protected IModelContext Context { get { return Bus.Context; } }
         protected IValidationContext Validation { get { return Bus.ValidationContext; } }
 
         internal void RaiseInvoked()

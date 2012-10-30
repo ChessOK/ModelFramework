@@ -67,7 +67,7 @@ namespace ChessOk.ModelFramework.Tests.Commands
                 Invoked = true;
                 Assert.IsNotNull(Bus);
                 Assert.IsNotNull(Validation);
-                Assert.IsNotNull(Model);
+                Assert.IsNotNull(Context);
             }
         }
     }

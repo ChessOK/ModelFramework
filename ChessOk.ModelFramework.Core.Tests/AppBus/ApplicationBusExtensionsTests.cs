@@ -18,7 +18,7 @@ namespace ChessOk.ModelFramework.Tests.AppBus
         {
             _modelMock = new Mock<IModelContext>();
             _busMock = new Mock<IApplicationBus>();
-            _busMock.SetupGet(x => x.Model).Returns(_modelMock.Object);
+            _busMock.SetupGet(x => x.Context).Returns(_modelMock.Object);
         }
 
         [TestMethod]

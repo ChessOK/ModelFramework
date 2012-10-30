@@ -21,7 +21,7 @@ namespace ChessOk.ModelFramework
         /// <summary>
         /// Получить <see cref="IModelContext"/>, ассоциированный с шиной.
         /// </summary>
-        IModelContext Model { get; }
+        IModelContext Context { get; }
 
         /// <summary>
         /// Провалидировать сообщение, используя <see cref="ObjectValidator"/> 

@@ -23,7 +23,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<T> IsValid<T>(this IEnsureSyntax<T> syntax, bool usePropertyNamesAsErrorKeys = true)
         {
-            var validator = syntax.ValidationContext.Model.Get<ObjectValidator>();
+            var validator = syntax.ValidationContext.Context.Get<ObjectValidator>();
             validator.AttributesValidator.UsePropertyNamesAsErrorKeys = usePropertyNamesAsErrorKeys;
             return syntax.IsValid(validator);
         }
@@ -38,7 +38,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<string> HasMaxLength(this IEnsureSyntax<string> syntax, int maximumLength, string message = null)
         {
-            var validator = syntax.ValidationContext.Model.Get<MaxLengthValidator>();
+            var validator = syntax.ValidationContext.Context.Get<MaxLengthValidator>();
             validator.Length = maximumLength;
             validator.Message = message;
 
@@ -55,7 +55,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<T[]> HasMaxLength<T>(this IEnsureSyntax<T[]> syntax, int maximumLength, string message = null)
         {
-            var validator = syntax.ValidationContext.Model.Get<MaxLengthValidator>();
+            var validator = syntax.ValidationContext.Context.Get<MaxLengthValidator>();
             validator.Length = maximumLength;
             validator.Message = message;
 
@@ -72,7 +72,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<string> HasMinLength(this IEnsureSyntax<string> syntax, int minimumLength, string message = null)
         {
-            var validator = syntax.ValidationContext.Model.Get<MinLengthValidator>();
+            var validator = syntax.ValidationContext.Context.Get<MinLengthValidator>();
             validator.Length = minimumLength;
             validator.Message = message;
 
@@ -89,7 +89,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<T[]> HasMinLength<T>(this IEnsureSyntax<T[]> syntax, int minimumLength, string message = null)
         {
-            var validator = syntax.ValidationContext.Model.Get<MinLengthValidator>();
+            var validator = syntax.ValidationContext.Context.Get<MinLengthValidator>();
             validator.Length = minimumLength;
             validator.Message = message;
 
@@ -105,7 +105,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<DateTime> IsSqlDateTime(this IEnsureSyntax<DateTime> syntax, string message = null)
         {
-            var validator = syntax.ValidationContext.Model.Get<SqlDateTimeValidator>();
+            var validator = syntax.ValidationContext.Context.Get<SqlDateTimeValidator>();
             validator.Message = message;
 
             return syntax.IsValid(validator);
@@ -124,7 +124,7 @@ namespace ChessOk.ModelFramework.Validation
         public static IEnsureSyntax<T> IsRequired<T>(this IEnsureSyntax<T> syntax, string message = null, bool allowEmptyStrings = false)
             where T : class
         {
-            var validator = syntax.ValidationContext.Model.Get<RequiredValidator>();
+            var validator = syntax.ValidationContext.Context.Get<RequiredValidator>();
             validator.AllowEmptyStrings = allowEmptyStrings;
             validator.Message = message;
 
@@ -142,7 +142,7 @@ namespace ChessOk.ModelFramework.Validation
         public static IEnsureSyntax<T?> IsRequired<T>(this IEnsureSyntax<T?> syntax, string message = null)
             where T : struct
         {
-            var validator = syntax.ValidationContext.Model.Get<RequiredValidator>();
+            var validator = syntax.ValidationContext.Context.Get<RequiredValidator>();
             validator.Message = message;
 
             return syntax.IsValid(validator);
@@ -158,7 +158,7 @@ namespace ChessOk.ModelFramework.Validation
         public static IEnsureSyntax<T> IsNull<T>(this IEnsureSyntax<T> syntax)
             where T : class
         {
-            var validator = syntax.ValidationContext.Model.Get<NullValidator>();
+            var validator = syntax.ValidationContext.Context.Get<NullValidator>();
             return syntax.IsValid(validator);
         }
 
@@ -172,7 +172,7 @@ namespace ChessOk.ModelFramework.Validation
         public static IEnsureSyntax<T?> IsNull<T>(this IEnsureSyntax<T?> syntax)
             where T : struct
         {
-            var validator = syntax.ValidationContext.Model.Get<NullValidator>();
+            var validator = syntax.ValidationContext.Context.Get<NullValidator>();
             return syntax.IsValid(validator);
         }
 
@@ -187,7 +187,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<T> IsTrue<T>(this IEnsureSyntax<T> syntax, Func<T, bool> @delegate,  string message)
         {
-            var validator = syntax.ValidationContext.Model.Get<DelegateValidator>();
+            var validator = syntax.ValidationContext.Context.Get<DelegateValidator>();
             validator.Delegate = obj => @delegate((T)obj);
             validator.Message = message;
 
@@ -204,7 +204,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<string> Matches(this IEnsureSyntax<string> syntax, string pattern, string message = null)
         {
-            var validator = syntax.ValidationContext.Model.Get<RegularExpressionValidator>();
+            var validator = syntax.ValidationContext.Context.Get<RegularExpressionValidator>();
             validator.Pattern = pattern;
             validator.Message = message;
 
@@ -222,7 +222,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<IEnumerable<T>> HasValidItems<T>(this IEnsureSyntax<IEnumerable<T>> syntax)
         {
-            var validator = syntax.ValidationContext.Model.Get<CollectionValidator>();
+            var validator = syntax.ValidationContext.Context.Get<CollectionValidator>();
             return syntax.IsValid(validator);
         }
 
@@ -235,7 +235,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<T[]> HasValidItems<T>(this IEnsureSyntax<T[]> syntax)
         {
-            var validator = syntax.ValidationContext.Model.Get<CollectionValidator>();
+            var validator = syntax.ValidationContext.Context.Get<CollectionValidator>();
             return syntax.IsValid(validator);
         }
 
@@ -248,7 +248,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<List<T>> HasValidItems<T>(this IEnsureSyntax<List<T>> syntax)
         {
-            var validator = syntax.ValidationContext.Model.Get<CollectionValidator>();
+            var validator = syntax.ValidationContext.Context.Get<CollectionValidator>();
             return syntax.IsValid(validator);
         }
 
@@ -261,7 +261,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<IList<T>> HasValidItems<T>(this IEnsureSyntax<IList<T>> syntax)
         {
-            var validator = syntax.ValidationContext.Model.Get<CollectionValidator>();
+            var validator = syntax.ValidationContext.Context.Get<CollectionValidator>();
             return syntax.IsValid(validator);
         }
 
@@ -274,7 +274,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<Collection<T>> HasValidItems<T>(this IEnsureSyntax<Collection<T>> syntax)
         {
-            var validator = syntax.ValidationContext.Model.Get<CollectionValidator>();
+            var validator = syntax.ValidationContext.Context.Get<CollectionValidator>();
             return syntax.IsValid(validator);
         }
 
@@ -287,7 +287,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
         public static IEnsureSyntax<ICollection<T>> HasValidItems<T>(this IEnsureSyntax<ICollection<T>> syntax)
         {
-            var validator = syntax.ValidationContext.Model.Get<CollectionValidator>();
+            var validator = syntax.ValidationContext.Context.Get<CollectionValidator>();
             return syntax.IsValid(validator);
         }
 

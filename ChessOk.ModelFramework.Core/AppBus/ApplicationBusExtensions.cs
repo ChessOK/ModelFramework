@@ -9,7 +9,7 @@ namespace ChessOk.ModelFramework
         public static T Create<T>(this IApplicationBus bus, Action<T> initialization)
             where T : IApplicationBusMessage
         {
-            var message = bus.Model.Get<T>();
+            var message = bus.Context.Get<T>();
             if (initialization != null)
             {
                 initialization(message);

@@ -22,7 +22,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <returns>Экземпляр валидатора.</returns>
         public override IValidator GetValidator()
         {
-            var validator = ValidationContext.Model.Get<NullValidator>();
+            var validator = ValidationContext.Context.Get<NullValidator>();
             validator.Message = ErrorMessage;
 
             return validator;

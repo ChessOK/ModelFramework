@@ -9,7 +9,7 @@ namespace ChessOk.ModelFramework.Validation
     /// </summary>
     public interface IValidationContext : IDisposable
     {
-        IModelContext Model { get; }
+        IModelContext Context { get; }
 
         /// <summary>
         /// Регистрирует валидационную ошибку с ключом <paramref name="key"/>

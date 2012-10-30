@@ -12,7 +12,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
     /// </summary>
     public class ValidationContext : IValidationContext
     {
-        private readonly IModelContext _model;
+        private readonly IModelContext _context;
 
         private readonly IDictionary<string, IList<string>> _errors =
             new Dictionary<string, IList<string>>();
@@ -26,7 +26,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
         /// <param name="parentContext"></param>
         public ValidationContext(IModelContext parentContext)
         {
-            _model = parentContext.CreateChildContext(
+            _context = parentContext.CreateChildContext(
                 ContextHierarchy.ValidationContext,
                 x => x.RegisterInstance(this).As<IValidationContext>());
         }
@@ -52,11 +52,11 @@ namespace ChessOk.ModelFramework.Validation.Internals
             }
         }
 
-        public IModelContext Model
+        public IModelContext Context
         {
             get
             {
-                return _model;
+                return _context;
             }
         }
 
@@ -114,7 +114,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
 
         public void Dispose()
         {
-            _model.Dispose();
+            _context.Dispose();
         }
 
         private string ApplyReplaces(string key)

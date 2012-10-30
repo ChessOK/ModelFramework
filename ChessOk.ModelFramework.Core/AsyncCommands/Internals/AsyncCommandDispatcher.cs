@@ -25,7 +25,7 @@ namespace ChessOk.ModelFramework.AsyncCommands.Internals
 
             if (sendingEvent.SendingCancelled) { return; }
 
-            using (var queue = _bus.Model.Get<IAsyncCommandQueue>())
+            using (var queue = _bus.Context.Get<IAsyncCommandQueue>())
             {
                 queue.Enqueue(asyncCommand.Command);
             }

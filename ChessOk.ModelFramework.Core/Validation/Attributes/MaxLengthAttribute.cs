@@ -35,7 +35,7 @@ namespace ChessOk.ModelFramework.Validation.Compatibility
         /// <returns>Экземпляр валидатора.</returns>
         public override IValidator GetValidator()
         {
-            var validator = ValidationContext.Model.Get<MaxLengthValidator>();
+            var validator = ValidationContext.Context.Get<MaxLengthValidator>();
             validator.Length = _maximumLength;
             validator.Message = ErrorMessage;
 
