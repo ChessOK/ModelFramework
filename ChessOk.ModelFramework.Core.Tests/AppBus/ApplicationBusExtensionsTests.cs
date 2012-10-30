@@ -1,5 +1,4 @@
 ﻿using ChessOk.ModelFramework.Commands;
-using ChessOk.ModelFramework.Scopes;
 using ChessOk.ModelFramework.Messages;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,12 +11,12 @@ namespace ChessOk.ModelFramework.Tests.AppBus
     public class ApplicationBusExtensionsTests
     {
         private Mock<IApplicationBus> _busMock;
-        private Mock<IModelScope> _modelMock;
+        private Mock<IModelContext> _modelMock;
 
         [TestInitialize]
         public void Initialize()
         {
-            _modelMock = new Mock<IModelScope>();
+            _modelMock = new Mock<IModelContext>();
             _busMock = new Mock<IApplicationBus>();
             _busMock.SetupGet(x => x.Model).Returns(_modelMock.Object);
         }

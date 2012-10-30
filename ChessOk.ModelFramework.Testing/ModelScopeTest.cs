@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ChessOk.ModelFramework.Testing
 {
     [TestClass]
-    public abstract class ModelScopeTest : ContainerTest
+    public abstract class ModelContextTest : ContainerTest
     {
         protected ModelContext Model { get; private set; }
 

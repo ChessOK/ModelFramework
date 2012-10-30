@@ -3,33 +3,37 @@ using System.Collections.Generic;
 
 using Autofac;
 
-using ChessOk.ModelFramework.Scopes;
-
 namespace ChessOk.ModelFramework
 {
     /// <summary>
-    /// Представляет собой <see cref="IModelScope"/> самого верхнего
+    /// Представляет собой <see cref="IModelContext"/> самого верхнего
     /// уровня. В пределах <see cref="ModelContext"/> регистрируются
     /// все классы, имеющие отношение к модели приложения.
     /// <seealso cref="RegistrationExtensions"/>
     /// </summary>
-    public class ModelContext : IModelScope
+    public class ModelContext : IModelContext
     {
-        private readonly IModelScope _context;
+        private readonly ILifetimeScope _lifetimeScope;
 
-        /// <summary>
-        /// Инициализирует экземпляр класса <seealso cref="ModelContext"/>,
-        /// используя указанный <see cref="ILifetimeScope"/>.
-        /// </summary>
-        /// <param name="parentScope"></param>
         public ModelContext(ILifetimeScope parentScope)
         {
-            _context = new ModelScope(parentScope, ScopeHierarchy.ModelContext, x => x.RegisterInstance(this).AsSelf());
+            _lifetimeScope = parentScope.BeginLifetimeScope(
+                ContextHierarchy.ModelContext, 
+                builder =>
+                    {
+                        builder.RegisterInstance(this).As<IModelContext>().AsSelf();
+                        builder.Register(x => new ModelContextCache()).SingleInstance();
+                    });
+        }
+
+        internal ModelContext(ILifetimeScope parentScope, object tag, Action<ContainerBuilder> configurationAction)
+        {
+            _lifetimeScope = parentScope.BeginLifetimeScope(tag, configurationAction);
         }
 
         public void Dispose()
         {
-            _context.Dispose();
+            _lifetimeScope.Dispose();
         }
 
         /// <summary>
@@ -40,7 +44,7 @@ namespace ChessOk.ModelFramework
         /// <returns>Экземпляр сервиса.</returns>
         public T Get<T>()
         {
-            return _context.Get<T>();
+            return _lifetimeScope.Resolve<T>();
         }
 
         /// <summary>
@@ -51,19 +55,7 @@ namespace ChessOk.ModelFramework
         /// <returns>Экземпляр сервиса.</returns>
         public object Get(Type serviceType)
         {
-            return _context.Get(serviceType);
-        }
-
-        /// <summary>
-        /// Получить экземпляр <see cref="ILifetimeScope"/>,
-        /// ассоциированный с данным экземпляром класса <see cref="ModelContext"/>.
-        /// </summary>
-        public ILifetimeScope LifetimeScope
-        {
-            get
-            {
-                return _context.LifetimeScope;
-            }
+            return _lifetimeScope.Resolve(serviceType);
         }
 
         /// <summary>
@@ -74,7 +66,7 @@ namespace ChessOk.ModelFramework
         /// <returns>Коллекция экземпляров сервисов.</returns>
         public IEnumerable<T> GetAll<T>()
         {
-            return _context.GetAll<T>();
+            return _lifetimeScope.Resolve<IEnumerable<T>>();
         }
 
         /// <summary>
@@ -85,7 +77,12 @@ namespace ChessOk.ModelFramework
         /// <returns>Коллекция экземпляров сервисов.</returns>
         public IEnumerable<object> GetAll(Type serviceType)
         {
-            return _context.GetAll(serviceType);
+            return (IEnumerable<object>)_lifetimeScope.Resolve(typeof(IEnumerable<>).MakeGenericType(serviceType));
+        }
+
+        public IModelContext CreateChildContext(object tag, Action<ContainerBuilder> configurationAction)
+        {
+            return new ModelContext(_lifetimeScope, tag, configurationAction);
         }
     }
 }

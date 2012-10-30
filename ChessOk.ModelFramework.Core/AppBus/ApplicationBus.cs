@@ -1,31 +1,30 @@
-п»їusing System;
+using System;
 using System.Collections.Generic;
 
 using Autofac;
 
-using ChessOk.ModelFramework.Scopes;
 using ChessOk.ModelFramework.Messages;
 using ChessOk.ModelFramework.Validation;
 
 namespace ChessOk.ModelFramework
 {
     /// <summary>
-    /// Р РµР°Р»РёР·СѓРµС‚ РёРЅС‚РµСЂС„РµР№СЃ <see cref="IApplicationBus"/>. 
+    /// Реализует интерфейс <see cref="IApplicationBus"/>. 
     /// </summary>
     /// 
     /// <remarks>
-    /// РЎРїРёСЃРѕРє РѕР±СЂР°Р±РѕС‚С‡РёРєРѕРІ
-    /// РїРѕР»СѓС‡Р°РµС‚ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё, РїСѓС‚РµРј Р·Р°РїСЂРѕСЃР° РєРѕР»Р»РµРєС†РёРё Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С…
-    /// РІ РєРѕРЅС‚РµР№РЅРµСЂРµ С‚РёРїРѕРІ <see cref="IApplicationBusMessageHandler"/>.
+    /// Список обработчиков
+    /// получает при инициализации, путем запроса коллекции зарегистрированных
+    /// в контейнере типов <see cref="IApplicationBusMessageHandler"/>.
     /// 
-    /// Р”Р»СЏ РѕР±СЂР°Р±РѕС‚С‡РёРєРѕРІ С‚РёРїР° <see cref="ApplicationBusMessageHandler"/> Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё
-    /// РїСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ СЃРІРѕР№ СЌРєР·РµРјРїР»СЏСЂ <see cref="ApplicationBus"/> РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё.
+    /// Для обработчиков типа <see cref="ApplicationBusMessageHandler"/> автоматически
+    /// предоставляет свой экземпляр <see cref="ApplicationBus"/> при инициализации.
     /// 
-    /// РЎРѕР·РґР°РµС‚ РґРѕС‡РµСЂРЅРёР№ <see cref="IModelContext"/>, РїСЂРµРґРѕСЃС‚Р°РІР»СЏСЋС‰РёР№
-    /// <see cref="ILifetimeScope"/> СЃ С‚РµРіРѕРј <see cref="ScopeHierarchy.ApplicationBus"/>.
+    /// Создает дочерний <see cref="IModelContext"/>, предоставляющий
+    /// <see cref="ILifetimeScope"/> с тегом <see cref="ContextHierarchy.ApplicationBus"/>.
     /// 
-    /// РЎРѕР·РґР°РµС‚ Рё СѓРїСЂР°РІР»СЏРµС‚ <see cref="ValidationContext"/>, РєРѕС‚РѕСЂС‹Р№ СЏРІР»СЏРµС‚СЃСЏ
-    /// РѕР±С‰РёРј РґР»СЏ СЌРєР·РµРјРїР»СЏСЂР° <see cref="ApplicationBus"/> Рё РІСЃРµС… СЃРѕРѕР±С‰РµРЅРёР№ <see cref="IApplicationBusMessage"/>.
+    /// Создает и управляет <see cref="ValidationContext"/>, который является
+    /// общим для экземпляра <see cref="ApplicationBus"/> и всех сообщений <see cref="IApplicationBusMessage"/>.
     /// </remarks>
     public class ApplicationBus : IApplicationBus
     {
@@ -33,21 +32,22 @@ namespace ChessOk.ModelFramework
             new Dictionary<string, IList<IApplicationBusMessageHandler>>();
 
         private readonly IValidationContext _validationContext;
-        private readonly IModelScope _model;
+        private readonly IModelContext _model;
 
         /// <summary>
-        /// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° <see cref="ApplicationBus"/>, РёСЃРїРѕР»СЊР·СѓСЏ
-        /// РІ РєР°С‡РµСЃС‚РІРµ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РєРѕРЅС‚РµРєСЃС‚Р° <paramref name="parentModelScope"/>.
+        /// Инициализирует экземпляр класса <see cref="ApplicationBus"/>, используя
+        /// в качестве родительского контекста <paramref name="parentModelContext"/>.
         /// </summary>
-        /// <param name="parentModelScope"></param>
-        public ApplicationBus(IModelScope parentModelScope)
+        /// <param name="parentModelContext"></param>
+        public ApplicationBus(IModelContext parentModelContext)
         {
-            if (parentModelScope == null)
+            if (parentModelContext == null)
             {
-                throw new ArgumentNullException("parentModelScope");
+                throw new ArgumentNullException("parentModelContext");
             }
 
-            _model = new ModelScope(parentModelScope, ScopeHierarchy.ApplicationBus, 
+            _model = parentModelContext.CreateChildContext(
+                ContextHierarchy.ApplicationBus, 
                 x => x.RegisterInstance(this).As<IApplicationBus>().AsSelf());
 
             _validationContext = _model.Get<IValidationContext>();
@@ -59,7 +59,7 @@ namespace ChessOk.ModelFramework
             }
         }
 
-        public IModelScope Model { get { return _model; } }
+        public IModelContext Model { get { return _model; } }
         public IValidationContext ValidationContext { get { return _validationContext; } }
 
         public void Send(IApplicationBusMessage message)

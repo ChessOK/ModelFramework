@@ -1,6 +1,5 @@
 ﻿using Autofac;
 
-using ChessOk.ModelFramework.Scopes;
 using ChessOk.ModelFramework.Validation.Internals;
 using ChessOk.ModelFramework.Validation.Validators;
 
@@ -14,7 +13,7 @@ namespace ChessOk.ModelFramework.Validation
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(x => new ValidationContext(x.Resolve<IModelScope>()))
+            builder.Register(x => new ValidationContext(x.Resolve<IModelContext>()))
                 .As<IValidationContext>().InstancePerApplicationBus();
 
             builder.Register(x => new AttributesValidator(x.Resolve<IValidationContext>())).AsSelf();

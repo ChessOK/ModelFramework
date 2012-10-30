@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 using Autofac;
 
-namespace ChessOk.ModelFramework.Scopes
+namespace ChessOk.ModelFramework
 {
-    public interface IModelScope : IDisposable
+    public interface IModelContext : IDisposable
     {
         T Get<T>();
         object Get(Type serviceType);
 
-        ILifetimeScope LifetimeScope { get; }
-
         IEnumerable<T> GetAll<T>();
         IEnumerable<object> GetAll(Type serviceType);
+
+        IModelContext CreateChildContext(object tag, Action<ContainerBuilder> registrations);
     }
 }

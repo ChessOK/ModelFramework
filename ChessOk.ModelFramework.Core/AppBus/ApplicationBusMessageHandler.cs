@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-using ChessOk.ModelFramework.Scopes;
 using ChessOk.ModelFramework.Validation;
 
 namespace ChessOk.ModelFramework.Messages
@@ -10,7 +9,7 @@ namespace ChessOk.ModelFramework.Messages
     {
         protected IApplicationBus Bus { get; private set; }
 
-        protected IModelScope Model { get { return Bus.Model; } }
+        protected IModelContext Model { get { return Bus.Model; } }
         protected IValidationContext Validation { get { return Bus.ValidationContext; } }
 
         public abstract void Handle(IApplicationBusMessage ev);

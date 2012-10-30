@@ -4,17 +4,15 @@ using System.Text.RegularExpressions;
 
 using Autofac;
 
-using ChessOk.ModelFramework.Scopes;
-
 namespace ChessOk.ModelFramework.Validation.Internals
 {
     /// <summary>
     /// Предоставляет реализацию интерфейса <see cref="IValidationContext"/>,
-    /// инициализируемую внутри <see cref="IModelScope"/>.
+    /// инициализируемую внутри <see cref="IModelContext"/>.
     /// </summary>
     public class ValidationContext : IValidationContext
     {
-        private readonly IModelScope _model;
+        private readonly IModelContext _model;
 
         private readonly IDictionary<string, IList<string>> _errors =
             new Dictionary<string, IList<string>>();
@@ -23,14 +21,13 @@ namespace ChessOk.ModelFramework.Validation.Internals
 
         /// <summary>
         /// Инициализирует экземпляр класса <see cref="ValidationContext"/>,
-        /// используя указанный <paramref name="parentScope"/>.
+        /// используя указанный <paramref name="parentContext"/>.
         /// </summary>
-        /// <param name="parentScope"></param>
-        public ValidationContext(IModelScope parentScope)
+        /// <param name="parentContext"></param>
+        public ValidationContext(IModelContext parentContext)
         {
-            _model = new ModelScope(
-                parentScope,
-                ScopeHierarchy.ValidationContext,
+            _model = parentContext.CreateChildContext(
+                ContextHierarchy.ValidationContext,
                 x => x.RegisterInstance(this).As<IValidationContext>());
         }
 
@@ -55,7 +52,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
             }
         }
 
-        public IModelScope Model
+        public IModelContext Model
         {
             get
             {

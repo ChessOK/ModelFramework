@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ChessOk.ModelFramework.Scopes;
 namespace ChessOk.ModelFramework.Validation
 {
     /// <summary>
@@ -10,7 +9,7 @@ namespace ChessOk.ModelFramework.Validation
     /// </summary>
     public interface IValidationContext : IDisposable
     {
-        IModelScope Model { get; }
+        IModelContext Model { get; }
 
         /// <summary>
         /// Регистрирует валидационную ошибку с ключом <paramref name="key"/>

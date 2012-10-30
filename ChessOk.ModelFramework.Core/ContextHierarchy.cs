@@ -1,8 +1,8 @@
 ﻿using ChessOk.ModelFramework.Validation.Internals;
 
-namespace ChessOk.ModelFramework.Scopes
+namespace ChessOk.ModelFramework
 {
-    internal static class ScopeHierarchy
+    internal static class ContextHierarchy
     {
         public static object ModelContext = typeof(ModelContext);
         public static object ApplicationBus = typeof(ApplicationBus);

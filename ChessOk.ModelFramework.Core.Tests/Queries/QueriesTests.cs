@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ChessOk.ModelFramework.Tests.Queries
 {
     [TestClass]
-    public class QueriesTests : ModelScopeTest
+    public class QueriesTests : ModelContextTest
     {
         protected override void ConfigureContainer(ContainerBuilder builder)
         {

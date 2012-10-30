@@ -1,19 +1,18 @@
 ﻿using System;
 
 using ChessOk.ModelFramework.Queries.Internals;
-using ChessOk.ModelFramework.Scopes;
 
 namespace ChessOk.ModelFramework
 {
-    public static class ModelScopeQueryExtensions
+    public static class ModelContextQueryExtensions
     {
-        public static T Query<T>(this IModelScope model)
+        public static T Query<T>(this IModelContext model)
             where T : Query
         {
             return model.Query<T>(null);
         }
 
-        public static T Query<T>(this IModelScope model, Action<T> initialization)
+        public static T Query<T>(this IModelContext model, Action<T> initialization)
             where T : Query
         {
             var query = model.Get<T>();

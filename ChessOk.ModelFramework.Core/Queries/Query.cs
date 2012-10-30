@@ -1,14 +1,12 @@
-using ChessOk.ModelFramework.Scopes;
-
 namespace ChessOk.ModelFramework.Queries.Internals
 {
     public abstract class Query
     {
-        protected IModelScope Model { get; private set; }
+        protected IModelContext Model { get; private set; }
 
         internal abstract void Invoke();
 
-        internal void Bind(IModelScope model)
+        internal void Bind(IModelContext model)
         {
             Model = model;
         }
