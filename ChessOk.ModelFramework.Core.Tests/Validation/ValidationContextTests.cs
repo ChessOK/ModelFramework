@@ -106,7 +106,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ReplaceShouldReplaceWithRegexMatchedStringsOnAddError()
         {
-            using (ValidationContext.PrependKeysWithName("User"))
+            using (ValidationContext.PrefixErrorKeysWithName("User"))
             {
                 ValidationContext.AddError("Name", "Not valid");
             }
@@ -118,14 +118,26 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ReplaceShouldSupportNestedInvocations()
         {
-            using (ValidationContext.PrependKeysWithName("Admin"))
-            using (ValidationContext.PrependKeysWithName("Name"))
+            using (ValidationContext.PrefixErrorKeysWithName("Admin"))
+            using (ValidationContext.PrefixErrorKeysWithName("Name"))
             {
                 ValidationContext.AddError("Last", "Hello");
             }
 
             Assert.AreEqual(1, ValidationContext.Keys.Count);
             Assert.AreEqual("Admin.Name.Last", ValidationContext.Keys.First());
+        }
+
+        [TestMethod]
+        public void ReplaceShouldSupportIndexedKeys()
+        {
+            using (ValidationContext.PrefixErrorKeysWithName("User"))
+            {
+                // Эмулируем механизм CollectionValidator
+                ValidationContext.AddError("[3].Name", "Hello");
+            }
+
+            Assert.AreEqual("User[3].Name", ValidationContext.Keys.First());
         }
     }
 }

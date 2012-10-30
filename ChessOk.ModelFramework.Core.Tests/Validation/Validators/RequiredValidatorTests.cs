@@ -15,7 +15,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldSucceedWithNonNullReferenceTypeInstances()
         {
             ValidationContext.Ensure(new object())
-                .IsPresent();
+                .IsRequired();
 
             Assert.IsTrue(ValidationContext.IsValid);
         }
@@ -23,7 +23,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldFailWithNullReferenceTypeInstances()
         {
-            ValidationContext.Ensure((object)null).IsPresent();
+            ValidationContext.Ensure((object)null).IsRequired();
 
             Assert.IsFalse(ValidationContext.IsValid);
             Assert.AreEqual(Resources.Strings.PresenceValidatorMessage, ValidationContext[""].First());
@@ -32,7 +32,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldFailWithUserStringIfSpecified()
         {
-            ValidationContext.Ensure((object)null).IsPresent("foo");
+            ValidationContext.Ensure((object)null).IsRequired("foo");
             Assert.AreEqual("foo", ValidationContext[""].First());
         }
 
@@ -40,7 +40,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldFailForEmptyStringsWithFalseAllowEmptyStringsOption()
         {
             ValidationContext.Ensure(string.Empty)
-                .IsPresent();
+                .IsRequired();
 
             Assert.IsFalse(ValidationContext.IsValid);
         }
@@ -49,7 +49,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldSucceedForEmptyStringsWithAllowEmptyStringsOptionsSet()
         {
             ValidationContext.Ensure(string.Empty)
-                .IsPresent(allowEmptyStrings: true);
+                .IsRequired(allowEmptyStrings: true);
 
             Assert.IsTrue(ValidationContext.IsValid);
         }
@@ -58,7 +58,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldFailForWhitespacesStringsWithFalseAllowEmptyStringsOption()
         {
             ValidationContext.Ensure("   ")
-                .IsPresent();
+                .IsRequired();
 
             Assert.IsFalse(ValidationContext.IsValid);
         }
@@ -67,7 +67,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldSucceedForWhitespacesStringsWithAllowEmptyStringsOptionsSet()
         {
             ValidationContext.Ensure("  ")
-                .IsPresent(allowEmptyStrings: true);
+                .IsRequired(allowEmptyStrings: true);
 
             Assert.IsTrue(ValidationContext.IsValid);
         }
@@ -83,7 +83,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldWorkWithNullableTypes()
         {
-            ValidationContext.Ensure((int?)null).IsPresent("foo");
+            ValidationContext.Ensure((int?)null).IsRequired("foo");
             Assert.IsFalse(ValidationContext.IsValid);
             Assert.AreEqual("foo", ValidationContext.GetErrors("").First());
         }

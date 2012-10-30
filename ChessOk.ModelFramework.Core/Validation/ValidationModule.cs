@@ -6,6 +6,10 @@ using ChessOk.ModelFramework.Validation.Validators;
 
 namespace ChessOk.ModelFramework.Validation
 {
+    /// <summary>
+    /// Модуль, регистрирующий <see cref="IValidationContext"/>
+    /// и все стандартные валидаторы.
+    /// </summary>
     public class ValidationModule : Module
     {
         protected override void Load(ContainerBuilder builder)

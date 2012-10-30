@@ -45,7 +45,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldNotPrependErrorKeysIfSpecified()
         {
             ValidationContext.Ensure(new AttributeClass()).IsValid(
-                new AttributesValidator(ValidationContext) { DoNotModifyErrorKeys = true });
+                new AttributesValidator(ValidationContext) { UsePropertyNamesAsErrorKeys = false });
 
             Assert.AreEqual("", ValidationContext.Keys.First());
         }

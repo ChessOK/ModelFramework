@@ -7,6 +7,12 @@ using ChessOk.ModelFramework.Validation;
 
 namespace ChessOk.ModelFramework
 {
+    /// <summary>
+    /// Регистрирует основные классы и модули ModelFramework. 
+    /// Регистрирует <see cref="ApplicationBus"/>, загружает
+    /// модули <see cref="CommandsModule"/>, <see cref="AsyncCommandsModule"/>,
+    /// <see cref="ValidationModule"/>.
+    /// </summary>
     public class CoreModule : Module
     {
         protected override void Load(ContainerBuilder builder)

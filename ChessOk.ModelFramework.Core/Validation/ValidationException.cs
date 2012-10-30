@@ -4,9 +4,18 @@ using System.Text;
 
 namespace ChessOk.ModelFramework.Validation
 {
+    /// <summary>
+    /// Исключение, генерируемое <see cref="IValidationContext.ThrowExceptionIfInvalid"/> и
+    /// поясняющее, что поток выполнения был прерван из-за наличия хотя бы одной валидационной ошибки.
+    /// </summary>
     [Serializable]
     public class ValidationException : Exception
     {
+        /// <summary>
+        /// Инициализирует экземпляр класса <see cref="ValidationException"/>,
+        /// используя <paramref name="context"/>.
+        /// </summary>
+        /// <param name="context">Валидационный контекст.</param>
         public ValidationException(IValidationContext context)
             : base(FormatMessage(context))
         {

@@ -95,7 +95,7 @@
     <Compile Include="Validation\ValidationContextExtensions.cs" />
     <Compile Include="Validation\EnsureSyntaxExtensions.cs" />
     <Compile Include="Validation\EnsureEngine.cs" />
-    <Compile Include="Validation\ValidationErrorsException.cs" />
+    <Compile Include="Validation\ValidationException.cs" />
     <Compile Include="Validation\IValidationContext.cs" />
     <Compile Include="Validation\Validators\AttributesValidator.cs" />
     <Compile Include="Validation\Validators\CompositeValidator.cs" />

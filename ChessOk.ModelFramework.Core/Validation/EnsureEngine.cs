@@ -5,11 +5,24 @@ using ChessOk.ModelFramework.Expressions;
 
 namespace ChessOk.ModelFramework.Validation.Internals
 {
+    /// <summary>
+    /// ѕредоставл€ет механизм дл€ осуществлени€ валидации на основе
+    /// fluent-синтаксиса (<see cref="IEnsureSyntax{TObject}"/>) 
+    /// и валидаторов (<see cref="IValidator"/>).
+    /// </summary>
+    /// <typeparam name="TObject"></typeparam>
     public class EnsureEngine<TObject> : IEnsureSyntax<TObject>
     {
         private readonly IValidationContext _validationContext;
         private readonly TObject _obj;
 
+        /// <summary>
+        /// »нициализирует экземпл€р класса <see cref="EnsureEngine{TObject}"/>,
+        /// использу€ указанный <paramref name="validationContext"/> и валидируемый
+        /// объект <paramref name="obj"/>.
+        /// </summary>
+        /// <param name="validationContext"></param>
+        /// <param name="obj"></param>
         public EnsureEngine(IValidationContext validationContext, TObject obj)
         {
             if (validationContext == null)
@@ -88,7 +101,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
                 throw new ArgumentNullException("validation");
             }
 
-            using (_validationContext.PrependKeysWithName(propertyName))
+            using (_validationContext.PrefixErrorKeysWithName(propertyName))
             {
                 validation(new EnsureEngine<TProperty>(_validationContext, propertyValue));
             }

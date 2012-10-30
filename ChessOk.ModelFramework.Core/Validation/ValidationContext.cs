@@ -8,6 +8,10 @@ using ChessOk.ModelFramework.Scopes;
 
 namespace ChessOk.ModelFramework.Validation.Internals
 {
+    /// <summary>
+    /// Предоставляет реализацию интерфейса <see cref="IValidationContext"/>,
+    /// инициализируемую внутри <see cref="IModelScope"/>.
+    /// </summary>
     public class ValidationContext : IValidationContext
     {
         private readonly IModelScope _model;
@@ -17,6 +21,11 @@ namespace ChessOk.ModelFramework.Validation.Internals
 
         private readonly Stack<ReplaceOptions> _replaceStack = new Stack<ReplaceOptions>();
 
+        /// <summary>
+        /// Инициализирует экземпляр класса <see cref="ValidationContext"/>,
+        /// используя указанный <paramref name="parentScope"/>.
+        /// </summary>
+        /// <param name="parentScope"></param>
         public ValidationContext(IModelScope parentScope)
         {
             _model = new ModelScope(
@@ -37,7 +46,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
                 return GetErrors(key);
             }
         }
-
+        
         public ICollection<string> Keys
         {
             get

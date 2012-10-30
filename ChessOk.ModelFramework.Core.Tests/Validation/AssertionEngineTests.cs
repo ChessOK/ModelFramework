@@ -67,7 +67,7 @@ namespace ChessOk.ModelFramework.Tests
         public void PropertyShouldPrependErrorKeysWithPropertyNames()
         {
             ValidationContext.Ensure(new SomeClass())
-                .ItsProperty(x => x.Name, x => x.IsPresent());
+                .ItsProperty(x => x.Name, x => x.IsRequired());
 
             Assert.AreEqual("Name", ValidationContext.Keys.Single());
         }
