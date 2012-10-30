@@ -9,7 +9,7 @@ namespace ChessOk.ModelFramework.Messages
     {
         protected IApplicationBus Bus { get; private set; }
 
-        protected IModelContext Model { get { return Bus.Context; } }
+        protected IModelContext Context { get { return Bus.Context; } }
         protected IValidationContext Validation { get { return Bus.ValidationContext; } }
 
         public abstract void Handle(IApplicationBusMessage ev);

@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Linq.Expressions;
 
 using ChessOk.ModelFramework.Expressions;
@@ -6,9 +6,9 @@ using ChessOk.ModelFramework.Expressions;
 namespace ChessOk.ModelFramework.Validation.Internals
 {
     /// <summary>
-    /// Предоставляет механизм для осуществления валидации на основе
-    /// fluent-синтаксиса (<see cref="IEnsureSyntax{TObject}"/>) 
-    /// и валидаторов (<see cref="IValidator"/>).
+    /// РџСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РјРµС…Р°РЅРёР·Рј РґР»СЏ РѕСЃСѓС‰РµСЃС‚РІР»РµРЅРёСЏ РІР°Р»РёРґР°С†РёРё РЅР° РѕСЃРЅРѕРІРµ
+    /// fluent-СЃРёРЅС‚Р°РєСЃРёСЃР° (<see cref="IEnsureSyntax{TObject}"/>) 
+    /// Рё РІР°Р»РёРґР°С‚РѕСЂРѕРІ (<see cref="IValidator"/>).
     /// </summary>
     /// <typeparam name="TObject"></typeparam>
     public class EnsureEngine<TObject> : IEnsureSyntax<TObject>
@@ -17,9 +17,9 @@ namespace ChessOk.ModelFramework.Validation.Internals
         private readonly TObject _obj;
 
         /// <summary>
-        /// Инициализирует экземпляр класса <see cref="EnsureEngine{TObject}"/>,
-        /// используя указанный <paramref name="validationContext"/> и валидируемый
-        /// объект <paramref name="obj"/>.
+        /// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° <see cref="EnsureEngine{TObject}"/>,
+        /// РёСЃРїРѕР»СЊР·СѓСЏ СѓРєР°Р·Р°РЅРЅС‹Р№ <paramref name="validationContext"/> Рё РІР°Р»РёРґРёСЂСѓРµРјС‹Р№
+        /// РѕР±СЉРµРєС‚ <paramref name="obj"/>.
         /// </summary>
         /// <param name="validationContext"></param>
         /// <param name="obj"></param>
@@ -80,7 +80,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
                 if (propertyInfo == null)
                 {
                     throw new InvalidOperationException(
-                        String.Format("Could not find property «{0}» in type «{1}»", propertyName, _obj.GetType().Name));
+                        String.Format("Could not find property В«{0}В» in type В«{1}В»", propertyName, _obj.GetType().Name));
                 }
 
                 var propertyValue = (TProperty)propertyInfo.GetValue(_obj, null);

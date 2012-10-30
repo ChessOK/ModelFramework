@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Linq.Expressions;
 
 using ChessOk.ModelFramework.Validation.Internals;
@@ -6,81 +6,81 @@ using ChessOk.ModelFramework.Validation.Internals;
 namespace ChessOk.ModelFramework.Validation
 {
     /// <summary>
-    /// Предоставляет интерфейс для валидации объекта типа <typeparamref name="TObject"/>,
-    /// используя расширяемый Fluent-синтаксис.
+    /// РџСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РёРЅС‚РµСЂС„РµР№СЃ РґР»СЏ РІР°Р»РёРґР°С†РёРё РѕР±СЉРµРєС‚Р° С‚РёРїР° <typeparamref name="TObject"/>,
+    /// РёСЃРїРѕР»СЊР·СѓСЏ СЂР°СЃС€РёСЂСЏРµРјС‹Р№ Fluent-СЃРёРЅС‚Р°РєСЃРёСЃ.
     /// </summary>
     /// <typeparam name="TObject"></typeparam>
     public interface IEnsureSyntax<TObject>
     {
         /// <summary>
-        /// Получает ассоциированный с синтаксисом экземпляр
+        /// РџРѕР»СѓС‡Р°РµС‚ Р°СЃСЃРѕС†РёРёСЂРѕРІР°РЅРЅС‹Р№ СЃ СЃРёРЅС‚Р°РєСЃРёСЃРѕРј СЌРєР·РµРјРїР»СЏСЂ
         /// <see cref="IValidationContext"/>.
         /// </summary>
         IValidationContext ValidationContext { get; }
 
         /// <summary>
-        /// Произвести валидацию исходного объекта с помощью валидатора, указанного в параметре
+        /// РџСЂРѕРёР·РІРµСЃС‚Рё РІР°Р»РёРґР°С†РёСЋ РёСЃС…РѕРґРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° СЃ РїРѕРјРѕС‰СЊСЋ РІР°Р»РёРґР°С‚РѕСЂР°, СѓРєР°Р·Р°РЅРЅРѕРіРѕ РІ РїР°СЂР°РјРµС‚СЂРµ
         /// <paramref name="validator"/>.
         /// </summary>
         /// 
         /// <remarks>
-        /// При этом указанный <paramref name="validator"/> ассоциируется с текущим
-        /// <see cref="ValidationContext"/> и вызывает его метод <see cref="IValidator.Validate"/>.
+        /// РџСЂРё СЌС‚РѕРј СѓРєР°Р·Р°РЅРЅС‹Р№ <paramref name="validator"/> Р°СЃСЃРѕС†РёРёСЂСѓРµС‚СЃСЏ СЃ С‚РµРєСѓС‰РёРј
+        /// <see cref="ValidationContext"/> Рё РІС‹Р·С‹РІР°РµС‚ РµРіРѕ РјРµС‚РѕРґ <see cref="IValidator.Validate"/>.
         /// </remarks>
         /// 
-        /// <param name="validator">Экземпляр валидатора.</param>
-        /// <returns><see cref="IEnsureSyntax{TObject}"/>, ассоциированный с исходным объектом.</returns>
-        /// <exception cref="ArgumentNullException">Параметр <paramref name="validator"/> не задан.</exception>
+        /// <param name="validator">Р­РєР·РµРјРїР»СЏСЂ РІР°Р»РёРґР°С‚РѕСЂР°.</param>
+        /// <returns><see cref="IEnsureSyntax{TObject}"/>, Р°СЃСЃРѕС†РёРёСЂРѕРІР°РЅРЅС‹Р№ СЃ РёСЃС…РѕРґРЅС‹Рј РѕР±СЉРµРєС‚РѕРј.</returns>
+        /// <exception cref="ArgumentNullException">РџР°СЂР°РјРµС‚СЂ <paramref name="validator"/> РЅРµ Р·Р°РґР°РЅ.</exception>
         IEnsureSyntax<TObject> IsValid(IValidator validator);
 
         /// <summary>
-        /// Произвести валидацию указанного через лямбда-выражение <paramref name="propertyExpression"/>
-        /// свойства. Инструкции по валидации указываются в параметре <paramref name="validation"/>.
+        /// РџСЂРѕРёР·РІРµСЃС‚Рё РІР°Р»РёРґР°С†РёСЋ СѓРєР°Р·Р°РЅРЅРѕРіРѕ С‡РµСЂРµР· Р»СЏРјР±РґР°-РІС‹СЂР°Р¶РµРЅРёРµ <paramref name="propertyExpression"/>
+        /// СЃРІРѕР№СЃС‚РІР°. РРЅСЃС‚СЂСѓРєС†РёРё РїРѕ РІР°Р»РёРґР°С†РёРё СѓРєР°Р·С‹РІР°СЋС‚СЃСЏ РІ РїР°СЂР°РјРµС‚СЂРµ <paramref name="validation"/>.
         /// </summary>
         /// 
         /// <remarks>
-        /// При этом создается новый экземпляр <see cref="EnsureEngine{TProperty}"/>, ассоциированный
-        /// со значением указанного свойства.
+        /// РџСЂРё СЌС‚РѕРј СЃРѕР·РґР°РµС‚СЃСЏ РЅРѕРІС‹Р№ СЌРєР·РµРјРїР»СЏСЂ <see cref="EnsureEngine{TProperty}"/>, Р°СЃСЃРѕС†РёРёСЂРѕРІР°РЅРЅС‹Р№
+        /// СЃРѕ Р·РЅР°С‡РµРЅРёРµРј СѓРєР°Р·Р°РЅРЅРѕРіРѕ СЃРІРѕР№СЃС‚РІР°.
         /// 
-        /// Если исходный объект был равен <c>null</c>, то делегат <paramref name="validation"/>
-        /// не вызывается.
+        /// Р•СЃР»Рё РёСЃС…РѕРґРЅС‹Р№ РѕР±СЉРµРєС‚ Р±С‹Р» СЂР°РІРµРЅ <c>null</c>, С‚Рѕ РґРµР»РµРіР°С‚ <paramref name="validation"/>
+        /// РЅРµ РІС‹Р·С‹РІР°РµС‚СЃСЏ.
         /// 
-        /// Для всех ключей ошибок, устанавливаемых в делегате <paramref name="validation"/> добавляется
-        /// префикс с именем свойства, используя <see cref="ValidationContextExtensions.PrefixErrorKeysWithName"/>.
+        /// Р”Р»СЏ РІСЃРµС… РєР»СЋС‡РµР№ РѕС€РёР±РѕРє, СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРјС‹С… РІ РґРµР»РµРіР°С‚Рµ <paramref name="validation"/> РґРѕР±Р°РІР»СЏРµС‚СЃСЏ
+        /// РїСЂРµС„РёРєСЃ СЃ РёРјРµРЅРµРј СЃРІРѕР№СЃС‚РІР°, РёСЃРїРѕР»СЊР·СѓСЏ <see cref="ValidationContextExtensions.PrefixErrorKeysWithName"/>.
         /// </remarks>
         /// 
-        /// <typeparam name="TProperty">Тип свойства.</typeparam>
-        /// <param name="propertyExpression">Лямбда-выражение свойства.</param>
-        /// <param name="validation">Делегат с инструкциями по валидации свойства.</param>
-        /// <returns><see cref="IEnsureSyntax{TObject}"/>, ассоциированный с исходным объектом (не свойством).</returns>
-        /// <exception cref="ArgumentNullException">Параметр <paramref name="propertyExpression"/> не задан.</exception>
-        /// <exception cref="ArgumentNullException">Делегат <paramref name="validation"/> не задан.</exception>
+        /// <typeparam name="TProperty">РўРёРї СЃРІРѕР№СЃС‚РІР°.</typeparam>
+        /// <param name="propertyExpression">Р›СЏРјР±РґР°-РІС‹СЂР°Р¶РµРЅРёРµ СЃРІРѕР№СЃС‚РІР°.</param>
+        /// <param name="validation">Р”РµР»РµРіР°С‚ СЃ РёРЅСЃС‚СЂСѓРєС†РёСЏРјРё РїРѕ РІР°Р»РёРґР°С†РёРё СЃРІРѕР№СЃС‚РІР°.</param>
+        /// <returns><see cref="IEnsureSyntax{TObject}"/>, Р°СЃСЃРѕС†РёРёСЂРѕРІР°РЅРЅС‹Р№ СЃ РёСЃС…РѕРґРЅС‹Рј РѕР±СЉРµРєС‚РѕРј (РЅРµ СЃРІРѕР№СЃС‚РІРѕРј).</returns>
+        /// <exception cref="ArgumentNullException">РџР°СЂР°РјРµС‚СЂ <paramref name="propertyExpression"/> РЅРµ Р·Р°РґР°РЅ.</exception>
+        /// <exception cref="ArgumentNullException">Р”РµР»РµРіР°С‚ <paramref name="validation"/> РЅРµ Р·Р°РґР°РЅ.</exception>
         IEnsureSyntax<TObject> ItsProperty<TProperty>(
             Expression<Func<TObject, TProperty>> propertyExpression,
             Action<IEnsureSyntax<TProperty>> validation);
 
         /// <summary>
-        /// Произвести валидацию свойства с именем <paramref name="propertyName"/>
-        /// Инструкции по валидации указываются в параметре <paramref name="validation"/>.
+        /// РџСЂРѕРёР·РІРµСЃС‚Рё РІР°Р»РёРґР°С†РёСЋ СЃРІРѕР№СЃС‚РІР° СЃ РёРјРµРЅРµРј <paramref name="propertyName"/>
+        /// РРЅСЃС‚СЂСѓРєС†РёРё РїРѕ РІР°Р»РёРґР°С†РёРё СѓРєР°Р·С‹РІР°СЋС‚СЃСЏ РІ РїР°СЂР°РјРµС‚СЂРµ <paramref name="validation"/>.
         /// </summary>
         /// 
         /// <remarks>
-        /// При этом создается новый экземпляр <see cref="EnsureEngine{TProperty}"/>, ассоциированный
-        /// со значением указанного свойства.
+        /// РџСЂРё СЌС‚РѕРј СЃРѕР·РґР°РµС‚СЃСЏ РЅРѕРІС‹Р№ СЌРєР·РµРјРїР»СЏСЂ <see cref="EnsureEngine{TProperty}"/>, Р°СЃСЃРѕС†РёРёСЂРѕРІР°РЅРЅС‹Р№
+        /// СЃРѕ Р·РЅР°С‡РµРЅРёРµРј СѓРєР°Р·Р°РЅРЅРѕРіРѕ СЃРІРѕР№СЃС‚РІР°.
         /// 
-        /// Если исходный объект был равен <c>null</c>, то делегат <paramref name="validation"/>
-        /// не вызывается.
+        /// Р•СЃР»Рё РёСЃС…РѕРґРЅС‹Р№ РѕР±СЉРµРєС‚ Р±С‹Р» СЂР°РІРµРЅ <c>null</c>, С‚Рѕ РґРµР»РµРіР°С‚ <paramref name="validation"/>
+        /// РЅРµ РІС‹Р·С‹РІР°РµС‚СЃСЏ.
         /// 
-        /// Для всех ключей ошибок, устанавливаемых в делегате <paramref name="validation"/> добавляется
-        /// префикс с именем свойства, используя <see cref="ValidationContextExtensions.PrefixErrorKeysWithName"/>.
+        /// Р”Р»СЏ РІСЃРµС… РєР»СЋС‡РµР№ РѕС€РёР±РѕРє, СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРјС‹С… РІ РґРµР»РµРіР°С‚Рµ <paramref name="validation"/> РґРѕР±Р°РІР»СЏРµС‚СЃСЏ
+        /// РїСЂРµС„РёРєСЃ СЃ РёРјРµРЅРµРј СЃРІРѕР№СЃС‚РІР°, РёСЃРїРѕР»СЊР·СѓСЏ <see cref="ValidationContextExtensions.PrefixErrorKeysWithName"/>.
         /// </remarks>
         /// 
-        /// <typeparam name="TProperty">Тип свойства.</typeparam>
-        /// <param name="propertyName">Имя валидируемого свойства.</param>
-        /// <param name="validation">Делегат с инструкциями по валидации свойства.</param>
-        /// <returns><see cref="IEnsureSyntax{TObject}"/>, ассоциированный с исходным объектом (не свойством).</returns>
-        /// <exception cref="InvalidOperationException">Свойство с именем <paramref name="propertyName"/> не найдено.</exception>
-        /// <exception cref="ArgumentNullException">Делегат <paramref name="validation"/> не задан.</exception>
+        /// <typeparam name="TProperty">РўРёРї СЃРІРѕР№СЃС‚РІР°.</typeparam>
+        /// <param name="propertyName">РРјСЏ РІР°Р»РёРґРёСЂСѓРµРјРѕРіРѕ СЃРІРѕР№СЃС‚РІР°.</param>
+        /// <param name="validation">Р”РµР»РµРіР°С‚ СЃ РёРЅСЃС‚СЂСѓРєС†РёСЏРјРё РїРѕ РІР°Р»РёРґР°С†РёРё СЃРІРѕР№СЃС‚РІР°.</param>
+        /// <returns><see cref="IEnsureSyntax{TObject}"/>, Р°СЃСЃРѕС†РёРёСЂРѕРІР°РЅРЅС‹Р№ СЃ РёСЃС…РѕРґРЅС‹Рј РѕР±СЉРµРєС‚РѕРј (РЅРµ СЃРІРѕР№СЃС‚РІРѕРј).</returns>
+        /// <exception cref="InvalidOperationException">РЎРІРѕР№СЃС‚РІРѕ СЃ РёРјРµРЅРµРј <paramref name="propertyName"/> РЅРµ РЅР°Р№РґРµРЅРѕ.</exception>
+        /// <exception cref="ArgumentNullException">Р”РµР»РµРіР°С‚ <paramref name="validation"/> РЅРµ Р·Р°РґР°РЅ.</exception>
         IEnsureSyntax<TObject> ItsProperty<TProperty>(
             string propertyName,
             Action<IEnsureSyntax<TProperty>> validation);
