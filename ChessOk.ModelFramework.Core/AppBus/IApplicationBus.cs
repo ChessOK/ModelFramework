@@ -28,17 +28,18 @@ namespace ChessOk.ModelFramework
         /// Провалидировать сообщение, используя <see cref="ObjectValidator"/> 
         /// и вызвать все его обработчики.
         /// </summary>
-        /// <param name="message">Передаваемое сообщение</param>
+        /// <param name="message">Cообщение.</param>
+        /// <exception cref="ValidationException">Валидация сообщения завершилась неудачей.</exception>
         void Send(IApplicationBusMessage message);
 
         /// <summary>
-        /// Провалидировать сообщение, используя <see cref="ObjectValidator"/>
-        /// и вызвать все его обработчики.
-        /// Если во время обработки сообщения было выброшено валидационное исключение,
-        /// то оно игнорируется и возвращается False.
+        /// <para>Провалидировать сообщение, используя <see cref="ObjectValidator"/>
+        /// и вызвать все его обработчики.</para>
+        /// <para>Если во время обработки сообщения было выброшено валидационное исключение,
+        /// то оно игнорируется и возвращается False.</para>
         /// </summary>
-        /// <param name="message"></param>
-        /// <returns>False, если было выброшено валидационное исключение. В противном случае True.</returns>
+        /// <param name="message">Сообщение.</param>
+        /// <returns>False, если валидация завершилась неудачей. True в противном случае.</returns>
         bool TrySend(IApplicationBusMessage message);
     }
 }

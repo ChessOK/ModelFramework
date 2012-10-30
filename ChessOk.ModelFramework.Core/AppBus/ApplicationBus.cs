@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 using Autofac;
@@ -9,6 +9,24 @@ using ChessOk.ModelFramework.Validation;
 
 namespace ChessOk.ModelFramework
 {
+    /// <summary>
+    /// Реализует интерфейс <see cref="IApplicationBus"/>. 
+    /// </summary>
+    /// 
+    /// <remarks>
+    /// Список обработчиков
+    /// получает при инициализации, путем запроса коллекции зарегистрированных
+    /// в контейнере типов <see cref="IApplicationBusMessageHandler"/>.
+    /// 
+    /// Для обработчиков типа <see cref="ApplicationBusMessageHandler"/> автоматически
+    /// предоставляет свой экземпляр <see cref="ApplicationBus"/> при инициализации.
+    /// 
+    /// Создает дочерний <see cref="IModelContext"/>, предоставляющий
+    /// <see cref="ILifetimeScope"/> с тегом <see cref="ScopeHierarchy.ApplicationBus"/>.
+    /// 
+    /// Создает и управляет <see cref="ValidationContext"/>, который является
+    /// общим для экземпляра <see cref="ApplicationBus"/> и всех сообщений <see cref="IApplicationBusMessage"/>.
+    /// </remarks>
     public class ApplicationBus : IApplicationBus
     {
         private readonly IDictionary<string, IList<IApplicationBusMessageHandler>> _subscriptions =
@@ -17,6 +35,11 @@ namespace ChessOk.ModelFramework
         private readonly IValidationContext _validationContext;
         private readonly IModelScope _model;
 
+        /// <summary>
+        /// Инициализирует экземпляр класса <see cref="ApplicationBus"/>, используя
+        /// в качестве родительского контекста <paramref name="parentModelScope"/>.
+        /// </summary>
+        /// <param name="parentModelScope"></param>
         public ApplicationBus(IModelScope parentModelScope)
         {
             if (parentModelScope == null)
