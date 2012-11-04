@@ -1,18 +1,18 @@
-using System;
+п»їusing System;
 
 namespace ChessOk.ModelFramework
 {
     /// <summary>
-    /// Выполняет указанный в конструкторе делегат
-    /// во время вызова метода <see cref="Dispose"/>.
+    /// Р’С‹РїРѕР»РЅСЏРµС‚ СѓРєР°Р·Р°РЅРЅС‹Р№ РІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРµ РґРµР»РµРіР°С‚
+    /// РІРѕ РІСЂРµРјСЏ РІС‹Р·РѕРІР° РјРµС‚РѕРґР° <see cref="Dispose"/>.
     /// </summary>
     public class DisposableAction : IDisposable
     {
         private readonly Action _action;
 
         /// <summary>
-        /// Инициализировать экземпляр класса, используя делегат <paramref name="action"/>,
-        /// который будет вызван в метода <see cref="Dispose"/>.
+        /// РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР°, РёСЃРїРѕР»СЊР·СѓСЏ РґРµР»РµРіР°С‚ <paramref name="action"/>,
+        /// РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РІС‹Р·РІР°РЅ РІ РјРµС‚РѕРґР° <see cref="Dispose"/>.
         /// </summary>
         /// <param name="action"></param>
         public DisposableAction(Action action)
@@ -21,8 +21,8 @@ namespace ChessOk.ModelFramework
         }
 
         /// <summary>
-        /// Вызвать делегат, указанный при
-        /// создании экземпляра.
+        /// Р’С‹Р·РІР°С‚СЊ РґРµР»РµРіР°С‚, СѓРєР°Р·Р°РЅРЅС‹Р№ РїСЂРё
+        /// СЃРѕР·РґР°РЅРёРё СЌРєР·РµРјРїР»СЏСЂР°.
         /// </summary>
         public void Dispose()
         {

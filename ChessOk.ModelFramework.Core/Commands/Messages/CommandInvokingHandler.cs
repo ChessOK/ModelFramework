@@ -1,22 +1,22 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 
 using ChessOk.ModelFramework.Messages;
 
 namespace ChessOk.ModelFramework.Commands.Messages
 {
     /// <summary>
-    /// Обработчик сообщения <see cref="ICommandInvokingMessage{T}"/>, которое
-    /// посылается в шину перед выполнением команды с типом <typeparamref name="T"/>
-    /// (наследник <see cref="CommandBase"/>).
+    /// РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕРѕР±С‰РµРЅРёСЏ <see cref="ICommandInvokingMessage{T}"/>, РєРѕС‚РѕСЂРѕРµ
+    /// РїРѕСЃС‹Р»Р°РµС‚СЃСЏ РІ С€РёРЅСѓ РїРµСЂРµРґ РІС‹РїРѕР»РЅРµРЅРёРµРј РєРѕРјР°РЅРґС‹ СЃ С‚РёРїРѕРј <typeparamref name="T"/>
+    /// (РЅР°СЃР»РµРґРЅРёРє <see cref="CommandBase"/>).
     /// </summary>
     /// 
     /// <remarks>
-    /// Так как в сообщении <see cref="ICommandInvokingMessage{T}"/> параметр <typeparamref name="T"/>
-    /// объявлен ковариантным, то обработчик будет вызван перед выполнением всех команд, 
-    /// являющихся наследниками типа <typeparamref name="T"/>.
+    /// РўР°Рє РєР°Рє РІ СЃРѕРѕР±С‰РµРЅРёРё <see cref="ICommandInvokingMessage{T}"/> РїР°СЂР°РјРµС‚СЂ <typeparamref name="T"/>
+    /// РѕР±СЉСЏРІР»РµРЅ РєРѕРІР°СЂРёР°РЅС‚РЅС‹Рј, С‚Рѕ РѕР±СЂР°Р±РѕС‚С‡РёРє Р±СѓРґРµС‚ РІС‹Р·РІР°РЅ РїРµСЂРµРґ РІС‹РїРѕР»РЅРµРЅРёРµРј РІСЃРµС… РєРѕРјР°РЅРґ, 
+    /// СЏРІР»СЏСЋС‰РёС…СЃСЏ РЅР°СЃР»РµРґРЅРёРєР°РјРё С‚РёРїР° <typeparamref name="T"/>.
     /// </remarks>
     /// 
-    /// <typeparam name="T">Тип добавляемой в очередь команды, наследник <see cref="CommandBase"/></typeparam>
+    /// <typeparam name="T">РўРёРї РґРѕР±Р°РІР»СЏРµРјРѕР№ РІ РѕС‡РµСЂРµРґСЊ РєРѕРјР°РЅРґС‹, РЅР°СЃР»РµРґРЅРёРє <see cref="CommandBase"/></typeparam>
     public abstract class CommandInvokingHandler<T> : ApplicationBusMessageHandler<ICommandInvokingMessage<T>>
         where T : CommandBase
     {

@@ -1,4 +1,4 @@
-namespace ChessOk.ModelFramework.Commands.Messages
+﻿namespace ChessOk.ModelFramework.Commands.Messages
 {
     internal class CommandInvokingMessage<T> : ICommandInvokingMessage<T>
     {

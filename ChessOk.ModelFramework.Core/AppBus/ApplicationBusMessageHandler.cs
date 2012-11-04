@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 
 using ChessOk.ModelFramework.Validation;
@@ -6,7 +6,7 @@ using ChessOk.ModelFramework.Validation;
 namespace ChessOk.ModelFramework.Messages
 {
     /// <summary>
-    /// Служит базовым классом для реализации обработчиков событий.
+    /// РЎР»СѓР¶РёС‚ Р±Р°Р·РѕРІС‹Рј РєР»Р°СЃСЃРѕРј РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё РѕР±СЂР°Р±РѕС‚С‡РёРєРѕРІ СЃРѕР±С‹С‚РёР№.
     /// </summary>
     public abstract class ApplicationBusMessageHandler : IApplicationBusMessageHandler
     {

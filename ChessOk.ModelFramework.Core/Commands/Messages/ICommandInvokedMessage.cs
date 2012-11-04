@@ -1,21 +1,21 @@
-using ChessOk.ModelFramework.Messages;
+п»їusing ChessOk.ModelFramework.Messages;
 
 namespace ChessOk.ModelFramework.Commands.Messages
 {
     /// <summary>
-    /// Предоставляет интерфейс для сообщения, посылаемого в шину <see cref="IApplicationBus"/> 
-    /// после выполнения команды с типом <typeparamref name="T"/> (и всех его наследников).
+    /// РџСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РёРЅС‚РµСЂС„РµР№СЃ РґР»СЏ СЃРѕРѕР±С‰РµРЅРёСЏ, РїРѕСЃС‹Р»Р°РµРјРѕРіРѕ РІ С€РёРЅСѓ <see cref="IApplicationBus"/> 
+    /// РїРѕСЃР»Рµ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРѕРјР°РЅРґС‹ СЃ С‚РёРїРѕРј <typeparamref name="T"/> (Рё РІСЃРµС… РµРіРѕ РЅР°СЃР»РµРґРЅРёРєРѕРІ).
     /// </summary>
     /// 
     /// <remarks>
-    /// См. также <see cref="CommandInvokedHandler{T}"/> и <see cref="CommandDispatcher"/>.
+    /// РЎРј. С‚Р°РєР¶Рµ <see cref="CommandInvokedHandler{T}"/> Рё <see cref="CommandDispatcher"/>.
     /// </remarks>
     /// 
-    /// <typeparam name="T">Тип выполненной команды.</typeparam>
+    /// <typeparam name="T">РўРёРї РІС‹РїРѕР»РЅРµРЅРЅРѕР№ РєРѕРјР°РЅРґС‹.</typeparam>
     public interface ICommandInvokedMessage<out T> : IApplicationBusMessage
     {
         /// <summary>
-        /// Экземпляр выполненной команды.
+        /// Р­РєР·РµРјРїР»СЏСЂ РІС‹РїРѕР»РЅРµРЅРЅРѕР№ РєРѕРјР°РЅРґС‹.
         /// </summary>
         T Command { get; }
     }

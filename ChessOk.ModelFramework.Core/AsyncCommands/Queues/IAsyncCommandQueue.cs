@@ -1,26 +1,26 @@
-using System;
+п»їusing System;
 
 using ChessOk.ModelFramework.Commands;
 
 namespace ChessOk.ModelFramework.AsyncCommands.Queues
 {
     /// <summary>
-    /// Предоставляет интерфейс для очереди команд,
-    /// выполняющихся асинхронно.
+    /// РџСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РёРЅС‚РµСЂС„РµР№СЃ РґР»СЏ РѕС‡РµСЂРµРґРё РєРѕРјР°РЅРґ,
+    /// РІС‹РїРѕР»РЅСЏСЋС‰РёС…СЃСЏ Р°СЃРёРЅС…СЂРѕРЅРЅРѕ.
     /// </summary>
     public interface IAsyncCommandQueue : IDisposable
     {
         /// <summary>
-        /// Добавить указанную команду <paramref name="asyncCommand"/> 
-        /// в конец очереди. Команда должна быть помечена атрибутом <see cref="SerializableAttribute"/>.
+        /// Р”РѕР±Р°РІРёС‚СЊ СѓРєР°Р·Р°РЅРЅСѓСЋ РєРѕРјР°РЅРґСѓ <paramref name="asyncCommand"/> 
+        /// РІ РєРѕРЅРµС† РѕС‡РµСЂРµРґРё. РљРѕРјР°РЅРґР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РїРѕРјРµС‡РµРЅР° Р°С‚СЂРёР±СѓС‚РѕРј <see cref="SerializableAttribute"/>.
         /// </summary>
-        /// <param name="asyncCommand">Добавляемая команда.</param>
+        /// <param name="asyncCommand">Р”РѕР±Р°РІР»СЏРµРјР°СЏ РєРѕРјР°РЅРґР°.</param>
         void Enqueue(CommandBase asyncCommand);
 
         /// <summary>
-        /// Извлечь команду из начала очереди.
+        /// РР·РІР»РµС‡СЊ РєРѕРјР°РЅРґСѓ РёР· РЅР°С‡Р°Р»Р° РѕС‡РµСЂРµРґРё.
         /// </summary>
-        /// <returns>Экземпляр команды, или null, если очередь пуста.</returns>
+        /// <returns>Р­РєР·РµРјРїР»СЏСЂ РєРѕРјР°РЅРґС‹, РёР»Рё null, РµСЃР»Рё РѕС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°.</returns>
         CommandBase Dequeue();
     }
 }

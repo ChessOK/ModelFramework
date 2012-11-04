@@ -1,20 +1,20 @@
-using ChessOk.ModelFramework.AsyncCommands.Workers;
+п»їusing ChessOk.ModelFramework.AsyncCommands.Workers;
 using ChessOk.ModelFramework.Commands;
 
 namespace ChessOk.ModelFramework.AsyncCommands.Handlers
 {
     /// <summary>
-    /// Предоставляет интерфейс для обработчиков команд <see cref="CommandBase"/>,
-    /// выполняемых асинхронно.
+    /// РџСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РёРЅС‚РµСЂС„РµР№СЃ РґР»СЏ РѕР±СЂР°Р±РѕС‚С‡РёРєРѕРІ РєРѕРјР°РЅРґ <see cref="CommandBase"/>,
+    /// РІС‹РїРѕР»РЅСЏРµРјС‹С… Р°СЃРёРЅС…СЂРѕРЅРЅРѕ.
     /// <para>
-    /// Обработчик вызывается после получания команды из очереди (см.
-    /// пример в классе <see cref="BackgroundThreadWorker"/>).
+    /// РћР±СЂР°Р±РѕС‚С‡РёРє РІС‹Р·С‹РІР°РµС‚СЃСЏ РїРѕСЃР»Рµ РїРѕР»СѓС‡Р°РЅРёСЏ РєРѕРјР°РЅРґС‹ РёР· РѕС‡РµСЂРµРґРё (СЃРј.
+    /// РїСЂРёРјРµСЂ РІ РєР»Р°СЃСЃРµ <see cref="BackgroundThreadWorker"/>).
     /// </para>
     /// </summary>
     public interface IAsyncCommandHandler
     {
         /// <summary>
-        /// Обработать и выполнить команду <paramref name="asyncCommand"/>.
+        /// РћР±СЂР°Р±РѕС‚Р°С‚СЊ Рё РІС‹РїРѕР»РЅРёС‚СЊ РєРѕРјР°РЅРґСѓ <paramref name="asyncCommand"/>.
         /// </summary>
         void Handle(CommandBase asyncCommand);
     }

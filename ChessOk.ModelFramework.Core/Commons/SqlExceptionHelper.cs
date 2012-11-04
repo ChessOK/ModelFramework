@@ -1,16 +1,16 @@
-using System;
+п»їusing System;
 using System.Data.SqlClient;
 
 namespace ChessOk.ModelFramework.Commands.Filters
 {
     /// <summary>
-    /// Предоставляет единственный метод <see cref="IsDeadlock"/>.
+    /// РџСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РµРґРёРЅСЃС‚РІРµРЅРЅС‹Р№ РјРµС‚РѕРґ <see cref="IsDeadlock"/>.
     /// </summary>
     public class SqlExceptionHelper
     {
         /// <summary>
-        /// Возвращает true, если указанное исключение является
-        /// <see cref="SqlException"/> с номером ошибки 1205.
+        /// Р’РѕР·РІСЂР°С‰Р°РµС‚ true, РµСЃР»Рё СѓРєР°Р·Р°РЅРЅРѕРµ РёСЃРєР»СЋС‡РµРЅРёРµ СЏРІР»СЏРµС‚СЃСЏ
+        /// <see cref="SqlException"/> СЃ РЅРѕРјРµСЂРѕРј РѕС€РёР±РєРё 1205.
         /// </summary>
         /// <param name="ex"></param>
         /// <returns></returns>

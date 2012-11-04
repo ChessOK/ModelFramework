@@ -1,21 +1,21 @@
-using ChessOk.ModelFramework.Messages;
+п»їusing ChessOk.ModelFramework.Messages;
 
 namespace ChessOk.ModelFramework.AsyncCommands.Messages
 {
     /// <summary>
-    /// Предоставляет интерфейс для сообщения, посылаемого в шину <see cref="IApplicationBus"/> 
-    /// после добавления команды с типом <typeparamref name="T"/> (и всех его наследников) в очередь.
+    /// РџСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РёРЅС‚РµСЂС„РµР№СЃ РґР»СЏ СЃРѕРѕР±С‰РµРЅРёСЏ, РїРѕСЃС‹Р»Р°РµРјРѕРіРѕ РІ С€РёРЅСѓ <see cref="IApplicationBus"/> 
+    /// РїРѕСЃР»Рµ РґРѕР±Р°РІР»РµРЅРёСЏ РєРѕРјР°РЅРґС‹ СЃ С‚РёРїРѕРј <typeparamref name="T"/> (Рё РІСЃРµС… РµРіРѕ РЅР°СЃР»РµРґРЅРёРєРѕРІ) РІ РѕС‡РµСЂРµРґСЊ.
     /// </summary>
     /// 
     /// <remarks>
-    /// См. также <see cref="AsyncCommandEnqueuedHandler{T}"/> и <see cref="AsyncCommandDispatcher"/>.
+    /// РЎРј. С‚Р°РєР¶Рµ <see cref="AsyncCommandEnqueuedHandler{T}"/> Рё <see cref="AsyncCommandDispatcher"/>.
     /// </remarks>
     /// 
-    /// <typeparam name="T">Тип добавленной в очередь команды.</typeparam>
+    /// <typeparam name="T">РўРёРї РґРѕР±Р°РІР»РµРЅРЅРѕР№ РІ РѕС‡РµСЂРµРґСЊ РєРѕРјР°РЅРґС‹.</typeparam>
     public interface IAsyncCommandEnqueuedMessage<out T> : IApplicationBusMessage
     {
         /// <summary>
-        /// Экземпляр добавленной в очередь команды.
+        /// Р­РєР·РµРјРїР»СЏСЂ РґРѕР±Р°РІР»РµРЅРЅРѕР№ РІ РѕС‡РµСЂРµРґСЊ РєРѕРјР°РЅРґС‹.
         /// </summary>
         T Command { get; }
     }

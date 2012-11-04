@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Concurrent;
 
 using ChessOk.ModelFramework.Commands;
@@ -6,7 +6,7 @@ using ChessOk.ModelFramework.Commands;
 namespace ChessOk.ModelFramework.AsyncCommands.Queues
 {
     /// <summary>
-    /// Очередь команд, располагаемая в оперативной памяти.
+    /// РћС‡РµСЂРµРґСЊ РєРѕРјР°РЅРґ, СЂР°СЃРїРѕР»Р°РіР°РµРјР°СЏ РІ РѕРїРµСЂР°С‚РёРІРЅРѕР№ РїР°РјСЏС‚Рё.
     /// </summary>
     public sealed class InMemoryAsyncCommandQueue : IAsyncCommandQueue
     {

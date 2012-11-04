@@ -1,17 +1,17 @@
-using System;
+п»їusing System;
 
 namespace ChessOk.ModelFramework.AsyncCommands.Handlers
 {
     /// <summary>
-    /// Исключение, служащее оберткой для всех исключений, брошенных
-    /// при обработке команды внутри <see cref="IAsyncCommandHandler"/>.
+    /// РСЃРєР»СЋС‡РµРЅРёРµ, СЃР»СѓР¶Р°С‰РµРµ РѕР±РµСЂС‚РєРѕР№ РґР»СЏ РІСЃРµС… РёСЃРєР»СЋС‡РµРЅРёР№, Р±СЂРѕС€РµРЅРЅС‹С…
+    /// РїСЂРё РѕР±СЂР°Р±РѕС‚РєРµ РєРѕРјР°РЅРґС‹ РІРЅСѓС‚СЂРё <see cref="IAsyncCommandHandler"/>.
     /// </summary>
     [Serializable]
     public class AsyncCommandHandlingException : Exception
     {
         /// <summary>
-        /// Инициализирует экхемпляр класса <see cref="AsyncCommandHandlingException"/>,
-        /// используя <paramref name="innerException"/>.
+        /// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ СЌРєС…РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° <see cref="AsyncCommandHandlingException"/>,
+        /// РёСЃРїРѕР»СЊР·СѓСЏ <paramref name="innerException"/>.
         /// </summary>
         /// <param name="innerException"></param>
         public AsyncCommandHandlingException(Exception innerException)

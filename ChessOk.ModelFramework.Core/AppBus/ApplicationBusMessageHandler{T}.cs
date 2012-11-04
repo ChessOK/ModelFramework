@@ -1,18 +1,18 @@
-using System;
+п»їusing System;
 
 namespace ChessOk.ModelFramework.Messages
 {
     /// <summary>
-    /// Служит базовым классом для реализации обработчиков сообщений
-    /// типа <typeparamref name="T"/>.
+    /// РЎР»СѓР¶РёС‚ Р±Р°Р·РѕРІС‹Рј РєР»Р°СЃСЃРѕРј РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё РѕР±СЂР°Р±РѕС‚С‡РёРєРѕРІ СЃРѕРѕР±С‰РµРЅРёР№
+    /// С‚РёРїР° <typeparamref name="T"/>.
     /// </summary>
     /// 
     /// <remarks>
-    /// В отличие от <see cref="ApplicationBusMessageHandler"/>, он обрабатывает
-    /// только сообщения типа <typeparamref name="T"/>, игнорируя все другие типы.
+    /// Р’ РѕС‚Р»РёС‡РёРµ РѕС‚ <see cref="ApplicationBusMessageHandler"/>, РѕРЅ РѕР±СЂР°Р±Р°С‚С‹РІР°РµС‚
+    /// С‚РѕР»СЊРєРѕ СЃРѕРѕР±С‰РµРЅРёСЏ С‚РёРїР° <typeparamref name="T"/>, РёРіРЅРѕСЂРёСЂСѓСЏ РІСЃРµ РґСЂСѓРіРёРµ С‚РёРїС‹.
     /// </remarks>
     /// 
-    /// <typeparam name="T">Тип обрабатываемых сообщений.</typeparam>
+    /// <typeparam name="T">РўРёРї РѕР±СЂР°Р±Р°С‚С‹РІР°РµРјС‹С… СЃРѕРѕР±С‰РµРЅРёР№.</typeparam>
     public abstract class ApplicationBusMessageHandler<T> : ApplicationBusMessageHandler
         where T : class, IApplicationBusMessage
     {
