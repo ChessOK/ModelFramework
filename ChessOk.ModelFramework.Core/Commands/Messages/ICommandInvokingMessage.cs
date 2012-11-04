@@ -3,55 +3,34 @@ using ChessOk.ModelFramework.Messages;
 namespace ChessOk.ModelFramework.Commands.Messages
 {
     /// <summary>
-    /// <para>
-    /// Событие инициируется ДО вызова команды указанного типа или его наследника. 
-    /// </para>
-    /// <para>
-    /// Её выполнение можно отменить, выставив соответствующее значение
-    /// в свойстве <see cref="InvocationCancelled"/>.
-    /// </para>
-    /// <typeparam name="T">Тип вызываемой команды.</typeparam>
+    /// Предоставляет инерфейс для сообщения, отправляемого перед выполнением
+    /// команд с типом <typeparamref name="T"/> (и всех её наследников).
     /// </summary>
+    /// 
+    /// <remarks>
+    /// Если выполнение команды было отменено с помощью <see cref="CancelInvocation"/>,
+    /// то остальные обработчики сообщения <see cref="ICommandInvokingMessage{T}"/> все-равно
+    /// будут вызваны, поскольку порядок вызова обработчиков сообщений шины недетерминирован.
+    /// 
+    /// См. также <see cref="CommandInvokedHandler{T}"/> и <see cref="CommandDispatcher"/>.
+    /// </remarks>
+    /// 
+    /// <typeparam name="T">Тип добавляемой в очередь команды.</typeparam>
     public interface ICommandInvokingMessage<out T> : IApplicationBusMessage
     {
         /// <summary>
-        /// Экземпляр вызываемой команды.
+        /// Получает экземпляр выполняемой команды.
         /// </summary>
         T Command { get; }
 
         /// <summary>
-        /// Отменить выполнение команды. 
-        /// <remarks>
-        /// Чтобы команда была отменена, нужно, чтобы после вызова всех обработчиков, этот флаг сохранился.
-        /// </remarks>
+        /// Получает значение, указывающее, было ли отменено выполнение команды.
         /// </summary>
         bool InvocationCancelled { get; }
+
+        /// <summary>
+        /// Отменяет выполнение команды <see cref="Command"/>.
+        /// </summary>
         void CancelInvocation();
-    }
-
-    internal class CommandInvokingMessage<T> : ICommandInvokingMessage<T>
-    {
-        public CommandInvokingMessage(T command)
-        {
-            Command = command;
-        }
-
-        public T Command { get; private set; }
-        public bool InvocationCancelled { get; private set; }
-
-        public void CancelInvocation()
-        {
-            InvocationCancelled = true;
-        }
-
-        public string MessageName
-        {
-            get { return GetMessageName(); }
-        }
-
-        public static string GetMessageName()
-        {
-            return typeof(ICommandInvokingMessage<>).Name;
-        }
     }
 }

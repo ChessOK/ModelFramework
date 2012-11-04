@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using ChessOk.ModelFramework.Messages;
 using ChessOk.ModelFramework.Validation;
@@ -27,6 +26,11 @@ namespace ChessOk.ModelFramework
         /// Провалидировать сообщение, используя <see cref="ObjectValidator"/> 
         /// и вызвать все его обработчики.
         /// </summary>
+        /// 
+        /// <remarks>
+        /// Порядок вызова обработчиков недетерминирован.
+        /// </remarks>
+        /// 
         /// <param name="message">Cообщение.</param>
         /// <exception cref="ValidationException">Валидация сообщения завершилась неудачей.</exception>
         void Send(IApplicationBusMessage message);

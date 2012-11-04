@@ -3,8 +3,17 @@ using System.Data.SqlClient;
 
 namespace ChessOk.ModelFramework.Commands.Filters
 {
+    /// <summary>
+    /// Предоставляет единственный метод <see cref="IsDeadlock"/>.
+    /// </summary>
     public class SqlExceptionHelper
     {
+        /// <summary>
+        /// Возвращает true, если указанное исключение является
+        /// <see cref="SqlException"/> с номером ошибки 1205.
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <returns></returns>
         public static bool IsDeadlock(Exception ex)
         {
             if (EmulateDeadlock) return true;

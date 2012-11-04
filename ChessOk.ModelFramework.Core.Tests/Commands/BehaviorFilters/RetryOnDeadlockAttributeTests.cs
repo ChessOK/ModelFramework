@@ -22,7 +22,7 @@ namespace ChessOk.ModelFramework.Tests
             var attribute = new RetryOnDeadlockAttribute();
             int invokesCount = 0;
             Action action = () => invokesCount++;
-            attribute.OnInvoke(null, action);
+            attribute.Apply(null, action);
 
             Assert.AreEqual(1, invokesCount);
         }
@@ -43,7 +43,7 @@ namespace ChessOk.ModelFramework.Tests
                 };
 
                 var attribute = new RetryOnDeadlockAttribute { RetryAttemptsCount = 3 };
-                attribute.OnInvoke(null, action);
+                attribute.Apply(null, action);
 
                 Assert.AreEqual(3, invokesCount);
             }
@@ -72,7 +72,7 @@ namespace ChessOk.ModelFramework.Tests
                 };
 
                 var attribute = new RetryOnDeadlockAttribute { RetryAttemptsCount = 3 };
-                attribute.OnInvoke(null, action);
+                attribute.Apply(null, action);
 
                 Assert.AreEqual(2, invokesCount);
             }

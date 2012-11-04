@@ -1,10 +1,12 @@
 ﻿using Autofac;
 
-using ChessOk.ModelFramework.Commands.Internals;
 using ChessOk.ModelFramework.Messages;
 
 namespace ChessOk.ModelFramework.Commands
 {
+    /// <summary>
+    /// Регистрирует основные классы для обработки команд.
+    /// </summary>
     public class CommandsModule : Module
     {
         protected override void Load(ContainerBuilder builder)

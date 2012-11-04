@@ -9,6 +9,9 @@ namespace ChessOk.ModelFramework.Validation
     /// </summary>
     public interface IValidationContext : IDisposable
     {
+        /// <summary>
+        /// Получает текущий экземпляр <see cref="IModelContext"/>.
+        /// </summary>
         IModelContext Context { get; }
 
         /// <summary>

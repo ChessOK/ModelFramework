@@ -1,5 +1,4 @@
 ﻿using ChessOk.ModelFramework.Commands;
-using ChessOk.ModelFramework.Commands.Internals;
 using ChessOk.ModelFramework.Commands.Messages;
 using ChessOk.ModelFramework.Testing;
 

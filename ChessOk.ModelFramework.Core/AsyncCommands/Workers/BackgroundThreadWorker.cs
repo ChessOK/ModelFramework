@@ -7,6 +7,11 @@ using ChessOk.ModelFramework.Logging;
 
 namespace ChessOk.ModelFramework.AsyncCommands.Workers
 {
+    /// <summary>
+    /// Создает отдельный поток для проверки очереди асинхронных
+    /// команд <see cref="IAsyncCommandQueue"/> на наличие необработанных команд,
+    /// и передает их на обработку, используя <see cref="IAsyncCommandHandler"/>.
+    /// </summary>
     public class BackgroundThreadWorker : IDisposable
     {
         private static readonly TimeSpan ThreadJoinTimeout = TimeSpan.FromSeconds(5);
@@ -19,9 +24,16 @@ namespace ChessOk.ModelFramework.AsyncCommands.Workers
         private Thread _workerThread;
         private long _stopping;
 
-        protected ILog Log = LogManager.Get();
+        protected ILogger Logger;
 
-        public BackgroundThreadWorker(IAsyncCommandQueue queue, IAsyncCommandHandler handler)
+        /// <summary>
+        /// Инициализирует экземпляр класса <see cref="BackgroundThreadWorker"/>,
+        /// используя <paramref name="queue"/> и <paramref name="handler"/>.
+        /// </summary>
+        /// <param name="queue">Наблюдаемая очередь.</param>
+        /// <param name="handler">Обработчик команд.</param>
+        /// /// <param name="logger"></param>
+        public BackgroundThreadWorker(IAsyncCommandQueue queue, IAsyncCommandHandler handler, ILogger logger)
         {
             if (queue == null)
             {
@@ -31,11 +43,20 @@ namespace ChessOk.ModelFramework.AsyncCommands.Workers
             {
                 throw new ArgumentNullException("handler");
             }
+            if (logger == null)
+            {
+                throw new ArgumentNullException("logger");
+            }
 
             _queue = queue;
             _handler = handler;
+            Logger = logger;
         } 
 
+        /// <summary>
+        /// Создает поток и начинает слежение за очередью
+        /// асинхронных команд.
+        /// </summary>
         public void Start()
         {
             lock (_lock)
@@ -51,6 +72,10 @@ namespace ChessOk.ModelFramework.AsyncCommands.Workers
             }
         }
 
+        /// <summary>
+        /// Останавливает слежение за очередью асинхронных
+        /// команд.
+        /// </summary>
         public void Stop()
         {
             lock (_lock)
@@ -65,6 +90,10 @@ namespace ChessOk.ModelFramework.AsyncCommands.Workers
             }
         }
 
+        /// <summary>
+        /// Получает значение, поясняющее, запущено ли слежение 
+        /// за очередью асинхронных команд.
+        /// </summary>
         public bool IsActive
         {
             get
@@ -78,7 +107,7 @@ namespace ChessOk.ModelFramework.AsyncCommands.Workers
 
         protected void Work()
         {
-            Log.Debug("Background queue listener has been started");
+            Logger.Debug("Background queue listener has been started");
 
             while (Interlocked.Read(ref _stopping) == 0)
             {
@@ -87,7 +116,7 @@ namespace ChessOk.ModelFramework.AsyncCommands.Workers
                     var message = _queue.Dequeue();
                     if (message != null)
                     {
-                        Log.Debug(String.Format("Handling message of type {0}", message.GetType().FullName));
+                        Logger.Debug(String.Format("Handling message of type {0}", message.GetType().FullName));
 
                         _handler.Handle(message);
                     }
@@ -98,21 +127,21 @@ namespace ChessOk.ModelFramework.AsyncCommands.Workers
                 }
                 catch(AsyncCommandHandlingException ex)
                 {
-                    Log.Error("Error during handling the message", ex);        
+                    Logger.Error("Error during handling the message", ex);        
                 }
                 catch (ThreadAbortException)
                 {
-                    Log.Warning("Listener Thread has been aborted. Some messages could be lost.");
+                    Logger.Warning("Listener Thread has been aborted. Some messages could be lost.");
                     Stop();
                 }
                 catch (Exception ex)
                 {
                     // Не ломаем все приложение, но записываем
-                    Log.Error("Unrecognized exception has been thrown", ex);
+                    Logger.Error("Unrecognized exception has been thrown", ex);
                 }
             }
 
-            Log.Debug("Background queue listener has been stopped");
+            Logger.Debug("Background queue listener has been stopped");
         }
 
         public void Dispose()

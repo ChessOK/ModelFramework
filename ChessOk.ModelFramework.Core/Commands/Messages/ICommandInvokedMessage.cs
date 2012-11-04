@@ -3,34 +3,20 @@ using ChessOk.ModelFramework.Messages;
 namespace ChessOk.ModelFramework.Commands.Messages
 {
     /// <summary>
-    /// —обытие инициируетс€ ѕќ—Ћ≈ вызова команды указанного типа или его наследника.
+    /// ѕредоставл€ет интерфейс дл€ сообщени€, посылаемого в шину <see cref="IApplicationBus"/> 
+    /// после выполнени€ команды с типом <typeparamref name="T"/> (и всех его наследников).
     /// </summary>
-    /// <typeparam name="T">“ип вызванной команды.</typeparam>
+    /// 
+    /// <remarks>
+    /// —м. также <see cref="CommandInvokedHandler{T}"/> и <see cref="CommandDispatcher"/>.
+    /// </remarks>
+    /// 
+    /// <typeparam name="T">“ип выполненной команды.</typeparam>
     public interface ICommandInvokedMessage<out T> : IApplicationBusMessage
     {
         /// <summary>
-        /// Ёкземпл€р вызванной команды.
+        /// Ёкземпл€р выполненной команды.
         /// </summary>
         T Command { get; }
-    }
-
-    internal class CommandInvokedMessage<T> : ICommandInvokedMessage<T>
-    {
-        public CommandInvokedMessage(T command)
-        {
-            Command = command;
-        }
-
-        public T Command { get; private set; }
-
-        public string MessageName
-        {
-            get { return GetMessageName(); }
-        }
-
-        public static string GetMessageName()
-        {
-            return typeof(CommandInvokedMessage<>).Name;
-        }
     }
 }

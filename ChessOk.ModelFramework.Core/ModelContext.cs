@@ -15,6 +15,11 @@ namespace ChessOk.ModelFramework
     {
         private readonly ILifetimeScope _lifetimeScope;
 
+        /// <summary>
+        /// Инициализирует экземпляр класса <see cref="ModelContext"/>,
+        /// используя <paramref name="parentScope"/>.
+        /// </summary>
+        /// <param name="parentScope">Autofac lifetime scope.</param>
         public ModelContext(ILifetimeScope parentScope)
         {
             _lifetimeScope = parentScope.BeginLifetimeScope(
@@ -36,45 +41,21 @@ namespace ChessOk.ModelFramework
             _lifetimeScope.Dispose();
         }
 
-        /// <summary>
-        /// Получить экземпляр сервиса, зарегистрированного
-        /// в контейнере под типом <typeparamref name="T"/>.
-        /// </summary>
-        /// <typeparam name="T">Тип получаемого сервиса.</typeparam>
-        /// <returns>Экземпляр сервиса.</returns>
         public T Get<T>()
         {
             return _lifetimeScope.Resolve<T>();
         }
-
-        /// <summary>
-        /// Получить экземпляр сервиса, зарегистрированного
-        /// в контейнере под типом <paramref name="serviceType"/>.
-        /// </summary>
-        /// <param name="serviceType">Тип получаемого сервиса.</param>
-        /// <returns>Экземпляр сервиса.</returns>
+        
         public object Get(Type serviceType)
         {
             return _lifetimeScope.Resolve(serviceType);
         }
 
-        /// <summary>
-        /// Получить коллекцию экземпляров сервисов, зарегистрированных
-        /// в контейнере под типом <typeparamref name="T"/>.
-        /// </summary>
-        /// <typeparam name="T">Тип сервисов.</typeparam>
-        /// <returns>Коллекция экземпляров сервисов.</returns>
         public IEnumerable<T> GetAll<T>()
         {
             return _lifetimeScope.Resolve<IEnumerable<T>>();
         }
 
-        /// <summary>
-        /// Получить коллекцию экземпляров сервисов, зарегистрированных
-        /// в контейнере под типом <paramref name="serviceType"/>.
-        /// </summary>
-        /// <param name="serviceType">Тип сервисов.</param>
-        /// <returns>Коллекция экземпляров сервисов.</returns>
         public IEnumerable<object> GetAll(Type serviceType)
         {
             return (IEnumerable<object>)_lifetimeScope.Resolve(typeof(IEnumerable<>).MakeGenericType(serviceType));

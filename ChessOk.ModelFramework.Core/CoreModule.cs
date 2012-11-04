@@ -2,6 +2,7 @@
 
 using ChessOk.ModelFramework.AsyncCommands;
 using ChessOk.ModelFramework.Commands;
+using ChessOk.ModelFramework.Logging;
 using ChessOk.ModelFramework.Validation;
 
 namespace ChessOk.ModelFramework
@@ -18,6 +19,8 @@ namespace ChessOk.ModelFramework
         {
             builder.Register(x => new ApplicationBus(x.Resolve<IModelContext>()))
                 .As<IApplicationBus>();
+
+            builder.Register(x => new NullLogger()).As<ILogger>().SingleInstance();
             
             builder.RegisterModule(new CommandsModule());
             builder.RegisterModule(new AsyncCommandsModule());

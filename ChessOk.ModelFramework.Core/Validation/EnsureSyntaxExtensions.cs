@@ -178,7 +178,7 @@ namespace ChessOk.ModelFramework
         }
 
         /// <summary>
-        /// Убедиться, что делегат <paramref name="@delegate"/> возвращает значение <c>True</c>.
+        /// Убедиться, что делегат <paramref name="delegate"/> возвращает значение <c>True</c>.
         /// Валидация осуществляется с помощью <see cref="DelegateValidator"/>.
         /// </summary>
         /// <typeparam name="T">Тип объекта.</typeparam>

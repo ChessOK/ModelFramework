@@ -4,8 +4,19 @@ using ChessOk.ModelFramework.Messages;
 
 namespace ChessOk.ModelFramework
 {
+    /// <summary>
+    /// Предоставляет основные расширения шины приложения <see cref="IApplicationBus"/>.
+    /// </summary>
     public static class ApplicationBusExtensions
     {
+        /// <summary>
+        /// Получает зарегистрированный в контейнере экземпляр типа <typeparamref name="T"/>,
+        /// проинициализированный с помощью <paramref name="initialization"/>.
+        /// </summary>
+        /// <typeparam name="T">Тип получаемого сообщения.</typeparam>
+        /// <param name="bus"></param>
+        /// <param name="initialization">Инициализация экземпляра.</param>
+        /// <returns>Экземпляр сообщения.</returns>
         public static T Create<T>(this IApplicationBus bus, Action<T> initialization)
             where T : IApplicationBusMessage
         {
@@ -36,14 +47,14 @@ namespace ChessOk.ModelFramework
             return message;
         }
 
-        public static T BindAndTrySend<T>(this IApplicationBus bus, IMessageParametersBinder<T> binder)
+        public static T BindAndTrySend<T>(this IApplicationBus bus, IMessageBinder<T> binder)
             where T : IApplicationBusMessage
         {
             return bus.TrySend<T>(binder.Bind);
         }
 
         public static T BindAndTrySend<T>(this IApplicationBus bus,
-            IMessageParametersBinder<T> binder, Action<T> initialization)
+            IMessageBinder<T> binder, Action<T> initialization)
             where T : IApplicationBusMessage
         {
             return bus.TrySend<T>(c =>
@@ -73,7 +84,7 @@ namespace ChessOk.ModelFramework
             return message;
         }
 
-        public static T BindAndSend<T>(this IApplicationBus bus, IMessageParametersBinder<T> binder)
+        public static T BindAndSend<T>(this IApplicationBus bus, IMessageBinder<T> binder)
             where T : IApplicationBusMessage
         {
             if (binder == null)
@@ -85,7 +96,7 @@ namespace ChessOk.ModelFramework
         }
 
         public static T BindAndSend<T>(this IApplicationBus bus,
-            IMessageParametersBinder<T> binder, Action<T> initialization)
+            IMessageBinder<T> binder, Action<T> initialization)
             where T : IApplicationBusMessage
         {
             if (binder == null)

@@ -6,12 +6,43 @@ using ChessOk.ModelFramework.Commands.Filters;
 using ChessOk.ModelFramework.Commands.Messages;
 using ChessOk.ModelFramework.Messages;
 
-namespace ChessOk.ModelFramework.Commands.Internals
+namespace ChessOk.ModelFramework.Commands
 {
+    /// <summary>
+    /// Обработчик сообщений типа <see cref="CommandBase"/>, выполняет команды
+    /// в синхронном режиме.
+    /// </summary>
+    /// 
+    /// <remarks>
+    /// Перед выполнением команды к ней применяются фильтры (см. <see cref="CommandFilterAttribute"/>).
+    /// 
+    /// При обработке сообщения <see cref="CommandBase"/> в шину сообщений будут
+    /// отправлены дополнительные сообщения.
+    /// 
+    /// <para>
+    /// Перед выполнением команды в шину приложения отправляется
+    /// сообщение <see cref="ICommandInvokingMessage{T}"/>, которое
+    /// можно обработать, используя зарегистрированный в контейнере
+    /// <see cref="CommandInvokingHandler{T}"/>, где T — тип выполняемой команды.
+    /// Внутри обработчика можно отменить выполнение команды.
+    /// </para>
+    /// 
+    /// <para>
+    /// После успешного выполнения команды (если оно не было отменено), 
+    /// в шину отправляется сообшение <see cref="ICommandInvokedMessage{T}"/>,
+    /// которое можно обработать, используя зарегистрированный в контейнере
+    /// <see cref="CommandInvokedHandler{T}"/>, где T — тип выполненной команды.
+    /// </para>
+    /// </remarks>
     public class CommandDispatcher : ApplicationBusMessageHandler<CommandBase>, ICommandDispatcher
     {
         private readonly IApplicationBus _bus;
 
+        /// <summary>
+        /// Инициализирует экземпляр класса <see cref="CommandDispatcher"/>,
+        /// используя <paramref name="bus"/>.
+        /// </summary>
+        /// <param name="bus"></param>
         public CommandDispatcher(IApplicationBus bus)
         {
             _bus = bus;
@@ -24,16 +55,13 @@ namespace ChessOk.ModelFramework.Commands.Internals
 
         protected override void Handle(CommandBase command)
         {
-            // Привязка незамороженной команды к контексту
             command.Bind(_bus);
 
-            // Создание и инициирование события о начале вызова команды с точным типом самой команды
             var invokingEvent = (ICommandInvokingMessage<object>)Activator.CreateInstance(
                 typeof(CommandInvokingMessage<>).MakeGenericType(command.GetType()), command);
 
             _bus.Send(invokingEvent);
 
-            // Если после вызова всех обработчиков флаг включен, то отменяем выполнение команды
             if (invokingEvent.InvocationCancelled) { return; }
 
             var filters = GetCommandFilters(command);
@@ -51,7 +79,7 @@ namespace ChessOk.ModelFramework.Commands.Internals
                 {
                     var innerAction = commandAction;
                     var filterIndex = i;
-                    commandAction = () => filters[filterIndex].OnInvoke(filterContext, innerAction);
+                    commandAction = () => filters[filterIndex].Apply(filterContext, innerAction);
                 }
 
                 commandAction();
@@ -59,7 +87,6 @@ namespace ChessOk.ModelFramework.Commands.Internals
 
             command.RaiseInvoked();
 
-            // Создание и инициирование события об успешном вызове команды с точным типом самой команды
             var invokedEvent = (ICommandInvokedMessage<object>)Activator.CreateInstance(
                 typeof(CommandInvokedMessage<>).MakeGenericType(command.GetType()), command);
 

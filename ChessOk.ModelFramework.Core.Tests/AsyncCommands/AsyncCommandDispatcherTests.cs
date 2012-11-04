@@ -1,10 +1,7 @@
 ﻿using ChessOk.ModelFramework.AsyncCommands;
-using ChessOk.ModelFramework.AsyncCommands.Internals;
 using ChessOk.ModelFramework.AsyncCommands.Messages;
 using ChessOk.ModelFramework.AsyncCommands.Queues;
 using ChessOk.ModelFramework.Commands;
-using ChessOk.ModelFramework.Commands.Internals;
-using ChessOk.ModelFramework.Commands.Messages;
 using ChessOk.ModelFramework.Messages;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -43,17 +40,17 @@ namespace ChessOk.ModelFramework.Tests.AsyncCommands
         {
             var command = new TestCommand();
             _bus.Setup(x => x.Send(
-                It.IsAny<IAsyncCommandSendingMessage<TestCommand>>()))
+                It.IsAny<IAsyncCommandEnqueuingMessage<TestCommand>>()))
                 .Callback(() => Assert.IsFalse(command.Executed));
 
-            _bus.Setup(x => x.Send(It.IsAny<IAsyncCommandSendingMessage<TestCommand>>()))
+            _bus.Setup(x => x.Send(It.IsAny<IAsyncCommandEnqueuingMessage<TestCommand>>()))
                 .Callback<IApplicationBusMessage>(
-                    x => Assert.AreSame(((IAsyncCommandSendingMessage<TestCommand>)x).Command, command));
+                    x => Assert.AreSame(((IAsyncCommandEnqueuingMessage<TestCommand>)x).Command, command));
 
             _dispatcher.Handle(new AsyncCommand(command));
 
             _bus.Verify(x => x.Send(
-                It.IsAny<IAsyncCommandSendingMessage<TestCommand>>()), Times.Once());
+                It.IsAny<IAsyncCommandEnqueuingMessage<TestCommand>>()), Times.Once());
         }
 
         [TestMethod]
@@ -61,17 +58,17 @@ namespace ChessOk.ModelFramework.Tests.AsyncCommands
         {
             var command = new TestCommand();
             _bus.Setup(x => x.Send(
-                It.IsAny<IAsyncCommandSentMessage<TestCommand>>()))
+                It.IsAny<IAsyncCommandEnqueuedMessage<TestCommand>>()))
                 .Callback(() => Assert.IsTrue(command.Executed));
 
-            _bus.Setup(x => x.Send(It.IsAny<IAsyncCommandSentMessage<TestCommand>>()))
+            _bus.Setup(x => x.Send(It.IsAny<IAsyncCommandEnqueuedMessage<TestCommand>>()))
                 .Callback<IApplicationBusMessage>(
-                    x => Assert.AreSame(((IAsyncCommandSentMessage<TestCommand>)x).Command, command));
+                    x => Assert.AreSame(((IAsyncCommandEnqueuedMessage<TestCommand>)x).Command, command));
 
             _dispatcher.Handle(new AsyncCommand(command));
 
             _bus.Verify(x => x.Send(
-                It.IsAny<IAsyncCommandSentMessage<TestCommand>>()), Times.Once());
+                It.IsAny<IAsyncCommandEnqueuedMessage<TestCommand>>()), Times.Once());
         }
 
         [TestMethod]
@@ -79,13 +76,13 @@ namespace ChessOk.ModelFramework.Tests.AsyncCommands
         {
             var command = new TestCommand();
             _bus.Setup(x => x.Send(
-                It.IsAny<IAsyncCommandSendingMessage<TestCommand>>()))
-                .Callback<IApplicationBusMessage>(x => ((IAsyncCommandSendingMessage<TestCommand>)x).CancelSending());
+                It.IsAny<IAsyncCommandEnqueuingMessage<TestCommand>>()))
+                .Callback<IApplicationBusMessage>(x => ((IAsyncCommandEnqueuingMessage<TestCommand>)x).CancelEnqueuing());
 
             _dispatcher.Handle(new AsyncCommand(command));
 
             _queueMock.Verify(x => x.Enqueue(It.IsAny<CommandBase>()), Times.Never());
-            _bus.Verify(x => x.Send(It.IsAny<IAsyncCommandSentMessage<TestCommand>>()), Times.Never());
+            _bus.Verify(x => x.Send(It.IsAny<IAsyncCommandEnqueuedMessage<TestCommand>>()), Times.Never());
         }
 
         public class TestCommand : Command

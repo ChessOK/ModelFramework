@@ -5,6 +5,9 @@ using ChessOk.ModelFramework.Validation;
 
 namespace ChessOk.ModelFramework.Messages
 {
+    /// <summary>
+    /// Служит базовым классом для реализации обработчиков событий.
+    /// </summary>
     public abstract class ApplicationBusMessageHandler : IApplicationBusMessageHandler
     {
         protected IApplicationBus Bus { get; private set; }

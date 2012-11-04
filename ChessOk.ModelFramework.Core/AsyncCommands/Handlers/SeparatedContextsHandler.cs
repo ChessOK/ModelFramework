@@ -2,24 +2,31 @@ using System;
 
 using Autofac;
 
-using ChessOk.ModelFramework.Commands.Internals;
+using ChessOk.ModelFramework.Commands;
 using ChessOk.ModelFramework.Logging;
 
 namespace ChessOk.ModelFramework.AsyncCommands.Handlers
 {
     /// <summary>
-    /// ќбрабатывает сообщени€, создава€ дл€ каждого отдельный ModelContext
+    /// ќбрабатывает команды, создава€ дл€ каждой отдельный ModelContext.
     /// </summary>
     public class SeparatedContextsHandler : IAsyncCommandHandler
     {
         private readonly ILifetimeScope _scope;
 
-        public SeparatedContextsHandler(ILifetimeScope scope)
+        /// <summary>
+        /// »нициализировать экземпл€р класса <see cref="SeparatedContextsHandler"/>,
+        /// использу€ <paramref name="scope"/>.
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="logger"></param>
+        public SeparatedContextsHandler(ILifetimeScope scope, ILogger logger)
         {
             _scope = scope;
+            Logger = logger;
         }
 
-        protected ILog Log = LogManager.Get();
+        protected ILogger Logger;
 
         public void Handle(CommandBase asyncCommand)
         {
@@ -32,10 +39,10 @@ namespace ChessOk.ModelFramework.AsyncCommands.Handlers
             {
                 using (var model = CreateModel())
                 {
-                    using (var appBus = new ApplicationBus(model))
+                    using (var appBus = model.Get<IApplicationBus>())
                     {
                         appBus.Send(asyncCommand);
-                        Log.Debug(String.Format("Command has been handled successfully: {0}", asyncCommand));
+                        Logger.Debug(String.Format("Command has been handled successfully: {0}", asyncCommand));
                     }
                 }
             }

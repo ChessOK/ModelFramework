@@ -1,5 +1,4 @@
 ﻿using ChessOk.ModelFramework.Commands;
-using ChessOk.ModelFramework.Commands.Internals;
 using ChessOk.ModelFramework.Testing;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -60,7 +59,7 @@ namespace ChessOk.ModelFramework.Tests.Commands
 
         private class TestBaseCommand : CommandBase
         {
-            public bool Invoked { get; private set; }
+            public new bool Invoked { get; private set; }
 
             public override void Invoke()
             {

@@ -4,10 +4,13 @@ namespace ChessOk.ModelFramework.Validation
 {
     /// <summary>
     /// Базовый интерфейс для классов, которые реализуют самостоятельную
-    /// процедуру валидации. Проверка осуществляется с помощью <see cref="ValidatableObjectValidator"/>
-    /// и использующих его <see cref="ObjectValidator"/>, <see cref="ValidAttribute"/> и
-    /// <see cref="EnsureSyntaxExtensions.IsValid{TObject}"/>
+    /// процедуру валидации. 
     /// </summary>
+    /// <remarks>
+    /// Вызов <see cref="Validate"/> осуществляется внутри валидатора <see cref="ValidatableObjectValidator"/>,
+    /// а также всех валидаторов, которые его используют, например, <see cref="ObjectValidator"/>, 
+    /// <see cref="ValidAttribute"/> и <see cref="EnsureSyntaxExtensions.IsValid{TObject}"/>
+    /// </remarks>
     public interface IValidatable
     {
         /// <summary>

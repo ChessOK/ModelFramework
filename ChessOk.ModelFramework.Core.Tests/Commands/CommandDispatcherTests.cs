@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using ChessOk.ModelFramework.Commands;
 using ChessOk.ModelFramework.Commands.Filters;
-using ChessOk.ModelFramework.Commands.Internals;
 using ChessOk.ModelFramework.Commands.Messages;
 using ChessOk.ModelFramework.Messages;
 
@@ -170,12 +169,12 @@ namespace ChessOk.ModelFramework.Tests.Commands
                 _number = number;
             }
 
-            public override void OnInvoke(CommandFilterContext filterContext, Action commandAction)
+            public override void Apply(CommandFilterContext filterContext, Action commandInvocation)
             {
                 var filteredCommand = (FilteredCommand)filterContext.Command;
                 filteredCommand.InvokedFilterNumbers.Add(_number);
 
-                commandAction();
+                commandInvocation();
             }
         }
 
@@ -184,7 +183,7 @@ namespace ChessOk.ModelFramework.Tests.Commands
         {
             public IList<int> InvokedFilterNumbers = new List<int>();
 
-            public bool Invoked;
+            public new bool Invoked;
 
             protected override void Execute()
             {

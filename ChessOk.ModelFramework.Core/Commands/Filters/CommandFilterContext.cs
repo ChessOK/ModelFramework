@@ -1,16 +1,24 @@
-﻿using ChessOk.ModelFramework.Commands.Internals;
-
-namespace ChessOk.ModelFramework.Commands.Filters
+﻿namespace ChessOk.ModelFramework.Commands.Filters
 {
+    /// <summary>
+    /// Служит оболочкой для контекста применения фильтров команд.
+    /// </summary>
     public class CommandFilterContext
     {
-        public CommandFilterContext(IApplicationBus bus, CommandBase command)
+        internal CommandFilterContext(IApplicationBus bus, CommandBase command)
         {
             Bus = bus;
             Command = command;
         }
 
+        /// <summary>
+        /// Экземпляр текущей шины приложения.
+        /// </summary>
         public IApplicationBus Bus { get; private set; }
+
+        /// <summary>
+        /// Экземпляр выполняемой команды.
+        /// </summary>
         public CommandBase Command { get; private set; }
     }
 }
