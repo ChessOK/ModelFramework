@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Data;
 
 using ChessOk.ModelFramework.Commands.Filters;
-using ChessOk.ModelFramework.Messages;
-using ChessOk.ModelFramework.Testing;
-using ChessOk.ModelFramework.Validation;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using Moq;
 
 namespace ChessOk.ModelFramework.Tests
 {

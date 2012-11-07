@@ -135,24 +135,6 @@ namespace ChessOk.ModelFramework.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The field is required.
         /// </summary>
-        internal static string ObsoleteValidationContextRequiredField {
-            get {
-                return ResourceManager.GetString("ObsoleteValidationContextRequiredField", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Validation error.
-        /// </summary>
-        internal static string ObsoleteValidationContextValidationError {
-            get {
-                return ResourceManager.GetString("ObsoleteValidationContextValidationError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The field is required.
-        /// </summary>
         internal static string PresenceValidatorMessage {
             get {
                 return ResourceManager.GetString("PresenceValidatorMessage", resourceCulture);
@@ -178,7 +160,7 @@ namespace ChessOk.ModelFramework.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите дату позднее 1753 года.
+        ///   Looks up a localized string similar to Choose date with year greater than 1753..
         /// </summary>
         internal static string SqlDateTimeValidatorMessage {
             get {

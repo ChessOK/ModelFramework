@@ -72,7 +72,7 @@ namespace ChessOk.ModelFramework.Tests
             Assert.AreEqual("Name", ValidationContext.Keys.Single());
         }
 
-        private class SomeClass
+        public class SomeClass
         {
             public string Name { get; set; }
         }

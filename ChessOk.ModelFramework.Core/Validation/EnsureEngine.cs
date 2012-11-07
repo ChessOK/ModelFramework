@@ -60,7 +60,9 @@ namespace ChessOk.ModelFramework.Validation.Internals
                 throw new ArgumentNullException("propertyExpression");
             }
 
+// ReSharper disable CompareNonConstrainedGenericWithNull
             if (_obj != null)
+// ReSharper restore CompareNonConstrainedGenericWithNull
             {
                 var propertyName = ExpressionTextHelper.GetExpressionText(propertyExpression);
                 var propertyValue = CachedExpressionCompiler.CompileGetter(propertyExpression)(_obj);
@@ -73,7 +75,9 @@ namespace ChessOk.ModelFramework.Validation.Internals
 
         public IEnsureSyntax<TObject> ItsProperty<TProperty>(string propertyName, Action<IEnsureSyntax<TProperty>> validation)
         {
+// ReSharper disable CompareNonConstrainedGenericWithNull
             if (_obj != null)
+// ReSharper restore CompareNonConstrainedGenericWithNull
             {
                 var propertyInfo = _obj.GetType().GetProperty(propertyName);
 

@@ -30,7 +30,7 @@ namespace ChessOk.ModelFramework.Tests.AsyncCommands
         {
             protected override void Execute()
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
 

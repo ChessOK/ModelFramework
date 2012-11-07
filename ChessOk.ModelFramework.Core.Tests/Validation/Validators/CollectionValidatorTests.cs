@@ -78,7 +78,7 @@ namespace ChessOk.ModelFramework.Tests
             Assert.AreEqual("Hello[0]", ValidationContext.Keys.Single());
         }
 
-        private class AnotherClass
+        public class AnotherClass
         {
             public AnotherClass()
             {
@@ -89,7 +89,7 @@ namespace ChessOk.ModelFramework.Tests
             public SomeClass[] Hello { get; set; }
         }
 
-        private class SomeClass : IValidatable
+        public class SomeClass : IValidatable
         {
             public string KeyName = "";
 

@@ -30,7 +30,7 @@ namespace ChessOk.ModelFramework.Expressions
         protected bool Equals(ExpressionFingerprint other)
         {
             if (other != null && NodeType == other.NodeType)
-                return Equals(Type, other.Type);
+                return Type == other.Type;
             return false;
         }
 

@@ -1,5 +1,4 @@
 ﻿using ChessOk.ModelFramework.Testing;
-using ChessOk.ModelFramework.Validation;
 using ChessOk.ModelFramework.Validation.Validators;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 using Autofac;
 
-namespace ChessOk.ModelFramework.Validation.Internals
+namespace ChessOk.ModelFramework.Validation
 {
     /// <summary>
     /// Предоставляет реализацию интерфейса <see cref="IValidationContext"/>,
@@ -88,12 +88,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
         {
             key = NormalizeKey(key);
 
-            if (!_errors.ContainsKey(key))
-            {
-                return new string[0];
-            }
-
-            return _errors[key];
+            return !_errors.ContainsKey(key) ? new string[0] : _errors[key];
         }
 
         public void ThrowExceptionIfInvalid()
@@ -130,7 +125,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
 
         private static string NormalizeKey(string key)
         {
-            return (key ?? string.Empty);
+            return key ?? string.Empty;
         }
 
         private struct ReplaceOptions

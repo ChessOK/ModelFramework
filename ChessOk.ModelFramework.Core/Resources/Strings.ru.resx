@@ -117,40 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LengthValidatorInvalidObject" xml:space="preserve">
-    <value>{0} can validate strings and arrays only. Given type: {1}.</value>
+  <data name="CollectionValidatorInvalidObject" xml:space="preserve">
+    <value>Класс {0} может валидировать только экземпляры типа IEnumerable&lt;T&gt;. Указанный тип: {1}.</value>
   </data>
-  <data name="MaxLengthValidatorMessage" xml:space="preserve">
-    <value>The field must be a string or array type with a maximum length of '{0}'.</value>
+  <data name="LengthValidatorInvalidObject" xml:space="preserve">
+    <value>Класс {0} может валидировать только строки и массивы. Указанный тип: {1}.</value>
   </data>
   <data name="LengthValidatorNegativeLength" xml:space="preserve">
-    <value>{0} can not have negative Length property. Given: {1}.</value>
+    <value>{0} не может иметь отрицательное значение свойства Length. Текущее значение: {1}.</value>
   </data>
-  <data name="NotNullValidatorMessage" xml:space="preserve">
-    <value>The field is required</value>
-  </data>
-  <data name="NullValidatorMessage" xml:space="preserve">
-    <value>The field must be empty</value>
-  </data>
-  <data name="PresenceValidatorMessage" xml:space="preserve">
-    <value>The field is required</value>
-  </data>
-  <data name="RegularExpressionMessage" xml:space="preserve">
-    <value>The field must match the regular expression '{0}'.</value>
-  </data>
-  <data name="SqlDateTimeValidatorMessage" xml:space="preserve">
-    <value>Choose date with year greater than 1753.</value>
+  <data name="MaxLengthValidatorMessage" xml:space="preserve">
+    <value>Поле должно быть строкой или массивом с максимальной длиной '{0}'.</value>
   </data>
   <data name="MinLengthValidatorMessage" xml:space="preserve">
-    <value>The field must be a string or array type with a minimum length of '{0}'.</value>
-  </data>
-  <data name="SqlDateTimeValidatorInvalidObject" xml:space="preserve">
-    <value>{0} can validate DateTime only. Given type: {1}.</value>
-  </data>
-  <data name="CollectionValidatorInvalidObject" xml:space="preserve">
-    <value>{0} can validate IEnumerable&lt;T&gt; only. Given type: {1}.</value>
+    <value>Поле должно быть строкой или массивом с минимальной длиной '{0}'.</value>
   </data>
   <data name="NonDefaultValidatorMessage" xml:space="preserve">
-    <value>The field can not have default value</value>
+    <value>Поле не может иметь значение по-умолчанию.</value>
+  </data>
+  <data name="NotNullValidatorMessage" xml:space="preserve">
+    <value>Обязательное поле.</value>
+  </data>
+  <data name="NullValidatorMessage" xml:space="preserve">
+    <value>Полу должно быть пустым.</value>
+  </data>
+  <data name="PresenceValidatorMessage" xml:space="preserve">
+    <value>Обязательное поле.</value>
+  </data>
+  <data name="RegularExpressionMessage" xml:space="preserve">
+    <value>Строка должна совпадать с регулярным выражением '{0}'.</value>
+  </data>
+  <data name="SqlDateTimeValidatorInvalidObject" xml:space="preserve">
+    <value>Класс {0} может валидировать только экземпляры типа DateTime. Указанный тип: {1}.</value>
+  </data>
+  <data name="SqlDateTimeValidatorMessage" xml:space="preserve">
+    <value>Выберите дату, год которой больше 1753.</value>
   </data>
 </root>

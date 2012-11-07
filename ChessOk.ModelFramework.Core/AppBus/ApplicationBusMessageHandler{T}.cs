@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChessOk.ModelFramework.Messages
+﻿namespace ChessOk.ModelFramework.Messages
 {
     /// <summary>
     /// Служит базовым классом для реализации обработчиков сообщений

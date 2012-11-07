@@ -1,7 +1,5 @@
 ﻿using Autofac;
 
-using ChessOk.ModelFramework.Commands;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ChessOk.ModelFramework.Tests

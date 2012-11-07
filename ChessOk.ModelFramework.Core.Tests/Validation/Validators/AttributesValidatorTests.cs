@@ -2,7 +2,6 @@
 using System.Linq;
 
 using ChessOk.ModelFramework.Testing;
-using ChessOk.ModelFramework.Validation;
 using ChessOk.ModelFramework.Validation.Internals;
 using ChessOk.ModelFramework.Validation.Validators;
 
@@ -61,18 +60,18 @@ namespace ChessOk.ModelFramework.Tests
             Assert.AreEqual(2, ValidationContext.Keys.Count);
         }
 
-        private class AttributelessClass
+        public class AttributelessClass
         {
             public string Hello { get; set; }
         }
 
-        private class AttributeClass
+        public class AttributeClass
         {
             [Required]
             public string Hello { get; set; }
         }
 
-        private class Annotations
+        public class Annotations
         {
             [StringLength(5, MinimumLength = 3)]
             public string Foo { get; set; }

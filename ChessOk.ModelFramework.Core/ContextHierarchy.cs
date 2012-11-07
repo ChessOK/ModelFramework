@@ -1,4 +1,4 @@
-﻿using ChessOk.ModelFramework.Validation.Internals;
+﻿using ChessOk.ModelFramework.Validation;
 
 namespace ChessOk.ModelFramework
 {

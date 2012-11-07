@@ -46,13 +46,15 @@ namespace ChessOk.ModelFramework.Expressions
 
             private static Action<TIn, TOut> CompileFromPropertyInfo(PropertyInfo propertyInfo)
             {
+                if (propertyInfo == null)
+                {
+                    throw new ArgumentNullException("propertyInfo");
+                }
+
                 if (!propertyInfo.DeclaringType.IsAssignableFrom(typeof(TIn)))
                 {
                     throw new ArgumentException();
                 }
-               
-                //if (typeof(TIn) != propertyInfo.DeclaringType)
-  
 
                 var instance = Expression.Parameter(propertyInfo.DeclaringType, "i");
                 var argument = Expression.Parameter(typeof(TOut), "a");

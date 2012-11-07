@@ -2,7 +2,6 @@
 using System.Linq;
 
 using ChessOk.ModelFramework.Testing;
-using ChessOk.ModelFramework.Validation;
 using ChessOk.ModelFramework.Validation.Compatibility;
 using ChessOk.ModelFramework.Validation.Validators;
 

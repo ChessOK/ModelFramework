@@ -13,6 +13,19 @@ namespace ChessOk.ModelFramework
     public static class EnsureSyntaxExtensions
     {
         /// <summary>
+        /// Вызывает метод <see cref="IValidationContext.ThrowExceptionIfInvalid"/> у текущего
+        /// экземпляра <see cref="IValidationContext"/>.
+        /// </summary>
+        /// <typeparam name="T">Тип объекта.</typeparam>
+        /// <param name="syntax">Синтаксис.</param>
+        /// <returns>Синтаксис.</returns>
+        public static IEnsureSyntax<T> ThrowIfInvalid<T>(this IEnsureSyntax<T> syntax)
+        {
+            syntax.ValidationContext.ThrowExceptionIfInvalid();
+            return syntax;
+        }
+
+        /// <summary>
         /// Проверить текущий объект, используя его валидационные атрибуты и вызвать <see cref="IValidatable.Validate"/>,
         /// если объект реализует интерфейс <see cref="IValidatable"/>. Валидация осуществляется с помощью <see cref="ObjectValidator"/>.
         /// </summary>

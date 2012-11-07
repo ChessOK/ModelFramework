@@ -3,7 +3,6 @@
 using ChessOk.ModelFramework.AsyncCommands;
 using ChessOk.ModelFramework.Commands;
 using ChessOk.ModelFramework.Testing;
-using ChessOk.ModelFramework.Validation;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -27,7 +27,7 @@ namespace ChessOk.ModelFramework.Expressions
         public override bool Equals(object obj)
         {
             var expressionFingerprint = obj as BinaryExpressionFingerprint;
-            if (expressionFingerprint != null && Equals(this.Method, expressionFingerprint.Method))
+            if (expressionFingerprint != null && Equals(Method, expressionFingerprint.Method))
                 return Equals(expressionFingerprint);
             return false;
         }
