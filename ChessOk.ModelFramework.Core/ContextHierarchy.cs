@@ -2,10 +2,30 @@
 
 namespace ChessOk.ModelFramework
 {
-    internal static class ContextHierarchy
+    /// <summary>
+    /// Предоставляет теги для <see cref="IModelContext"/> и его
+    /// метода <see cref="IModelContext.CreateChildContext"/>. Полезен,
+    /// если вы создаете собственные реализации указанных здесь
+    /// интерфейсов.
+    /// </summary>
+    public static class ContextHierarchy
     {
-        public static object ModelContext = typeof(ModelContext);
-        public static object ApplicationBus = typeof(ApplicationBus);
-        public static object ValidationContext = typeof(ValidationContext);
+        /// <summary>
+        /// Тег LifetimeScope для класса, реализующего интерфейс
+        /// <see cref="IModelContext"/>.
+        /// </summary>
+        public static object ModelContext = typeof(IModelContext);
+
+        /// <summary>
+        /// Тег LifetimeScope для класса, реализующего интерфейс
+        /// <see cref="IApplicationBus"/>.
+        /// </summary>
+        public static object ApplicationBus = typeof(IApplicationBus);
+
+        /// <summary>
+        /// Тег LifetimeScope для класса, реализующего интерфейс
+        /// <see cref="IValidationContext"/>.
+        /// </summary>
+        public static object ValidationContext = typeof(IValidationContext);
     }
 }
