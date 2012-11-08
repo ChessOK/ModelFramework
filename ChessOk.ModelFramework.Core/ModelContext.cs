@@ -33,7 +33,11 @@ namespace ChessOk.ModelFramework
 
         internal ModelContext(ILifetimeScope parentScope, object tag, Action<ContainerBuilder> configurationAction)
         {
-            _lifetimeScope = parentScope.BeginLifetimeScope(tag, configurationAction);
+            _lifetimeScope = parentScope.BeginLifetimeScope(tag, builder =>
+                {
+                    builder.RegisterInstance(this).As<IModelContext>().AsSelf();
+                    configurationAction(builder);
+                });
         }
 
         public void Dispose()
