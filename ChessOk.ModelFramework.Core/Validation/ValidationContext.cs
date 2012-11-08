@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 using Autofac;
 
@@ -17,7 +16,8 @@ namespace ChessOk.ModelFramework.Validation
         private readonly IDictionary<string, IList<string>> _errors =
             new Dictionary<string, IList<string>>();
 
-        private readonly Stack<ReplaceOptions> _replaceStack = new Stack<ReplaceOptions>();
+        private readonly ValidationErrorKeyTransformer _keyTransformer = 
+            new ValidationErrorKeyTransformer();
 
         /// <summary>
         /// Инициализирует экземпляр класса <see cref="ValidationContext"/>,
@@ -62,8 +62,7 @@ namespace ChessOk.ModelFramework.Validation
 
         public void AddError(string key, string message)
         {
-            key = NormalizeKey(key);
-            key = ApplyReplaces(key);
+            key = _keyTransformer.NormalizeKeyAndApplyReplaces(key);
 
             if (!_errors.ContainsKey(key))
             {
@@ -75,7 +74,7 @@ namespace ChessOk.ModelFramework.Validation
 
         public void RemoveErrors(string key)
         {
-            key = NormalizeKey(key);
+            key = _keyTransformer.NormalizeKey(key);
             _errors.Remove(key);
         }
 
@@ -86,7 +85,7 @@ namespace ChessOk.ModelFramework.Validation
 
         public ICollection<string> GetErrors(string key)
         {
-            key = NormalizeKey(key);
+            key = _keyTransformer.NormalizeKey(key);
 
             return !_errors.ContainsKey(key) ? new string[0] : _errors[key];
         }
@@ -98,40 +97,12 @@ namespace ChessOk.ModelFramework.Validation
 
         public IDisposable ModifyKeys(string pattern, string replacement)
         {
-            _replaceStack.Push(new ReplaceOptions
-            {
-                Regex = new Regex(pattern),
-                Replacement = replacement
-            });
-
-            return new DisposableAction(() => _replaceStack.Pop());
+            return _keyTransformer.ModifyKeys(pattern, replacement);
         }
 
         public void Dispose()
         {
             _context.Dispose();
-        }
-
-        private string ApplyReplaces(string key)
-        {
-            var replaces = _replaceStack.ToArray();
-            foreach (var replace in replaces)
-            {
-                key = replace.Regex.Replace(key, replace.Replacement);
-            }
-
-            return key;
-        }
-
-        private static string NormalizeKey(string key)
-        {
-            return key ?? string.Empty;
-        }
-
-        private struct ReplaceOptions
-        {
-            public Regex Regex { get; set; }
-            public string Replacement { get; set; }
         }
     }
 }
