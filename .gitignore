@@ -7,7 +7,7 @@ _ReSharper.*
 */obj/*
 */bin/*
 packages/*/*
-build/*
+build/*.nupkg
 TestResults/*
 testimpactdata.sdf
 *.vsmdi
