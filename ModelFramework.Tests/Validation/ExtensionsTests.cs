@@ -155,10 +155,9 @@ namespace ChessOk.ModelFramework.Tests.Validation
         public void NotEqualsAttributeShouldSucceedIfStringRepresentationsAreDifferent()
         {
             var equals = new NotEqualsAttribute(2);
-            equals.ValidationContext = ValidationContext;
 
-            var validator = equals.GetValidator();
-            validator.Validate("3");
+            var validator = equals.GetValidator(Container);
+            validator.Validate(ValidationContext, "3");
 
             Assert.IsTrue(ValidationContext.IsValid);
         }
@@ -167,10 +166,9 @@ namespace ChessOk.ModelFramework.Tests.Validation
         public void NotEqualsAttributeShouldFailIfStringRepresentationsAreSame()
         {
             var equals = new NotEqualsAttribute(2);
-            equals.ValidationContext = ValidationContext;
 
-            var validator = equals.GetValidator();
-            validator.Validate("2");
+            var validator = equals.GetValidator(Container);
+            validator.Validate(ValidationContext, "2");
 
             Assert.IsFalse(ValidationContext.IsValid);
         }
@@ -179,10 +177,9 @@ namespace ChessOk.ModelFramework.Tests.Validation
         public void NotEqualsAttributeShouldWorkFineWithNulls()
         {
             var equals = new NotEqualsAttribute(null);
-            equals.ValidationContext = ValidationContext;
 
-            var validator = equals.GetValidator();
-            validator.Validate(null);
+            var validator = equals.GetValidator(Container);
+            validator.Validate(ValidationContext, null);
 
             Assert.IsFalse(ValidationContext.IsValid);
         }

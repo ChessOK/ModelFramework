@@ -14,4 +14,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("3.0.0.*")]
 [assembly: AssemblyInformationalVersion("3.0.0-beta7")]
 
-[assembly: InternalsVisibleTo("ChessOk.ModelFramework.Core.Tests")]
+[assembly: InternalsVisibleTo("ModelFramework.Tests")]

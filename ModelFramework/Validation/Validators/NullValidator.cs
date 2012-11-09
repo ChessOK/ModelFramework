@@ -7,12 +7,9 @@
     public class NullValidator : DelegateValidator
     {
         /// <summary>
-        /// Инициализирует экземпляр класса <see cref="NullValidator"/>,
-        /// используя указанный <paramref name="validationContext"/>.
+        /// Инициализирует экземпляр класса <see cref="NullValidator"/>.
         /// </summary>
-        /// <param name="validationContext"></param>
-        public NullValidator(IValidationContext validationContext)
-            : base(validationContext)
+        public NullValidator()
         {
             Delegate = x => x == null;
             Message = Resources.Strings.NullValidatorMessage;

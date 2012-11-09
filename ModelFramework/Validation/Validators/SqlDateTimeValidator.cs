@@ -16,18 +16,8 @@ namespace ChessOk.ModelFramework.Validation.Validators
     /// 
     /// В качестве ключа ошибки выступает пустая строка.
     /// </remarks>
-    public class SqlDateTimeValidator : Validator
+    public class SqlDateTimeValidator : IValidator
     {
-        /// <summary>
-        /// Инициализирует экземпляр класса <see cref="SqlDateTimeValidator"/>,
-        /// используя указанный <paramref name="validationContext"/>.
-        /// </summary>
-        /// <param name="validationContext"></param>
-        public SqlDateTimeValidator(IValidationContext validationContext)
-            : base(validationContext)
-        {
-        }
-
         /// <summary>
         /// <para>Получает или задает сообщение, добавляемое в валидационный
         /// контекст при неудачной валидации.</para>
@@ -39,11 +29,14 @@ namespace ChessOk.ModelFramework.Validation.Validators
         /// <summary>
         /// Проверяет указанную в <paramref name="value"/> дату на корректность.
         /// </summary>
+        /// 
         /// <param name="value">Проверяемая дата</param>
+        /// <param name="context">Валидационный контекст.</param>
+        /// 
         /// <exception cref="InvalidOperationException">
         ///   Параметр <paramref name="value"/> задан, но не является экземпляром типа <see cref="DateTime"/>.
         /// </exception>
-        public override void Validate(object value)
+        public void Validate(IValidationContext context, object value)
         {
             if (value == null)
             {
@@ -61,7 +54,7 @@ namespace ChessOk.ModelFramework.Validation.Validators
             var isValid = ((dateTime >= (DateTime)SqlDateTime.MinValue) && (dateTime <= (DateTime)SqlDateTime.MaxValue));
             if (!isValid)
             {
-                ValidationContext.AddError(Message ?? Resources.Strings.SqlDateTimeValidatorMessage);
+                context.AddError(Message ?? Resources.Strings.SqlDateTimeValidatorMessage);
             }
         }
     }

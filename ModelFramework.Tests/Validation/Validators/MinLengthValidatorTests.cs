@@ -66,8 +66,8 @@ namespace ChessOk.ModelFramework.Tests.Validation.Validators
         [ExpectedException(typeof(InvalidOperationException))]
         public void ShouldThrowExceptionIfObjectIsNotAStringOrArray()
         {
-            var validator = new MinLengthValidator(ValidationContext);
-            validator.Validate(3);
+            var validator = new MinLengthValidator();
+            validator.Validate(ValidationContext, 3);
         }
 
         [TestMethod]
@@ -81,10 +81,9 @@ namespace ChessOk.ModelFramework.Tests.Validation.Validators
         public void AttributeReturnsCorrectValidator()
         {
             var attr = new MinLengthAttribute(3);
-            attr.ValidationContext = ValidationContext;
             attr.ErrorMessage = "Hello";
 
-            var validator = (MinLengthValidator)attr.GetValidator();
+            var validator = (MinLengthValidator)attr.GetValidator(Container);
 
             Assert.AreEqual(3, validator.Length);
             Assert.AreEqual("Hello", validator.Message);

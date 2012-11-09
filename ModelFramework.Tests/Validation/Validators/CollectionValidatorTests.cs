@@ -44,8 +44,8 @@ namespace ChessOk.ModelFramework.Tests
         [ExpectedException(typeof(InvalidOperationException))]
         public void ShouldThrowExceptionIfObjectIsNotACollection()
         {
-            var validator = new CollectionValidator(ValidationContext);
-            validator.Validate(45);
+            var validator = new CollectionValidator(Container);
+            validator.Validate(ValidationContext, 45);
         }
 
         [TestMethod]

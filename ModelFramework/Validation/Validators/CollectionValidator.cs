@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Autofac;
+
 namespace ChessOk.ModelFramework.Validation.Validators
 {
     /// <summary>
     /// Производит валидацию элементов коллекции, последовательно применяя
     /// к ним валидатор <see cref="ObjectValidator"/>.
     /// </summary>
-    public class CollectionValidator : Validator
+    public class CollectionValidator : IValidator
     {
+        private readonly ObjectValidator _objectValidator;
+
         /// <summary>
         /// Инициализирует экземпляр класса <see cref="CollectionValidator"/>,
-        /// используя указанный <paramref name="validationContext"/>.
+        /// используя <paramref name="lifetimeScope"/>.
         /// </summary>
-        /// <param name="validationContext">Валидационный контекст.</param>
-        public CollectionValidator(IValidationContext validationContext)
-            : base(validationContext)
+        public CollectionValidator(ILifetimeScope lifetimeScope)
         {
+            _objectValidator = lifetimeScope.Resolve<ObjectValidator>();
         }
 
         /// <summary>
@@ -33,8 +36,10 @@ namespace ChessOk.ModelFramework.Validation.Validators
         /// </remarks>
         /// 
         /// <param name="obj">Проверяемая коллекция.</param>
+        /// <param name="context">Валидационный контекст.</param>
+        /// 
         /// <exception cref="InvalidOperationException">Указанный <paramref name="obj"/> задан, но не является коллекцией.</exception>
-        public override void Validate(object obj)
+        public void Validate(IValidationContext context, object obj)
         {
             if (obj == null) { return; }
 
@@ -50,12 +55,11 @@ namespace ChessOk.ModelFramework.Validation.Validators
             foreach (var o in enumerable)
             {
                 // Если исходный ключ был пустым, то просто добавляем индекс.
-                using (ValidationContext.ModifyKeys("^$", string.Format("[{0}]", index)))
+                using (context.ModifyKeys("^$", string.Format("[{0}]", index)))
                 // Если исходным ключ не был пустым, то добавляем индекс с точкой.
-                using (ValidationContext.ModifyKeys("^(.+)$", string.Format("[{0}].$1", index)))
+                using (context.ModifyKeys("^(.+)$", string.Format("[{0}].$1", index)))
                 {
-                    var validator = new ObjectValidator(ValidationContext);
-                    validator.Validate(o);
+                    _objectValidator.Validate(context, o);
                 }
 
                 index++;

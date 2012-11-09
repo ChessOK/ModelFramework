@@ -76,7 +76,6 @@
     <Compile Include="Validation\ValidationContextTests.cs" />
     <Compile Include="Validation\Validators\AttributesValidatorTests.cs" />
     <Compile Include="Validation\Validators\CollectionValidatorTests.cs" />
-    <Compile Include="Validation\Validators\CompositeValidatorTests.cs" />
     <Compile Include="Validation\Validators\DelegateValidatorTests.cs" />
     <Compile Include="Validation\Validators\MinLengthValidatorTests.cs" />
     <Compile Include="Validation\Validators\NullValidatorTests.cs" />

@@ -55,5 +55,10 @@ namespace ChessOk.ModelFramework
         /// <param name="registrations">Действия по регистрации дополнительных классов.</param>
         /// <returns></returns>
         IModelContext CreateChildContext(object tag, Action<ContainerBuilder> registrations);
+
+        /// <summary>
+        /// Получает <see cref="LifetimeScope"/>, ассоциированный с данным экземпляром <see cref="IModelContext"/>.
+        /// </summary>
+        ILifetimeScope LifetimeScope { get; }
     }
 }

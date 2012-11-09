@@ -9,18 +9,8 @@ namespace ChessOk.ModelFramework.Validation.Validators
     /// проверяемого объекта с регулярным выражением, указанным в 
     /// свойстве <see cref="Pattern"/>.
     /// </summary>
-    public class RegularExpressionValidator : Validator
+    public class RegularExpressionValidator : IValidator
     {
-        /// <summary>
-        /// Инициализирует экземпляр класса <see cref="RegularExpressionValidator"/>,
-        /// используя указанный <paramref name="validationContext"/>.
-        /// </summary>
-        /// <param name="validationContext">Валидационный контекст.</param>
-        public RegularExpressionValidator(IValidationContext validationContext)
-            : base(validationContext)
-        {
-        }
-
         /// <summary>
         /// Получает или задает регулярное выражение, с которым сравнивается строковое
         /// представление проверяемого объекта.
@@ -48,7 +38,8 @@ namespace ChessOk.ModelFramework.Validation.Validators
         /// В качестве ключей для ошибок выступает пустая строка.</remarks>
         /// 
         /// <param name="obj">Проверяемый объект.</param>
-        public override void Validate(object obj)
+        /// <param name="context">Валидационный контекст.</param>
+        public void Validate(IValidationContext context, object obj)
         {
             var input = Convert.ToString(obj, CultureInfo.CurrentCulture);
 
@@ -58,7 +49,7 @@ namespace ChessOk.ModelFramework.Validation.Validators
 
             if (!match.Success || match.Index != 0 || match.Length != input.Length)
             {
-                ValidationContext.AddError(String.Format(Message ?? Resources.Strings.RegularExpressionMessage, Pattern));
+                context.AddError(String.Format(Message ?? Resources.Strings.RegularExpressionMessage, Pattern));
             }
         }
     }

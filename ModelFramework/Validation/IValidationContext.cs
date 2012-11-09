@@ -12,7 +12,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <summary>
         /// Получает текущий экземпляр <see cref="IModelContext"/>.
         /// </summary>
-        IModelContext Context { get; }
+        IModelContext ModelContext { get; }
 
         /// <summary>
         /// Регистрирует валидационную ошибку с ключом <paramref name="key"/>

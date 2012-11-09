@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Autofac;
+
 namespace ChessOk.ModelFramework.Validation
 {
     /// <summary>
@@ -9,16 +11,10 @@ namespace ChessOk.ModelFramework.Validation
     public abstract class ValidateAttribute : Attribute
     {
         /// <summary>
-        /// Получает экземпляр класса, реализующего <see cref="IValidationContext"/>,
-        /// ассоциированного с данным экземпляром атрибута.
-        /// </summary>
-        public IValidationContext ValidationContext { get; internal set; }
-
-        /// <summary>
         /// Получает экземпляр класса, реализующего <see cref="IValidator"/>,
         /// ассоциированного с данным атрибутом.
         /// </summary>
         /// <returns></returns>
-        public abstract IValidator GetValidator();
+        public abstract IValidator GetValidator(ILifetimeScope scope);
     }
 }

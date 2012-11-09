@@ -1,4 +1,6 @@
-﻿using ChessOk.ModelFramework.Validation.Validators;
+﻿using Autofac;
+
+using ChessOk.ModelFramework.Validation.Validators;
 
 namespace ChessOk.ModelFramework.Validation
 {
@@ -20,9 +22,9 @@ namespace ChessOk.ModelFramework.Validation
         /// Получить экземпляр типа <see cref="SqlDateTimeValidator"/>.
         /// </summary>
         /// <returns>Экземпляр валидатора.</returns>
-        public override IValidator GetValidator()
+        public override IValidator GetValidator(ILifetimeScope scope)
         {
-            var validator = ValidationContext.Context.Get<SqlDateTimeValidator>();
+            var validator = scope.Resolve<SqlDateTimeValidator>();
             validator.Message = ErrorMessage;
 
             return validator;

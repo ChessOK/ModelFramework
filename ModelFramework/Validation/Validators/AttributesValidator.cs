@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
+using Autofac;
+
 namespace ChessOk.ModelFramework.Validation.Validators
 {
     /// <summary>
@@ -38,7 +40,7 @@ namespace ChessOk.ModelFramework.Validation.Validators
     /// 
     /// Для одного свойства можно указать несколько атрибутов разных типов.
     /// </remarks>
-    public class AttributesValidator : Validator
+    public class AttributesValidator : IValidator
     {
         /// <summary>
         /// Словарь содержит список типов валидационных атрибутов-исключений из DataAnnotations, на которые
@@ -58,32 +60,20 @@ namespace ChessOk.ModelFramework.Validation.Validators
             DataAnnotationsConverters.TryAdd(typeof(RequiredAttribute), (context, attribute) =>
                 {
                     var required = (RequiredAttribute)attribute;
-                    return new RequiredValidator(context)
-                        {
-                            AllowEmptyStrings = required.AllowEmptyStrings,
-                            Message = required.ErrorMessage
-                        };
+                    var validator = context.ModelContext.LifetimeScope.Resolve<RequiredValidator>();
+                    validator.AllowEmptyStrings = required.AllowEmptyStrings;
+                    validator.Message = required.ErrorMessage;
+                    return validator;
                 });
 
             DataAnnotationsConverters.TryAdd(typeof(RegularExpressionAttribute), (context, attribute) =>
                 {
                     var regular = (RegularExpressionAttribute)attribute;
-                    return new RegularExpressionValidator(context)
-                        {
-                            Message = regular.ErrorMessage,
-                            Pattern = regular.Pattern
-                        };
+                    var validator = context.ModelContext.LifetimeScope.Resolve<RegularExpressionValidator>();
+                    validator.Message = regular.ErrorMessage;
+                    validator.Pattern = regular.Pattern;
+                    return validator;
                 });
-        }
-
-        /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="AttributesValidator"/>,
-        /// используя заданный валидационный контекст.
-        /// </summary>
-        /// <param name="validationContext">Валидационный контекст.</param>
-        public AttributesValidator(IValidationContext validationContext)
-            : base(validationContext)
-        {
         }
 
         /// <summary>
@@ -104,7 +94,8 @@ namespace ChessOk.ModelFramework.Validation.Validators
         /// </remarks>
         /// 
         /// <param name="obj">Валидируемый объект.</param>
-        public override void Validate(object obj)
+        /// <param name="context">Валидационный контекст.</param>
+        public void Validate(IValidationContext context, object obj)
         {
             if (obj == null)
             {
@@ -132,39 +123,38 @@ namespace ChessOk.ModelFramework.Validation.Validators
                 
                 if (flatKeys)
                 {
-                    ValidationAction(value, constraintAttributes);
+                    ValidationAction(context, value, constraintAttributes);
                 }
                 else
                 {
-                    using (ValidationContext.PrefixErrorKeysWithName(propertyInfo.Name))
+                    using (context.PrefixErrorKeysWithName(propertyInfo.Name))
                     {
-                        ValidationAction(value, constraintAttributes);
+                        ValidationAction(context, value, constraintAttributes);
                     }
                 }
             }
         }
 
-        private void ValidationAction(object value, IEnumerable<object> attributes)
+        private void ValidationAction(IValidationContext context, object value, IEnumerable<object> attributes)
         {
             foreach (var attribute in attributes)
             {
-                var validator = GetValidatorForAttribute(attribute);
+                var validator = GetValidatorForAttribute(context, attribute);
 
                 if (validator != null)
                 {
-                    validator.Validate(value);
+                    validator.Validate(context, value);
                 }
             }
         }
 
-        private IValidator GetValidatorForAttribute(object attribute)
+        private IValidator GetValidatorForAttribute(IValidationContext context, object attribute)
         {
             IValidator validator = null;
             var validationAttribute = attribute as ValidateAttribute;
             if (validationAttribute != null)
             {
-                validationAttribute.ValidationContext = ValidationContext;
-                validator = validationAttribute.GetValidator();
+                validator = validationAttribute.GetValidator(context.ModelContext.LifetimeScope);
             }
 
             var annotationsAttribute = attribute as ValidationAttribute;
@@ -174,18 +164,18 @@ namespace ChessOk.ModelFramework.Validation.Validators
 
                 if (DataAnnotationsConverters.ContainsKey(annotationType))
                 {
-                    validator = DataAnnotationsConverters[annotationType](
-                        ValidationContext, annotationsAttribute);
+                    validator = DataAnnotationsConverters[annotationType](context, annotationsAttribute);
                 }
                 else
                 {
-                    validator = new DelegateValidator(ValidationContext)
-                    {
-                        Delegate = annotationsAttribute.IsValid,
-                        Message = annotationsAttribute.FormatErrorMessage("value")
-                    };
+                    var delegateValidator = context.ModelContext.LifetimeScope.Resolve<DelegateValidator>();
+                    delegateValidator.Delegate = annotationsAttribute.IsValid;
+                    delegateValidator.Message = annotationsAttribute.FormatErrorMessage("value");
+
+                    validator = delegateValidator;
                 }
             }
+
             return validator;
         }
     }

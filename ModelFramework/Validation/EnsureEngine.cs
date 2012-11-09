@@ -46,7 +46,7 @@ namespace ChessOk.ModelFramework.Validation.Internals
                 throw new ArgumentNullException("validator");
             }
 
-            validator.Validate(_obj);
+            validator.Validate(_validationContext, _obj);
             
             return this;
         }

@@ -6,18 +6,8 @@ namespace ChessOk.ModelFramework.Validation.Validators
     /// Производит валидацию, сравнивая длину строки, либо массива, с
     /// заданной минимальной длинной, указанной в свойстве <see cref="Length"/>.
     /// </summary>
-    public class MinLengthValidator : Validator
+    public class MinLengthValidator : IValidator
     {
-        /// <summary>
-        /// Инициализирует экземпляр класса <see cref="MinLengthValidator"/>,
-        /// используя указанный <paramref name="validationContext"/>.
-        /// </summary>
-        /// <param name="validationContext">Валидационный контекст.</param>
-        public MinLengthValidator(IValidationContext validationContext)
-            : base(validationContext)
-        {
-        }
-
         /// <summary>
         /// Получает или задает минимальную длину строки, либо массива.
         /// </summary>
@@ -47,11 +37,13 @@ namespace ChessOk.ModelFramework.Validation.Validators
         /// </remarks>
         /// 
         /// <param name="value">Проверяемый объект.</param>
+        /// <param name="context">Валидационный контекст.</param>
+        /// 
         /// <exception cref="InvalidOperationException"><see cref="Length"/> имеет отрицательное значение.</exception>
         /// <exception cref="InvalidOperationException">
         ///   <paramref name="value"/> задан, но не является строкой или массивом.
         /// </exception>
-        public override void Validate(object value)
+        public void Validate(IValidationContext context, object value)
         {
             if (Length < 0)
             {
@@ -73,7 +65,7 @@ namespace ChessOk.ModelFramework.Validation.Validators
 
             if (num < Length)
             {
-                ValidationContext.AddError(String.Format(Message ?? Resources.Strings.MinLengthValidatorMessage, Length));
+                context.AddError(String.Format(Message ?? Resources.Strings.MinLengthValidatorMessage, Length));
             }
         }
     }

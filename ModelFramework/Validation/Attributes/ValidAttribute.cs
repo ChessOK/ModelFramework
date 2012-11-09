@@ -1,4 +1,6 @@
-﻿using ChessOk.ModelFramework.Validation.Validators;
+﻿using Autofac;
+
+using ChessOk.ModelFramework.Validation.Validators;
 
 namespace ChessOk.ModelFramework.Validation
 {
@@ -8,19 +10,12 @@ namespace ChessOk.ModelFramework.Validation
     public class ValidAttribute : ValidateAttribute
     {
         /// <summary>
-        /// Инициализирует экземпляр атрибута <see cref="ValidAttribute"/>.
-        /// </summary>
-        public ValidAttribute()
-        {
-        }
-
-        /// <summary>
         /// Получить экземпляр типа <see cref="ObjectValidator"/>.
         /// </summary>
         /// <returns>Экземпляр валидатора.</returns>
-        public override IValidator GetValidator()
+        public override IValidator GetValidator(ILifetimeScope scope)
         {
-            var validator = ValidationContext.Context.Get<ObjectValidator>();
+            var validator = scope.Resolve<ObjectValidator>();
             return validator;
         }
     }

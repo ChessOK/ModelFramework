@@ -1,3 +1,5 @@
+using Autofac;
+
 using ChessOk.ModelFramework.Validation.Validators;
 
 namespace ChessOk.ModelFramework.Validation.Compatibility
@@ -33,9 +35,9 @@ namespace ChessOk.ModelFramework.Validation.Compatibility
         /// Получить экземпляр типа <see cref="MinLengthValidator"/>.
         /// </summary>
         /// <returns>Экземпляр валидатора.</returns>
-        public override IValidator GetValidator()
+        public override IValidator GetValidator(ILifetimeScope scope)
         {
-            var validator = ValidationContext.Context.Get<MinLengthValidator>();
+            var validator = scope.Resolve<MinLengthValidator>();
             validator.Length = _minimumLength;
             validator.Message = ErrorMessage;
 

@@ -13,7 +13,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldWorkFineForObjectsThatNotImplementsInterface()
         {
             ValidationContext.Ensure("Hello")
-                .IsValid(new ValidatableObjectValidator(ValidationContext));
+                .IsValid(new ValidatableObjectValidator());
             Assert.IsTrue(ValidationContext.IsValid);
         }
 
@@ -21,7 +21,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldCallValidateMethod()
         {
             ValidationContext.Ensure(new ValidatableClass())
-                .IsValid(new ValidatableObjectValidator(ValidationContext));
+                .IsValid(new ValidatableObjectValidator());
             Assert.IsFalse(ValidationContext.IsValid);
         }
 
@@ -29,8 +29,9 @@ namespace ChessOk.ModelFramework.Tests
         public void AttributeShouldReturnCorrectValidator()
         {
             var attr = new ValidAttribute();
-            attr.ValidationContext = ValidationContext;
-            Assert.IsInstanceOfType(attr.GetValidator(), typeof(CompositeValidator));
+            Assert.IsInstanceOfType(
+                attr.GetValidator(Container), 
+                typeof(ObjectValidator));
         }
 
         private class ValidatableClass : IValidatable

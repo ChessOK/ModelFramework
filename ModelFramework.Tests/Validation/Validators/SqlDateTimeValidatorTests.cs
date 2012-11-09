@@ -40,9 +40,8 @@ namespace ChessOk.ModelFramework.Tests
         public void AttributeShouldReturnCorrectValidator()
         {
             var attr = new SqlDateTimeAttribute { ErrorMessage = "Hello" };
-            attr.ValidationContext = ValidationContext;
 
-            var validator = (SqlDateTimeValidator)attr.GetValidator();
+            var validator = (SqlDateTimeValidator)attr.GetValidator(Container);
 
             Assert.AreEqual("Hello", validator.Message);
         }
@@ -51,15 +50,15 @@ namespace ChessOk.ModelFramework.Tests
         [ExpectedException(typeof(InvalidOperationException))]
         public void ShouldThrowAnExceptionIfAppliedToTypeOtherThanDateTime()
         {
-            var validator = new SqlDateTimeValidator(ValidationContext);
-            validator.Validate(34);
+            var validator = new SqlDateTimeValidator();
+            validator.Validate(ValidationContext, 34);
         }
 
         [TestMethod]
         public void ShouldIgnoreNullValues()
         {
-            var validator = new SqlDateTimeValidator(ValidationContext);
-            validator.Validate(null);
+            var validator = new SqlDateTimeValidator();
+            validator.Validate(ValidationContext, null);
 
             Assert.IsTrue(ValidationContext.IsValid);
         }
@@ -68,8 +67,8 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldWorkWithNullableDateTime()
         {
             DateTime? value = DateTime.Now;
-            var validator = new SqlDateTimeValidator(ValidationContext);
-            validator.Validate(value);
+            var validator = new SqlDateTimeValidator();
+            validator.Validate(ValidationContext, value);
 
             Assert.IsTrue(ValidationContext.IsValid);
         }

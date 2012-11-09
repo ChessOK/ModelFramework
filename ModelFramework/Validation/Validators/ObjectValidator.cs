@@ -1,27 +1,33 @@
-﻿namespace ChessOk.ModelFramework.Validation.Validators
+﻿using System;
+
+using Autofac;
+
+namespace ChessOk.ModelFramework.Validation.Validators
 {
     /// <summary>
     /// Составной валидатор, производит валидацию объекта путем 
     /// вызова <see cref="AttributesValidator"/> и <see cref="ValidatableObjectValidator"/>.
     /// </summary>
-    public class ObjectValidator : CompositeValidator
+    public class ObjectValidator : IValidator
     {
+        private readonly IValidator _attributesValidator;
+        private readonly IValidator _validatableObjectValidator;
+
         /// <summary>
         /// Инициализирует экземпляр класса <see cref="ObjectValidator"/>,
-        /// используя указанный <paramref name="validationContext"/>.
+        /// используя <paramref name="lifetimeScope"/>.
         /// </summary>
-        /// <param name="validationContext">Валидационный контекст.</param>
-        public ObjectValidator(IValidationContext validationContext)
-            : base(validationContext)
+        /// <param name="lifetimeScope"></param>
+        public ObjectValidator(ILifetimeScope lifetimeScope)
         {
-            var attributesValidator = ValidationContext.Context.Get<AttributesValidator>();
-            var validatableObjectValidator = ValidationContext.Context.Get<ValidatableObjectValidator>();
+            _attributesValidator = lifetimeScope.Resolve<AttributesValidator>();
+            _validatableObjectValidator = lifetimeScope.Resolve<ValidatableObjectValidator>();   
+        }
 
-            Validators = new IValidator[]
-                {
-                    attributesValidator,
-                    validatableObjectValidator
-                };
+        public void Validate(IValidationContext context, object obj)
+        {
+            _attributesValidator.Validate(context, obj);
+            _validatableObjectValidator.Validate(context, obj);
         }
     }
 }

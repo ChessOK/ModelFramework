@@ -11,7 +11,7 @@ namespace ChessOk.ModelFramework.Validation
     /// </summary>
     public class ValidationContext : IValidationContext
     {
-        private readonly IModelContext _context;
+        private readonly IModelContext _modelContext;
 
         private readonly IDictionary<string, IList<string>> _errors =
             new Dictionary<string, IList<string>>();
@@ -26,7 +26,7 @@ namespace ChessOk.ModelFramework.Validation
         /// <param name="parentContext"></param>
         public ValidationContext(IModelContext parentContext)
         {
-            _context = parentContext.CreateChildContext(
+            _modelContext = parentContext.CreateChildContext(
                 ContextHierarchy.ValidationContext,
                 x => x.RegisterInstance(this).As<IValidationContext>());
         }
@@ -52,11 +52,11 @@ namespace ChessOk.ModelFramework.Validation
             }
         }
 
-        public IModelContext Context
+        public IModelContext ModelContext
         {
             get
             {
-                return _context;
+                return _modelContext;
             }
         }
 
@@ -102,7 +102,7 @@ namespace ChessOk.ModelFramework.Validation
 
         public void Dispose()
         {
-            _context.Dispose();
+            _modelContext.Dispose();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace ChessOk.ModelFramework.Tests
             ValidationContext.Ensure(obj)
                 .IsValid(validatorMock.Object);
 
-            validatorMock.Verify(x => x.Validate(obj));
+            validatorMock.Verify(x => x.Validate(ValidationContext, obj));
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace ChessOk.ModelFramework.Tests
             ValidationContext.Ensure(obj)
                 .ItsProperty(x => x.Name, x => x.IsValid(validator.Object));
 
-            validator.Verify(x => x.Validate(obj.Name));
+            validator.Verify(x => x.Validate(ValidationContext, obj.Name));
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace ChessOk.ModelFramework.Tests
             ValidationContext.Ensure(obj)
                 .ItsProperty<string>("Name", x => x.IsValid(validator.Object));
 
-            validator.Verify(x => x.Validate(obj.Name));
+            validator.Verify(x => x.Validate(ValidationContext, obj.Name));
         }
 
         [TestMethod]

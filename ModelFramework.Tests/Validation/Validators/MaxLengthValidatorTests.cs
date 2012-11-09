@@ -66,8 +66,8 @@ namespace ChessOk.ModelFramework.Tests
         [ExpectedException(typeof(InvalidOperationException))]
         public void ShouldThrowExceptionIfObjectIsNotAStringOrArray()
         {
-            var validator = new MaxLengthValidator(ValidationContext);
-            validator.Validate(3);
+            var validator = new MaxLengthValidator();
+            validator.Validate(ValidationContext, 3);
         }
 
         [TestMethod]
@@ -90,11 +90,10 @@ namespace ChessOk.ModelFramework.Tests
         {
             var attr = new MaxLengthAttribute(3)
                 {
-                    ValidationContext = ValidationContext,
                     ErrorMessage = "Hello"
                 };
 
-            var validator = (MaxLengthValidator)attr.GetValidator();
+            var validator = (MaxLengthValidator)attr.GetValidator(Container);
 
             Assert.AreEqual(3, validator.Length);
             Assert.AreEqual("Hello", validator.Message);

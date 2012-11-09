@@ -15,18 +15,17 @@ namespace ChessOk.ModelFramework.Validation
             builder.Register(x => new ValidationContext(x.Resolve<IModelContext>()))
                 .As<IValidationContext>().InstancePerApplicationBus();
 
-            builder.Register(x => new AttributesValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new CollectionValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new CompositeValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new DelegateValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new NullValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new ObjectValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new RequiredValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new SqlDateTimeValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new MaxLengthValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new ValidatableObjectValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new RegularExpressionValidator(x.Resolve<IValidationContext>())).AsSelf();
-            builder.Register(x => new MinLengthValidator(x.Resolve<IValidationContext>())).AsSelf();
+            builder.Register(x => new AttributesValidator()).AsSelf().SingleInstance();
+            builder.Register(x => new CollectionValidator(x.Resolve<ILifetimeScope>())).AsSelf().SingleInstance();
+            builder.Register(x => new DelegateValidator()).AsSelf();
+            builder.Register(x => new NullValidator()).AsSelf();
+            builder.Register(x => new ObjectValidator(x.Resolve<ILifetimeScope>())).AsSelf().SingleInstance();
+            builder.Register(x => new RequiredValidator()).AsSelf();
+            builder.Register(x => new SqlDateTimeValidator()).AsSelf();
+            builder.Register(x => new MaxLengthValidator()).AsSelf();
+            builder.Register(x => new ValidatableObjectValidator()).AsSelf().SingleInstance();
+            builder.Register(x => new RegularExpressionValidator()).AsSelf();
+            builder.Register(x => new MinLengthValidator()).AsSelf();
         }
     }
 }

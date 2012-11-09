@@ -6,18 +6,8 @@
     /// и строка не является пустой (если свойство <see cref="AllowEmptyStrings"/>
     /// имеет значение <c>false</c>).
     /// </summary>
-    public class RequiredValidator : Validator
+    public class RequiredValidator : IValidator
     {
-        /// <summary>
-        /// Инициализирует экземпляр класса <see cref="RequiredValidator"/>,
-        /// используя заданный <paramref name="validationContext"/>.
-        /// </summary>
-        /// <param name="validationContext">Валидационный контекст.</param>
-        public RequiredValidator(IValidationContext validationContext)
-            : base(validationContext)
-        {
-        }
-
         /// <summary>
         /// Получает или задает значение, разрешать ли
         /// использование пустых строк в качестве проверяемого 
@@ -44,13 +34,14 @@
         /// </remarks>
         /// 
         /// <param name="obj">Проверяемый объект.</param>
-        public override void Validate(object obj)
+        /// <param name="context">Валидационный контекст.</param>
+        public void Validate(IValidationContext context, object obj)
         {
             var message = Message ?? Resources.Strings.PresenceValidatorMessage;
 
             if (obj == null)
             {
-                ValidationContext.AddError(message);
+                context.AddError(message);
             }
             
             var str = obj as string;
@@ -58,7 +49,7 @@
             {
                 if (!AllowEmptyStrings && str.Trim().Length == 0)
                 {
-                    ValidationContext.AddError(message);
+                    context.AddError(message);
                 }
             }
         }

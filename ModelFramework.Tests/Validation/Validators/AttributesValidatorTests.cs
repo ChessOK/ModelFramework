@@ -18,7 +18,7 @@ namespace ChessOk.ModelFramework.Tests
         {
             ValidationContext
                 .Ensure(new AttributelessClass())
-                .IsValid(new AttributesValidator(ValidationContext));
+                .IsValid(new AttributesValidator());
 
             Assert.IsTrue(ValidationContext.IsValid);
         }
@@ -27,7 +27,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldRunValidatorsWithinMainContextAndReplaceErrorKeys()
         {
             ValidationContext.Ensure(new AttributeClass())
-                .IsValid(new AttributesValidator(ValidationContext));
+                .IsValid(new AttributesValidator());
 
             Assert.IsFalse(ValidationContext.IsValid);
             Assert.AreEqual("Hello", ValidationContext.Keys.First());
@@ -37,15 +37,14 @@ namespace ChessOk.ModelFramework.Tests
         public void AttributeShouldReturnCorrectValidator()
         {
             var attr = new ValidateAttributesAttribute();
-            attr.ValidationContext = ValidationContext;
-            Assert.IsInstanceOfType(attr.GetValidator(), typeof(AttributesValidator));
+            Assert.IsInstanceOfType(attr.GetValidator(Container), typeof(AttributesValidator));
         }
 
         [TestMethod]
         public void ShouldNotPrependErrorKeysIfSpecified()
         {
             ValidationContext.Ensure(new AttributeClass()).IsValid(
-                new AttributesValidator(ValidationContext));
+                new AttributesValidator());
 
             Assert.IsTrue(ValidationContext[""].Any());
         }
@@ -54,8 +53,8 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldValidateAnnotationsAttributes()
         {
             var annotations = new Annotations { Foo = "as" };
-            var validator = new AttributesValidator(ValidationContext);
-            validator.Validate(annotations);
+            var validator = new AttributesValidator();
+            validator.Validate(ValidationContext, annotations);
             
             Assert.IsFalse(ValidationContext.IsValid);
             Assert.AreEqual(2, ValidationContext.Keys.Count);

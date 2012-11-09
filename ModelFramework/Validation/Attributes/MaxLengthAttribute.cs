@@ -1,4 +1,6 @@
-﻿using ChessOk.ModelFramework.Validation.Validators;
+﻿using Autofac;
+
+using ChessOk.ModelFramework.Validation.Validators;
 
 namespace ChessOk.ModelFramework.Validation.Compatibility
 {
@@ -33,9 +35,9 @@ namespace ChessOk.ModelFramework.Validation.Compatibility
         /// Получить экземпляр типа <see cref="MaxLengthValidator"/>.
         /// </summary>
         /// <returns>Экземпляр валидатора.</returns>
-        public override IValidator GetValidator()
+        public override IValidator GetValidator(ILifetimeScope scope)
         {
-            var validator = ValidationContext.Context.Get<MaxLengthValidator>();
+            var validator = scope.Resolve<MaxLengthValidator>();
             validator.Length = _maximumLength;
             validator.Message = ErrorMessage;
 

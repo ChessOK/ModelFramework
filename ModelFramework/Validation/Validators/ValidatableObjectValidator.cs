@@ -4,18 +4,8 @@
     /// Производит валидацию объекта, реализующего интерфейс <see cref="IValidatable"/>,
     /// вызывая его метод <see cref="IValidatable.Validate"/>.
     /// </summary>
-    public class ValidatableObjectValidator : Validator
+    public class ValidatableObjectValidator : IValidator
     {
-        /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="ValidatableObjectValidator"/>,
-        /// используя заданный <paramref name="validationContext"/>.
-        /// </summary>
-        /// <param name="validationContext">Валидационный контекст</param>
-        public ValidatableObjectValidator(IValidationContext validationContext)
-            : base(validationContext)
-        {
-        }
-
         /// <summary>
         /// Вызывает метод <see cref="IValidatable.Validate"/>, если
         /// <paramref name="obj"/> реализует интерфейс <see cref="IValidatable"/>.
@@ -29,12 +19,13 @@
         /// </remarks>
         /// 
         /// <param name="obj">Проверяемый объект.</param>
-        public override void Validate(object obj)
+        /// <param name="context">Валидационный контекст.</param>
+        public void Validate(IValidationContext context, object obj)
         {
             var validatable = obj as IValidatable;
             if (validatable != null)
             {
-                validatable.Validate(ValidationContext);
+                validatable.Validate(context);
             }
         }
     }

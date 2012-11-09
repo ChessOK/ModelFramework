@@ -14,7 +14,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldSucceedIfDelegateReturnsTrue()
         {
             ValidationContext.Ensure(true)
-                .IsValid(new DelegateValidator(ValidationContext)
+                .IsValid(new DelegateValidator
                     {
                         Delegate = x => (bool)x,
                         Message = "Some message"
@@ -27,7 +27,7 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldFailIfDelegateReturnsFalse()
         {
             ValidationContext.Ensure(false)
-                .IsValid(new DelegateValidator(ValidationContext)
+                .IsValid(new DelegateValidator
                 {
                     Delegate = x => (bool)x,
                     Message = "Some message"

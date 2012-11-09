@@ -40,6 +40,8 @@ namespace ChessOk.ModelFramework
                 });
         }
 
+        public ILifetimeScope LifetimeScope { get { return _lifetimeScope; } }
+
         public void Dispose()
         {
             _lifetimeScope.Dispose();

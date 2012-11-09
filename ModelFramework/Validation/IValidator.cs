@@ -4,21 +4,19 @@ namespace ChessOk.ModelFramework.Validation
 {
     /// <summary>
     /// Предоставляет базовый интерфейс для валидаторов.
-    /// <seealso cref="Validator"/>
     /// </summary>
+    /// 
+    /// <remarks>
+    /// Реализация данного интерфейса должна быть потокобезопасной.
+    /// </remarks>
     public interface IValidator
     {
-        /// <summary>
-        /// Получает экземпляр <see cref="IValidationContext"/>,
-        /// ассоциированный с данным экземпляром валидатора.
-        /// </summary>
-        IValidationContext ValidationContext { get; }
-
         /// <summary>
         /// Производит валидацию указанного объекта <paramref name="obj"/>, 
         /// в соответствии с правелами, определенными в реализации интерфейса.
         /// </summary>
+        /// <param name="context">Валидационный контекст.</param>
         /// <param name="obj">Проверяемый объект.</param>
-        void Validate(object obj);
+        void Validate(IValidationContext context, object obj);
     }
 }

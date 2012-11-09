@@ -100,7 +100,6 @@
     <Compile Include="Validation\ValidationException.cs" />
     <Compile Include="Validation\IValidationContext.cs" />
     <Compile Include="Validation\Validators\AttributesValidator.cs" />
-    <Compile Include="Validation\Validators\CompositeValidator.cs" />
     <Compile Include="Validation\Validators\ObjectValidator.cs" />
     <Compile Include="Validation\Validators\RegularExpressionValidator.cs" />
     <Compile Include="Validation\Validators\RequiredValidator.cs" />

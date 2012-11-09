@@ -74,7 +74,7 @@ namespace ChessOk.ModelFramework.Tests
         [TestMethod]
         public void ShouldNotCheckValueTypesForDefaultValues()
         {
-            ValidationContext.Ensure(default(bool)).IsValid(new RequiredValidator(ValidationContext));
+            ValidationContext.Ensure(default(bool)).IsValid(new RequiredValidator());
 
             Assert.IsTrue(ValidationContext.IsValid);
         }

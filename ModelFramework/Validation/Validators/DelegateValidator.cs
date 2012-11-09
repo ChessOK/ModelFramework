@@ -6,18 +6,8 @@ namespace ChessOk.ModelFramework.Validation.Validators
     /// Производит валидацию на основе заданного в свойстве <see cref="Delegate"/>
     /// делегата.
     /// </summary>
-    public class DelegateValidator : Validator
+    public class DelegateValidator : IValidator
     {
-        /// <summary>
-        /// Инициализирует экземпляр класса <see cref="DelegateValidator"/>,
-        /// используя указанный <paramref name="validationContext"/>.
-        /// </summary>
-        /// <param name="validationContext"></param>
-        public DelegateValidator(IValidationContext validationContext)
-            : base(validationContext)
-        {
-        }
-
         /// <summary>
         /// Получает или задает делегат, на основе которого выполняется проверка.
         /// </summary>
@@ -49,17 +39,18 @@ namespace ChessOk.ModelFramework.Validation.Validators
         /// </remarks>
         /// 
         /// <param name="obj">Проверяемый объект.</param>
+        /// <param name="context">Валидационный контекст.</param>
         /// <exception cref="InvalidOperationException">Свойство <see cref="Delegate"/> не задано.</exception>
-        public override void Validate(object obj)
+        public void Validate(IValidationContext context, object obj)
         {
             if (Delegate == null)
             {
-                throw new InvalidOperationException("Delegate property is not set.");
+                throw new InvalidOperationException("Delegate can not be null");
             }
 
             if (!Delegate(obj))
             {
-                ValidationContext.AddError(Message);
+                context.AddError(Message);
             }
         }
     }
