@@ -8,22 +8,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{EB76AF
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessOk.ModelFramework.Core", "ChessOk.ModelFramework.Core\ChessOk.ModelFramework.Core.csproj", "{0D2D5BF0-0308-4B00-BD16-EF825028D68E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelFramework", "ModelFramework\ModelFramework.csproj", "{0D2D5BF0-0308-4B00-BD16-EF825028D68E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessOk.ModelFramework.Core.Tests", "ChessOk.ModelFramework.Core.Tests\ChessOk.ModelFramework.Core.Tests.csproj", "{49A68909-90B7-4611-9ACB-69BCA5F10911}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelFramework.Tests", "ModelFramework.Tests\ModelFramework.Tests.csproj", "{49A68909-90B7-4611-9ACB-69BCA5F10911}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessOk.ModelFramework.Testing", "ChessOk.ModelFramework.Testing\ChessOk.ModelFramework.Testing.csproj", "{E0C427A9-0521-4540-A860-28BA8864FE12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelFramework.Testing", "ModelFramework.Testing\ModelFramework.Testing.csproj", "{E0C427A9-0521-4540-A860-28BA8864FE12}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F981A6AB-B3C3-49D0-98C0-142EC6482C96}"
 	ProjectSection(SolutionItems) = preProject
-		ChessOk.ModelFramework.vsmdi = ChessOk.ModelFramework.vsmdi
 		Local.testsettings = Local.testsettings
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = ChessOk.ModelFramework.vsmdi
+		CategoryFile = ModelFramework1.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

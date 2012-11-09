@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ChessOk.ModelFramework</RootNamespace>
-    <AssemblyName>ModelFramework.Core</AssemblyName>
+    <AssemblyName>ModelFramework</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -23,7 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\ModelFramework.Core.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\ModelFramework.xml</DocumentationFile>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -33,7 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\ModelFramework.Core.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\ModelFramework.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
@@ -79,11 +79,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Validation\Attributes\FlatKeysAttribute.cs" />
     <Compile Include="Validation\Attributes\MinLengthAttribute.cs" />
     <Compile Include="Validation\Attributes\NotEqualsAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidAttribute.cs" />
     <Compile Include="Validation\Attributes\ValidItemsAttribute.cs" />
     <Compile Include="Validation\Attributes\NullAttribute.cs" />
+    <Compile Include="Validation\ValidationErrorKeyTransformer.cs" />
     <Compile Include="Validation\ValidationModule.cs" />
     <Compile Include="Validation\Validators\CollectionValidator.cs" />
     <Compile Include="Validation\Validators\DelegateValidator.cs" />
@@ -164,7 +166,6 @@
     <Compile Include="AsyncCommands\Handlers\SeparatedContextsHandler.cs" />
     <Compile Include="ModelContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validation\Validators\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

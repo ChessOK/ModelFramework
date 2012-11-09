@@ -31,14 +31,10 @@ namespace ChessOk.ModelFramework
         /// </summary>
         /// <typeparam name="T">Тип объекта.</typeparam>
         /// <param name="syntax">Синтаксис.</param>
-        /// <param name="usePropertyNamesAsErrorKeys">
-        ///   Будет ли валидатор <see cref="AttributesValidator"/> использовать имена свойств в качестве ключей ошибок.
-        /// </param>
         /// <returns>Синтаксис, ассоциированный с исходным объектом.</returns>
-        public static IEnsureSyntax<T> IsValid<T>(this IEnsureSyntax<T> syntax, bool usePropertyNamesAsErrorKeys = true)
+        public static IEnsureSyntax<T> IsValid<T>(this IEnsureSyntax<T> syntax)
         {
             var validator = syntax.ValidationContext.Context.Get<ObjectValidator>();
-            validator.AttributesValidator.UsePropertyNamesAsErrorKeys = usePropertyNamesAsErrorKeys;
             return syntax.IsValid(validator);
         }
 

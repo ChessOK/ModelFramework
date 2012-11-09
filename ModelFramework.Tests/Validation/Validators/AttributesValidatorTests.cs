@@ -2,6 +2,7 @@
 using System.Linq;
 
 using ChessOk.ModelFramework.Testing;
+using ChessOk.ModelFramework.Validation;
 using ChessOk.ModelFramework.Validation.Internals;
 using ChessOk.ModelFramework.Validation.Validators;
 
@@ -44,9 +45,9 @@ namespace ChessOk.ModelFramework.Tests
         public void ShouldNotPrependErrorKeysIfSpecified()
         {
             ValidationContext.Ensure(new AttributeClass()).IsValid(
-                new AttributesValidator(ValidationContext) { UsePropertyNamesAsErrorKeys = false });
+                new AttributesValidator(ValidationContext));
 
-            Assert.AreEqual("", ValidationContext.Keys.First());
+            Assert.IsTrue(ValidationContext[""].Any());
         }
 
         [TestMethod]
@@ -69,6 +70,9 @@ namespace ChessOk.ModelFramework.Tests
         {
             [Required]
             public string Hello { get; set; }
+
+            [Required, FlatErrorKeys]
+            public string World { get; set; }
         }
 
         public class Annotations

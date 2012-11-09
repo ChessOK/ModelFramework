@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ChessOk.ModelFramework.Tests</RootNamespace>
-    <AssemblyName>ChessOk.ModelFramework.Core.Tests</AssemblyName>
+    <AssemblyName>ModelFramework.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -87,11 +87,11 @@
     <Compile Include="Validation\Validators\ValidatableObjectValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChessOk.ModelFramework.Testing\ChessOk.ModelFramework.Testing.csproj">
+    <ProjectReference Include="..\ModelFramework.Testing\ModelFramework.Testing.csproj">
       <Project>{E0C427A9-0521-4540-A860-28BA8864FE12}</Project>
       <Name>ChessOk.ModelFramework.Testing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ChessOk.ModelFramework.Core\ChessOk.ModelFramework.Core.csproj">
+    <ProjectReference Include="..\ModelFramework\ModelFramework.csproj">
       <Project>{0D2D5BF0-0308-4B00-BD16-EF825028D68E}</Project>
       <Name>ChessOk.ModelFramework.Core</Name>
     </ProjectReference>

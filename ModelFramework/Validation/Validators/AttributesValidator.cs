@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -83,14 +84,7 @@ namespace ChessOk.ModelFramework.Validation.Validators
         public AttributesValidator(IValidationContext validationContext)
             : base(validationContext)
         {
-            UsePropertyNamesAsErrorKeys = true;
         }
-
-        /// <summary>
-        /// Получает или задает значение, указывающее, выставлять или
-        /// нет в качестве ключей ошибок имена свойств (по-умолчанию: true). 
-        /// </summary>
-        public bool UsePropertyNamesAsErrorKeys { get; set; }
 
         /// <summary>
         /// Проверяет свойства указанного объекта на основе их атрибутов. Свойства, не
@@ -105,8 +99,8 @@ namespace ChessOk.ModelFramework.Validation.Validators
         /// успешно. Используйте <see cref="RequiredValidator"/>,
         /// если хотите проверить, имеет ли объект значение.
         /// 
-        /// По-умолчанию в качестве ключей ошибок выступают имена свойств объекта, 
-        /// это поведение можно изменить в параметре <see cref="UsePropertyNamesAsErrorKeys"/>.
+        /// В качестве ключей ошибок выступают имея свойства объекта, если к нему не
+        /// применен атрибут <see cref="FlatErrorKeysAttribute"/>.
         /// </remarks>
         /// 
         /// <param name="obj">Валидируемый объект.</param>
@@ -130,25 +124,35 @@ namespace ChessOk.ModelFramework.Validation.Validators
                     continue;
                 }
 
-                var value = propertyInfo.GetValue(obj, null);
-                foreach (var attribute in constraintAttributes)
-                {
-                    var validator = GetValidatorForAttribute(attribute);
+                var flatKeys = propertyInfo
+                    .GetCustomAttributes(typeof(FlatErrorKeysAttribute), true)
+                    .Any();
 
-                    if (validator != null)
+                var value = propertyInfo.GetValue(obj, null);
+                
+                if (flatKeys)
+                {
+                    ValidationAction(value, constraintAttributes);
+                }
+                else
+                {
+                    using (ValidationContext.PrefixErrorKeysWithName(propertyInfo.Name))
                     {
-                        if (UsePropertyNamesAsErrorKeys)
-                        {
-                            using (ValidationContext.PrefixErrorKeysWithName(propertyInfo.Name))
-                            {
-                                validator.Validate(value);
-                            }
-                        }
-                        else
-                        {
-                            validator.Validate(value);
-                        }
+                        ValidationAction(value, constraintAttributes);
                     }
+                }
+            }
+        }
+
+        private void ValidationAction(object value, IEnumerable<object> attributes)
+        {
+            foreach (var attribute in attributes)
+            {
+                var validator = GetValidatorForAttribute(attribute);
+
+                if (validator != null)
+                {
+                    validator.Validate(value);
                 }
             }
         }

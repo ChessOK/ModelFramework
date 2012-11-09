@@ -1,6 +1,5 @@
 ﻿using Autofac;
 
-using ChessOk.ModelFramework.Validation.Internals;
 using ChessOk.ModelFramework.Validation.Validators;
 
 namespace ChessOk.ModelFramework.Validation

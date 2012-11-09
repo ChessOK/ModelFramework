@@ -12,14 +12,7 @@ namespace ChessOk.ModelFramework.Validation
         /// </summary>
         public ValidAttribute()
         {
-            UsePropertyNamesAsErrorKeys = true;
         }
-
-        /// <summary>
-        /// Получает или задает значение, указывающее, выставлять или
-        /// нет в качестве ключей ошибок имена свойств (по-умолчанию: true) в <see cref="AttributesValidator"/>. 
-        /// </summary>
-        public bool UsePropertyNamesAsErrorKeys { get; set; }
 
         /// <summary>
         /// Получить экземпляр типа <see cref="ObjectValidator"/>.
@@ -28,8 +21,6 @@ namespace ChessOk.ModelFramework.Validation
         public override IValidator GetValidator()
         {
             var validator = ValidationContext.Context.Get<ObjectValidator>();
-            validator.AttributesValidator.UsePropertyNamesAsErrorKeys = UsePropertyNamesAsErrorKeys;
-
             return validator;
         }
     }

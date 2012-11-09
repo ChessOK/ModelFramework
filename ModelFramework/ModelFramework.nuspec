@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>ModelFramework.Core</id>
+    <id>ModelFramework</id>
     <version>$version$</version>
     <title>$title$</title>
     <authors>odinserj</authors>
     <owners>Convekta Ltd.</owners>
-    <licenseUrl>https://github.com/ChessOK/ModelFramework.Core/raw/master/LICENSE.txt</licenseUrl>
-    <projectUrl>https://github.com/ChessOK/ModelFramework.Core/</projectUrl>
+    <licenseUrl>https://github.com/ChessOK/ModelFramework/raw/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/ChessOK/ModelFramework/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <copyright>Copyright (c) 2011 Convekta Ltd.</copyright>
+    <copyright>Copyright (c) 2011-2012 Convekta Ltd.</copyright>
   </metadata>
 </package>

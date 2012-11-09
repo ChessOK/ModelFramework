@@ -69,7 +69,7 @@ namespace ChessOk.ModelFramework
                 throw new ArgumentNullException("message");
             }
 
-            ValidationContext.Ensure(message).IsValid(usePropertyNamesAsErrorKeys: false);
+            ValidationContext.Ensure(message).IsValid();
             ValidationContext.ThrowExceptionIfInvalid();
 
             var messageName = message.MessageName;

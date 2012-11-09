@@ -1,4 +1,4 @@
-$projects = "ChessOk.ModelFramework.Core"
+$projects = "ModelFramework"
 $nugetExe = Resolve-Path .nuget\nuget.exe
     
 Remove-Item build\*.nupkg
