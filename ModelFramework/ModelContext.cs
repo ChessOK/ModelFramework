@@ -6,11 +6,16 @@ using Autofac;
 namespace ChessOk.ModelFramework
 {
     /// <summary>
+    /// Предоставляет возможности по получению экземпляров компонентов модели,
+    /// зарегистрированных в контейнере.
+    /// </summary>
+    /// 
+    /// <remarks>
     /// Представляет собой <see cref="IModelContext"/> самого верхнего
     /// уровня. В пределах <see cref="ModelContext"/> регистрируются
     /// все классы, имеющие отношение к модели приложения.
     /// <seealso cref="RegistrationExtensions"/>
-    /// </summary>
+    /// </remarks>
     public class ModelContext : IModelContext
     {
         private readonly ILifetimeScope _lifetimeScope;

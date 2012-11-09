@@ -18,7 +18,7 @@ namespace ChessOk.ModelFramework.Tests.Commands.EventHandlers
             base.ConfigureContainer(builder);
 
             _handler = new TestHandler();
-            builder.RegisterEventHandler(c => _handler);
+            builder.RegisterMessageHandler(c => _handler);
         }
 
         [TestMethod]

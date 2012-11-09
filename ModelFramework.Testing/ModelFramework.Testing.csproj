@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="ApplicationBusTest.cs" />
     <Compile Include="ContainerTest.cs" />
-    <Compile Include="ModelScopeTest.cs" />
+    <Compile Include="ModelContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidationTest.cs" />
   </ItemGroup>

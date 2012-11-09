@@ -1,6 +1,7 @@
 ﻿using System;
 
 using ChessOk.ModelFramework.Messages;
+using ChessOk.ModelFramework.Validation;
 
 namespace ChessOk.ModelFramework
 {
@@ -9,6 +10,17 @@ namespace ChessOk.ModelFramework
     /// </summary>
     public static class ApplicationBusExtensions
     {
+        /// <summary>
+        /// Возвращает значение, нет ли валидационных ошибок в текущем 
+        /// экземпляре <see cref="IValidationContext"/>.
+        /// </summary>
+        /// <param name="bus"></param>
+        /// <returns></returns>
+        public static bool IsValid(this IApplicationBus bus)
+        {
+            return bus.ValidationContext.IsValid;
+        }
+
         /// <summary>
         /// Получает зарегистрированный в контейнере экземпляр типа <typeparamref name="T"/>,
         /// проинициализированный с помощью <paramref name="initialization"/>.

@@ -45,7 +45,7 @@ namespace ChessOk.ModelFramework
             return registration.InstancePerMatchingLifetimeScope(ContextHierarchy.ValidationContext);
         }
 
-        public static void RegisterEventHandler<T>(this ContainerBuilder builder,
+        public static void RegisterMessageHandler<T>(this ContainerBuilder builder,
             Func<IComponentContext, T> @delegate)
         {
             builder.Register(@delegate).As<IApplicationBusMessageHandler>().InstancePerDependency();

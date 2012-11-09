@@ -19,7 +19,7 @@ namespace ChessOk.ModelFramework.Tests.AppBus
             base.ConfigureContainer(builder);
 
             _handler = new TestHandler();
-            builder.RegisterEventHandler(x => _handler);
+            builder.RegisterMessageHandler(x => _handler);
         }
 
         [TestMethod]

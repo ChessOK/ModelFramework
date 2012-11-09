@@ -19,8 +19,8 @@ namespace ChessOk.ModelFramework.Tests
         {
             base.ConfigureContainer(builder);
 
-            builder.RegisterEventHandler(x => new TestHandler());
-            builder.RegisterEventHandler(x => new TestHandler());
+            builder.RegisterMessageHandler(x => new TestHandler());
+            builder.RegisterMessageHandler(x => new TestHandler());
         }
 
         [TestMethod]

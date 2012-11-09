@@ -9,3 +9,6 @@ _ReSharper.*
 packages/*/*
 build/*
 TestResults/*
+testimpactdata.sdf
+*.vsmdi
+Packages.xml
