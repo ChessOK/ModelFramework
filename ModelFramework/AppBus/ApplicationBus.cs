@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 
 using Autofac;
@@ -9,22 +9,22 @@ using ChessOk.ModelFramework.Validation;
 namespace ChessOk.ModelFramework
 {
     /// <summary>
-    /// Реализует интерфейс <see cref="IApplicationBus"/>. 
+    /// Р РµР°Р»РёР·СѓРµС‚ РёРЅС‚РµСЂС„РµР№СЃ <see cref="IApplicationBus"/>. 
     /// </summary>
     /// 
     /// <remarks>
-    /// Список обработчиков
-    /// получает при инициализации, путем запроса коллекции зарегистрированных
-    /// в контейнере типов <see cref="IApplicationBusMessageHandler"/>.
+    /// РЎРїРёСЃРѕРє РѕР±СЂР°Р±РѕС‚С‡РёРєРѕРІ
+    /// РїРѕР»СѓС‡Р°РµС‚ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё, РїСѓС‚РµРј Р·Р°РїСЂРѕСЃР° РєРѕР»Р»РµРєС†РёРё Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С…
+    /// РІ РєРѕРЅС‚РµР№РЅРµСЂРµ С‚РёРїРѕРІ <see cref="IApplicationBusMessageHandler"/>.
     /// 
-    /// Для обработчиков типа <see cref="ApplicationBusMessageHandler"/> автоматически
-    /// предоставляет свой экземпляр <see cref="ApplicationBus"/> при инициализации.
+    /// Р”Р»СЏ РѕР±СЂР°Р±РѕС‚С‡РёРєРѕРІ С‚РёРїР° <see cref="ApplicationBusMessageHandler"/> Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё
+    /// РїСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ СЃРІРѕР№ СЌРєР·РµРјРїР»СЏСЂ <see cref="ApplicationBus"/> РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё.
     /// 
-    /// Создает дочерний <see cref="IModelContext"/>, предоставляющий
-    /// <see cref="ILifetimeScope"/> с тегом <see cref="ContextHierarchy.ApplicationBus"/>.
+    /// РЎРѕР·РґР°РµС‚ РґРѕС‡РµСЂРЅРёР№ <see cref="IModelContext"/>, РїСЂРµРґРѕСЃС‚Р°РІР»СЏСЋС‰РёР№
+    /// <see cref="ILifetimeScope"/> СЃ С‚РµРіРѕРј <see cref="ContextHierarchy.ApplicationBus"/>.
     /// 
-    /// Создает и управляет <see cref="ValidationContext"/>, который является
-    /// общим для экземпляра <see cref="ApplicationBus"/> и всех сообщений <see cref="IApplicationBusMessage"/>.
+    /// РЎРѕР·РґР°РµС‚ Рё СѓРїСЂР°РІР»СЏРµС‚ <see cref="ValidationContext"/>, РєРѕС‚РѕСЂС‹Р№ СЏРІР»СЏРµС‚СЃСЏ
+    /// РѕР±С‰РёРј РґР»СЏ СЌРєР·РµРјРїР»СЏСЂР° <see cref="ApplicationBus"/> Рё РІСЃРµС… СЃРѕРѕР±С‰РµРЅРёР№ <see cref="IApplicationBusMessage"/>.
     /// </remarks>
     public class ApplicationBus : IApplicationBus
     {
@@ -35,8 +35,8 @@ namespace ChessOk.ModelFramework
         private readonly IModelContext _context;
 
         /// <summary>
-        /// Инициализирует экземпляр класса <see cref="ApplicationBus"/>, используя
-        /// в качестве родительского контекста <paramref name="parentModelContext"/>.
+        /// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° <see cref="ApplicationBus"/>, РёСЃРїРѕР»СЊР·СѓСЏ
+        /// РІ РєР°С‡РµСЃС‚РІРµ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РєРѕРЅС‚РµРєСЃС‚Р° <paramref name="parentModelContext"/>.
         /// </summary>
         /// <param name="parentModelContext"></param>
         public ApplicationBus(IModelContext parentModelContext)
