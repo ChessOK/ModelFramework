@@ -36,18 +36,6 @@ namespace ChessOk.ModelFramework.Commands
     /// </remarks>
     public class CommandDispatcher : ApplicationBusMessageHandler<CommandBase>, ICommandDispatcher
     {
-        private readonly IApplicationBus _bus;
-
-        /// <summary>
-        /// Инициализирует экземпляр класса <see cref="CommandDispatcher"/>,
-        /// используя <paramref name="bus"/>.
-        /// </summary>
-        /// <param name="bus"></param>
-        public CommandDispatcher(IApplicationBus bus)
-        {
-            _bus = bus;
-        }
-
         public override IEnumerable<string> MessageNames
         {
             get { yield return CommandBase.GetMessageName(); }
@@ -55,12 +43,12 @@ namespace ChessOk.ModelFramework.Commands
 
         protected override void Handle(CommandBase command)
         {
-            command.Bind(_bus);
+            command.Bind(Bus);
 
             var invokingEvent = (ICommandInvokingMessage<object>)Activator.CreateInstance(
                 typeof(CommandInvokingMessage<>).MakeGenericType(command.GetType()), command);
 
-            _bus.Send(invokingEvent);
+            Bus.Send(invokingEvent);
 
             if (invokingEvent.InvocationCancelled) { return; }
 
@@ -72,7 +60,7 @@ namespace ChessOk.ModelFramework.Commands
             }
             else
             {
-                var filterContext = new CommandFilterContext(_bus, command);
+                var filterContext = new CommandFilterContext(Bus, command);
 
                 Action commandAction = command.Invoke;
                 for (var i = filters.Length - 1; i >= 0; i--)
@@ -90,7 +78,7 @@ namespace ChessOk.ModelFramework.Commands
             var invokedEvent = (ICommandInvokedMessage<object>)Activator.CreateInstance(
                 typeof(CommandInvokedMessage<>).MakeGenericType(command.GetType()), command);
 
-            _bus.Send(invokedEvent);
+            Bus.Send(invokedEvent);
         }
 
         private static CommandFilterAttribute[] GetCommandFilters(CommandBase command)

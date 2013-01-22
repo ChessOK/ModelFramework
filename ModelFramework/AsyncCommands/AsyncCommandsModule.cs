@@ -18,7 +18,7 @@ namespace ChessOk.ModelFramework.AsyncCommands
             builder.Register(x => x.Resolve<IAsyncCommandDispatcher>())
                 .As<IApplicationBusMessageHandler>();
 
-            builder.Register(x => new AsyncCommandDispatcher(x.Resolve<IApplicationBus>()))
+            builder.Register(x => new AsyncCommandDispatcher())
                 .As<IAsyncCommandDispatcher>();
 
             builder.Register(x => new SeparatedContextsHandler(x.Resolve<ILifetimeScope>(), x.Resolve<ILogger>()))

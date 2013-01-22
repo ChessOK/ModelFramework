@@ -18,7 +18,6 @@ namespace ChessOk.ModelFramework.Commands.Messages
     /// 
     /// <typeparam name="T">Тип добавляемой в очередь команды, наследник <see cref="CommandBase"/></typeparam>
     public abstract class CommandInvokingHandler<T> : ApplicationBusMessageHandler<ICommandInvokingMessage<T>>
-        where T : CommandBase
     {
         public sealed override IEnumerable<string> MessageNames
         {

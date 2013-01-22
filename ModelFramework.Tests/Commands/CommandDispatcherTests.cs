@@ -22,7 +22,8 @@ namespace ChessOk.ModelFramework.Tests.Commands
         public void Initialize()
         {
             _bus = new Mock<IApplicationBus>();
-            _dispatcher = new CommandDispatcher(_bus.Object);
+            _dispatcher = new CommandDispatcher();
+            _dispatcher.Bind(_bus.Object);
         }
 
         [TestMethod]

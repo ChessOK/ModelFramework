@@ -39,7 +39,9 @@ namespace ChessOk.ModelFramework
         /// в качестве родительского контекста <paramref name="parentModelContext"/>.
         /// </summary>
         /// <param name="parentModelContext"></param>
-        public ApplicationBus(IModelContext parentModelContext)
+        public ApplicationBus(
+            IModelContext parentModelContext, 
+            IEnumerable<IApplicationBusMessageHandler> handlers)
         {
             if (parentModelContext == null)
             {
@@ -52,7 +54,6 @@ namespace ChessOk.ModelFramework
 
             _validationContext = _context.Get<IValidationContext>();
 
-            var handlers = _context.GetAll<IApplicationBusMessageHandler>();
             foreach (var handler in handlers)
             {
                 RegisterHandler(handler);

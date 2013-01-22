@@ -1,8 +1,11 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+
+using Autofac;
 
 using ChessOk.ModelFramework.AsyncCommands;
 using ChessOk.ModelFramework.Commands;
 using ChessOk.ModelFramework.Logging;
+using ChessOk.ModelFramework.Messages;
 using ChessOk.ModelFramework.Validation;
 
 namespace ChessOk.ModelFramework
@@ -17,8 +20,10 @@ namespace ChessOk.ModelFramework
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(x => new ApplicationBus(x.Resolve<IModelContext>()))
-                .As<IApplicationBus>();
+            builder.Register(x => new ApplicationBus(
+                x.Resolve<IModelContext>(), 
+                x.Resolve<IEnumerable<IApplicationBusMessageHandler>>())
+            ).As<IApplicationBus>();
 
             builder.Register(x => new NullLogger()).As<ILogger>().SingleInstance();
             

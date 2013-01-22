@@ -14,7 +14,7 @@ namespace ChessOk.ModelFramework.Commands
             builder.Register(x => x.Resolve<ICommandDispatcher>())
                 .As<IApplicationBusMessageHandler>();
 
-            builder.Register(x => new CommandDispatcher(x.Resolve<IApplicationBus>()))
+            builder.Register(x => new CommandDispatcher())
                 .As<ICommandDispatcher>();
         }
     }

@@ -67,7 +67,6 @@
     <Compile Include="Commands\Messages\CommandInvokedHandlerTests.cs" />
     <Compile Include="Commands\Messages\CommandInvokingHandlerTests.cs" />
     <Compile Include="Commands\InlineApplicationCommandTests.cs" />
-    <Compile Include="CoreModuleTests.cs" />
     <Compile Include="ModelContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\QueriesTests.cs" />

@@ -21,7 +21,8 @@ namespace ChessOk.ModelFramework.Tests.AsyncCommands
         public void Initialize()
         {
             _bus = new Mock<IApplicationBus>();
-            _dispatcher = new AsyncCommandDispatcher(_bus.Object);
+            _dispatcher = new AsyncCommandDispatcher();
+            _dispatcher.Bind(_bus.Object);
             _queueMock = new Mock<IAsyncCommandQueue>();
             _bus.Setup(x => x.Context.Get<IAsyncCommandQueue>()).Returns(_queueMock.Object);
         }

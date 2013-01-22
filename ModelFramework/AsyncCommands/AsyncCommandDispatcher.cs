@@ -36,28 +36,16 @@ namespace ChessOk.ModelFramework.AsyncCommands
     /// </summary>
     public class AsyncCommandDispatcher : ApplicationBusMessageHandler<AsyncCommand>, IAsyncCommandDispatcher
     {
-        private readonly IApplicationBus _bus;
-
-        /// <summary>
-        /// Инициализирует экземпляр класса <see cref="AsyncCommandDispatcher"/>,
-        /// используя <paramref name="bus"/>.
-        /// </summary>
-        /// <param name="bus">Шина приложения.</param>
-        public AsyncCommandDispatcher(IApplicationBus bus)
-        {
-            _bus = bus;
-        }
-
         protected override void Handle(AsyncCommand asyncCommand)
         {
             var sendingEvent = (IAsyncCommandEnqueuingMessage<object>)Activator.CreateInstance(
                 typeof(AsyncCommandEnqueuingMessage<>).MakeGenericType(asyncCommand.Command.GetType()), asyncCommand.Command);
 
-            _bus.Send(sendingEvent);
+            Bus.Send(sendingEvent);
 
             if (sendingEvent.EnqueuingCancelled) { return; }
 
-            using (var queue = _bus.Context.Get<IAsyncCommandQueue>())
+            using (var queue = Bus.Context.Get<IAsyncCommandQueue>())
             {
                 queue.Enqueue(asyncCommand.Command);
             }
@@ -65,7 +53,7 @@ namespace ChessOk.ModelFramework.AsyncCommands
             var sentEvent = (IAsyncCommandEnqueuedMessage<object>)Activator.CreateInstance(
                 typeof(AsyncCommandEnqueuedMessage<>).MakeGenericType(asyncCommand.Command.GetType()), asyncCommand.Command);
 
-            _bus.Send(sentEvent);
+            Bus.Send(sentEvent);
         }
 
         public override IEnumerable<string> MessageNames

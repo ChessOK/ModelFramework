@@ -10,117 +10,131 @@ namespace ChessOk.ModelFramework
     /// </summary>
     public static class ApplicationBusExtensions
     {
-        /// <summary>
-        /// Возвращает значение, нет ли валидационных ошибок в текущем 
-        /// экземпляре <see cref="IValidationContext"/>.
-        /// </summary>
-        /// <param name="bus"></param>
-        /// <returns></returns>
-        public static bool IsValid(this IApplicationBus bus)
-        {
-            return bus.ValidationContext.IsValid;
-        }
+        #region TrySend-related
 
-        /// <summary>
-        /// Получает зарегистрированный в контейнере экземпляр типа <typeparamref name="T"/>,
-        /// проинициализированный с помощью <paramref name="initialization"/>.
-        /// </summary>
-        /// <typeparam name="T">Тип получаемого сообщения.</typeparam>
-        /// <param name="bus"></param>
-        /// <param name="initialization">Инициализация экземпляра.</param>
-        /// <returns>Экземпляр сообщения.</returns>
-        public static T Create<T>(this IApplicationBus bus, Action<T> initialization)
+        public static bool TrySend<T>(this IApplicationBus bus)
             where T : IApplicationBusMessage
         {
-            var message = bus.Context.Get<T>();
+            return bus.TrySend<T>(null, null);
+        }
+
+        public static bool TrySend<T>(this IApplicationBus bus, out T message)
+            where T : IApplicationBusMessage
+        {
+            return bus.TrySend<T>(null, null, out message);
+        }
+
+        public static bool TrySend<T>(this IApplicationBus bus, Action<T> initialization)
+            where T : IApplicationBusMessage
+        {
+            return bus.TrySend<T>(null, initialization);
+        }
+
+        public static bool TrySend<T>(this IApplicationBus bus, Action<T> initialization, out T message)
+            where T : IApplicationBusMessage
+        {
+            return bus.TrySend<T>(null, initialization, out message);
+        }
+
+        public static bool TrySend<T>(this IApplicationBus bus, IMessageBinder<T> binder)
+            where T : IApplicationBusMessage
+        {
+            return bus.TrySend<T>(binder, null);
+        }
+
+        public static bool TrySend<T>(this IApplicationBus bus, IMessageBinder<T> binder, out T message)
+            where T : IApplicationBusMessage
+        {
+            return bus.TrySend<T>(binder, null, out message);
+        }
+
+        public static bool TrySend<T>(this IApplicationBus bus, IMessageBinder<T> binder, Action<T> initialization)
+            where T : IApplicationBusMessage
+        {
+            T message;
+            return bus.TrySend<T>(binder, initialization, out message);
+        }
+
+        public static bool TrySend<T>(this IApplicationBus bus, IMessageBinder<T> binder, Action<T> initialization, out T message)
+            where T : IApplicationBusMessage
+        {
+            message = bus.Context.Get<T>();
+            if (binder != null)
+            {
+                binder.Bind(message);
+            }
+
             if (initialization != null)
             {
                 initialization(message);
             }
 
-            return message;
-        }
-
-        #region TrySend-related
-
-        public static T TrySend<T>(this IApplicationBus bus)
-            where T : IApplicationBusMessage
-        {
-            return bus.TrySend<T>(null);
-        }
-
-        public static T TrySend<T>(this IApplicationBus bus, Action<T> initialization)
-            where T : IApplicationBusMessage
-        {
-            var message = bus.Create<T>(initialization);
-
-            bus.TrySend(message);
-
-            return message;
-        }
-
-        public static T BindAndTrySend<T>(this IApplicationBus bus, IMessageBinder<T> binder)
-            where T : IApplicationBusMessage
-        {
-            return bus.TrySend<T>(binder.Bind);
-        }
-
-        public static T BindAndTrySend<T>(this IApplicationBus bus,
-            IMessageBinder<T> binder, Action<T> initialization)
-            where T : IApplicationBusMessage
-        {
-            return bus.TrySend<T>(c =>
-            {
-                binder.Bind(c);
-                initialization(c);
-            });
+            return bus.TrySend(message);
         }
 
         #endregion
 
         #region Send-related
 
-        public static T Send<T>(this IApplicationBus bus)
+        public static void Send<T>(this IApplicationBus bus)
             where T : IApplicationBusMessage
         {
-            return bus.Send<T>(null);
+            bus.Send<T>(null, null);
         }
 
-        public static T Send<T>(this IApplicationBus bus, Action<T> initialization)
+        public static void Send<T>(this IApplicationBus bus, out T message)
             where T : IApplicationBusMessage
         {
-            var message = bus.Create(initialization);
-
-            bus.Send(message);
-
-            return message;
+            bus.Send<T>(null, null, out message);
         }
 
-        public static T BindAndSend<T>(this IApplicationBus bus, IMessageBinder<T> binder)
+        public static void Send<T>(this IApplicationBus bus, Action<T> initialization)
             where T : IApplicationBusMessage
         {
-            if (binder == null)
-            {
-                throw new ArgumentNullException("binder");
-            }
-
-            return bus.Send<T>(binder.Bind);
+            bus.Send<T>(null, initialization);
         }
 
-        public static T BindAndSend<T>(this IApplicationBus bus,
+        public static void Send<T>(this IApplicationBus bus, Action<T> initialization, out T message)
+            where T : IApplicationBusMessage
+        {
+            bus.Send<T>(null, initialization, out message);
+        }
+
+        public static void Send<T>(this IApplicationBus bus, IMessageBinder<T> binder)
+            where T : IApplicationBusMessage
+        {
+            bus.Send<T>(binder, null);
+        }
+
+        public static void Send<T>(this IApplicationBus bus, IMessageBinder<T> binder, out T message)
+            where T : IApplicationBusMessage
+        {
+            bus.Send<T>(binder, null, out message);
+        }
+
+        public static void Send<T>(this IApplicationBus bus,
             IMessageBinder<T> binder, Action<T> initialization)
             where T : IApplicationBusMessage
         {
-            if (binder == null)
+            T message;
+            bus.Send<T>(binder, initialization, out message);
+        }
+
+        public static void Send<T>(this IApplicationBus bus, IMessageBinder<T> binder, Action<T> initialization, out T message)
+            where T : IApplicationBusMessage
+        {
+            message = bus.Context.Get<T>();
+            if (binder != null)
             {
-                throw new ArgumentNullException("binder");
+                binder.Bind(message);
             }
 
-            return bus.Send<T>(c =>
+            if (initialization != null)
             {
-                binder.Bind(c);
-                initialization(c);
-            });
+                initialization(message);
+            }
+
+            bus.Send(message);
         }
 
         #endregion

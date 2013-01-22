@@ -71,6 +71,7 @@
     <Compile Include="Commands\Messages\Internals\CommandInvokingMessage.cs" />
     <Compile Include="Commons\SqlExceptionHelper.cs" />
     <Compile Include="Commons\ModelScopeCache.cs" />
+    <Compile Include="IHaveModelContext.cs" />
     <Compile Include="IModelContext.cs" />
     <Compile Include="Logging\NullLogger.cs" />
     <Compile Include="RegistrationExtensions.cs" />

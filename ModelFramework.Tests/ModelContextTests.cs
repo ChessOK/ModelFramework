@@ -98,7 +98,18 @@ namespace ChessOk.ModelFramework.Tests
             Assert.IsTrue(service.Disposed);
         }
 
-        public class SampleService : IDisposable
+        [TestMethod]
+        public void ShouldContainLinkToModelContextIfImplementsCorrespondingInterface()
+        {
+            using (var context = new ModelContext(_container))
+            {
+                var service = context.Get<SampleService>();
+                Assert.IsNotNull(service.Context);
+                Assert.AreSame(context, service.Context);
+            }
+        }
+
+        public class SampleService : IDisposable, IHaveModelContext
         {
             public bool Disposed { get; set; }
 
@@ -106,6 +117,8 @@ namespace ChessOk.ModelFramework.Tests
             {
                 Disposed = true;
             }
+
+            public IModelContext Context { get; set; }
         }
 
         public interface ISampleIntf {}

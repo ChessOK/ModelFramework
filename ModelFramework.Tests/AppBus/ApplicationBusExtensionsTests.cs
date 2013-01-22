@@ -22,16 +22,6 @@ namespace ChessOk.ModelFramework.Tests.AppBus
         }
 
         [TestMethod]
-        public void ShouldCreateMessagesThroughContainer()
-        {
-            var initialized = false;
-            _busMock.Object.Create<IApplicationBusMessage>(x => initialized = true);
-
-            Assert.IsTrue(initialized);
-            _modelMock.Verify(x => x.Get<IApplicationBusMessage>());
-        }
-
-        [TestMethod]
         public void InvokeRaisesCorrespondingMessage()
         {
             _modelMock.Setup(x => x.Get<Command>())
