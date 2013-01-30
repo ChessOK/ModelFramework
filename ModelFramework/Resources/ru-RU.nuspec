@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <version>0.1</version>
+    <authors>odinserj</authors>
+    <owners>Convekta Ltd.</owners>
+    <dependencies>
+      <dependency id="ModelFramework" version="[3.0.2]" />
+    </dependencies>
+    <id>ModelFramework.ru-ru</id>
+    <title />
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Русские ресурсы для ModelFramework</description>
+	<copyright>Copyright (c) 2013 Convekta Ltd.</copyright>
+    <summary />
+    <language>ru-RU</language>
+  </metadata>
+  <files>
+    <file src="..\bin\Release\ru-ru\ModelFramework.resources.dll" target="lib\net40\ru-ru\ModelFramework.resources.dll" />
+  </files>
+</package>

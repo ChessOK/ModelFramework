@@ -1,16 +1,28 @@
 [xml]$config = Get-Content Packages.xml
 
-$projects = $config.packages.package
+$packages = $config.packages.package
 $nugetExe = Resolve-Path .nuget\nuget.exe
     
 Remove-Item build\*.nupkg
 
-foreach($project in $projects)
+foreach($package in $packages)
 {
-    Write-Host "Packing project «$project»..."
-    Set-Location -Path "$project"
+	$packageName = $package.name
 
-    & $nugetExe pack $project.csproj -Build -Symbols -Properties Configuration=Release
+    Write-Host "Building package $packageName..."
+    Set-Location -Path "$packageName"
+	
+	& $nugetExe pack $packageName.csproj -Build -Symbols -Properties Configuration=Release
+	if ($package.languages)
+	{
+		foreach ($language in $package.languages.language)
+		{
+			$languageName = $language.name
+			
+			Write-Host "Building $languageName localization package"
+			& $nugetExe pack "Resources\$languageName.nuspec"
+		}
+	}
 
     Write-Host "Moving nuget package to the build folder..."
     Move-Item .\*.nupkg ..\build\ -Force
@@ -31,4 +43,4 @@ foreach($package in $packages)
 	}
 }
 
-Write-Host "Operation completed!"
+Write-Host "Operation complete!"
