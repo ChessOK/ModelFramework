@@ -127,30 +127,30 @@
     <value>{0} не может иметь отрицательное значение свойства Length. Текущее значение: {1}.</value>
   </data>
   <data name="MaxLengthValidatorMessage" xml:space="preserve">
-    <value>Поле должно быть строкой или массивом с максимальной длиной '{0}'.</value>
+    <value>Поле должно быть строкой или массивом с максимальной длиной '{0}'</value>
   </data>
   <data name="MinLengthValidatorMessage" xml:space="preserve">
-    <value>Поле должно быть строкой или массивом с минимальной длиной '{0}'.</value>
+    <value>Поле должно быть строкой или массивом с минимальной длиной '{0}'</value>
   </data>
   <data name="NonDefaultValidatorMessage" xml:space="preserve">
-    <value>Поле не может иметь значение по-умолчанию.</value>
+    <value>Поле не может иметь значение по-умолчанию</value>
   </data>
   <data name="NotNullValidatorMessage" xml:space="preserve">
-    <value>Обязательное поле.</value>
+    <value>Обязательное поле</value>
   </data>
   <data name="NullValidatorMessage" xml:space="preserve">
-    <value>Полу должно быть пустым.</value>
+    <value>Поле должно быть пустым</value>
   </data>
   <data name="PresenceValidatorMessage" xml:space="preserve">
-    <value>Обязательное поле.</value>
+    <value>Обязательное поле</value>
   </data>
   <data name="RegularExpressionMessage" xml:space="preserve">
-    <value>Строка должна совпадать с регулярным выражением '{0}'.</value>
+    <value>Строка должна совпадать с регулярным выражением '{0}'</value>
   </data>
   <data name="SqlDateTimeValidatorInvalidObject" xml:space="preserve">
     <value>Класс {0} может валидировать только экземпляры типа DateTime. Указанный тип: {1}.</value>
   </data>
   <data name="SqlDateTimeValidatorMessage" xml:space="preserve">
-    <value>Выберите дату, год которой больше 1753.</value>
+    <value>Выберите дату, год которой больше 1753</value>
   </data>
 </root>
